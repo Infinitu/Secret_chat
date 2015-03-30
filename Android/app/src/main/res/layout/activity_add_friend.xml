@@ -1,0 +1,99 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jaebong.secerettalk.AddFriend"
+    android:background="@drawable/activity_join"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="친구 추가"
+            android:id="@+id/addFriend_tv_top"
+            android:layout_gravity="center"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/addFriend_imgBtn_back"
+            android:layout_gravity="left|center_vertical"
+            android:src="@drawable/icon_backward_setting"
+            android:background="@null" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:focusable="false">
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            card_view:cardCornerRadius="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp">
+
+            <EditText
+                android:id="@+id/addFriend_editText_TagId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:hint = "태그 아이디 입력"
+                android:textColorHint="#bbbbbb"
+                android:textColor="#000000" />
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addFriend_imgView_editable_profileImage"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_profile" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="#bfs1532"
+            android:id="@+id/addFriend_tv_code"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:textColor="#000000"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="태그 아이디는 설정 -> 프로필에서 확인 할 수 있습니다."
+            android:id="@+id/addFriend_tv_checkId"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="120dp"
+            android:textColor="#bbbbbb" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2">
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:scaleType="fitXY"
+            android:layout_height="30dp"
+            android:id="@+id/addFriend_imgButton_add"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_add"
+            android:background="@null"
+            />
+    </FrameLayout>
+</LinearLayout>

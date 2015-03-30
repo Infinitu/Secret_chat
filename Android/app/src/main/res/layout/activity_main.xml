@@ -3,10 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/start_activity_bg"
+    android:background="@drawable/activity_setting"
     android:id="@+id/start_activity"
     android:orientation="vertical">
 
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="설정"
+        android:id="@+id/main_temp_button_setting"
+        android:layout_marginTop="100dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="친구추가"
+        android:id="@+id/main_temp_button_addFriend" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가입"
+        android:id="@+id/main_temp_button_signIn" />
 
 </LinearLayout>
