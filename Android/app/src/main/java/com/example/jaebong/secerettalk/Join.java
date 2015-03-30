@@ -22,7 +22,7 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
 
         birthLayout = (LinearLayout) findViewById(R.id.join_layout_birth);
 
-        nickName = (EditText) findViewById(R.id.join_tv_nickName);
+        nickName = (EditText) findViewById(R.id.join_editText_nickName);
         birth = (TextView)findViewById(R.id.join_tv_birth);
 
         birthLayout.setOnClickListener(this);

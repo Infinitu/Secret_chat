@@ -8,7 +8,8 @@
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="#493333">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,7 +34,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="11"
-        android:background="#bbbbbb">
+        android:background="#bfb8bc">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -46,7 +47,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="5"
                 android:background="#ffffff"
-                android:layout_marginRight="0.1dp"
+
                 android:layout_marginBottom="0.2dp">
 
                 <ImageButton
@@ -72,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="5"
-                android:layout_marginLeft="1dp"
+                android:layout_marginLeft="0.1dp"
                 android:layout_marginBottom="0.2dp"
                 android:background="#ffffff">
 
@@ -220,7 +221,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -240,7 +241,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -260,12 +261,12 @@
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="fill_parent "
+                android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginBottom="0.2dp"
@@ -279,7 +280,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -299,7 +300,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -10,6 +10,7 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:background="#493333"
         android:layout_weight="1">
 
         <TextView
@@ -18,8 +19,7 @@
             android:text="가입하기"
             android:id="@+id/join_tv_top"
             android:layout_gravity="center"
-            style="#ffffff"
-            android:textColor="#ffffff"
+            android:textColor="#f3f3f3"
             android:textSize="20sp"
             android:gravity="center_vertical|center_horizontal"
             android:layout_centerVertical="true"
@@ -31,7 +31,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:background="#bbbbbb">
+        android:background="#bfb8bc">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -58,7 +58,8 @@
                 android:text="프로필 사진을 등록하세요"
                 android:id="@+id/textView"
                 android:layout_below="@+id/join_add_profile"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:textColor="#bfb8bc" />
 
         </RelativeLayout>
 
@@ -79,15 +80,16 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="17sp" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/join_editText_nickName"
                 android:layout_marginLeft="40dp"
                 android:textColor="#000000"
-                android:textSize="18dp"
+                android:textSize="17sp"
+                android:background="@null"
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
 
@@ -108,7 +110,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +118,7 @@
                 android:id="@+id/join_tv_birth"
                 android:layout_marginLeft="200dp"
                 android:textColor="#000000"
-                android:textSize="18dp"
+                android:textSize="17sp"
                 android:layout_gravity="center_vertical"
                 android:hint="0000년" />
         </LinearLayout>
@@ -145,7 +147,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
                     android:checked="false"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:drawableRight="@drawable/abc_btn_radio_material"
                     android:button="@null" />
 
@@ -157,7 +159,7 @@
                     android:id="@+id/join_radio_sex_woman"
                     android:layout_marginLeft="95dp"
                     android:layout_gravity="center_vertical"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:checked="false"
                     android:drawableRight="@drawable/abc_btn_radio_material"
                     android:button="@null" />
@@ -187,7 +189,7 @@
                     android:id="@+id/join_radio_blood_a"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:drawableRight="@drawable/abc_btn_radio_material"
                     android:button="@null" />
 
@@ -199,7 +201,7 @@
                     android:layout_gravity="center"
                     android:textColor="#000000"
                     android:layout_marginLeft="20dp"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:drawableRight="@drawable/abc_btn_radio_material"
                     android:button="@null" />
 
@@ -211,7 +213,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
                     android:textColor="#000000"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:drawableRight="@drawable/abc_btn_radio_material"
                     android:button="@null" />
 
@@ -222,7 +224,7 @@
                     android:id="@+id/radioButton4"
                     android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:textColor="#000000"
                     android:drawableRight="@drawable/abc_btn_radio_material"
                     android:button="@null" />

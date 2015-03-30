@@ -8,6 +8,33 @@
     android:orientation="vertical">
 
 
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:background="#493333"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Main"
+            android:id="@+id/join_tv_top"
+            android:layout_gravity="center"
+            style="#ffffff"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="#f2f2f3">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,4 +54,5 @@
         android:text="가입"
         android:id="@+id/main_temp_button_signIn" />
 
+        </LinearLayout>
 </LinearLayout>
