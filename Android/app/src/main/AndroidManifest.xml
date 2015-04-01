@@ -21,7 +21,8 @@
         </activity>
         <activity
             android:name=".AddFriend"
-            android:label="@string/title_activity_add_friend" >
+            android:label="@string/title_activity_add_friend"
+            android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
             android:name=".StartActivity"
