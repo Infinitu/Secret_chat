@@ -1,6 +1,5 @@
-package the.accidental.billionaire.secretchat.actor.protocol
+package the.accidental.billionaire.secretchat.protocol
 
-import akka.actor.Actor
 import akka.io.Tcp.Received
 import akka.util.ByteString
 import the.accidental.billionaire.secretchat.utils.ReceivePipeline

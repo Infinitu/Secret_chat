@@ -1,4 +1,4 @@
-package the.accidental.billionaire.secretchat.actor.protocol
+package the.accidental.billionaire.secretchat.protocol
 
 import akka.actor.Cancellable
 import scala.concurrent.duration._

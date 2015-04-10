@@ -1,11 +1,8 @@
 package the.accidental.billionaire.secretchat.actor
 
-import akka.actor.{ActorRef, Actor}
-import akka.actor.Actor.Receive
+import akka.actor.{Actor, ActorRef}
 import akka.io.Tcp.Close
-import akka.util.ByteString
-import the.accidental.billionaire.secretchat.actor.protocol.{PingResponder, BodyInterpreter, TLVInterpreter}
-import the.accidental.billionaire.secretchat.actor.security.UserData
+import the.accidental.billionaire.secretchat.protocol.{BodyInterpreter, PingResponder, TLVInterpreter}
 import the.accidental.billionaire.secretchat.utils.ReceivePipeline
 
 /**

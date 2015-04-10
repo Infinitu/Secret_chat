@@ -1,13 +1,12 @@
-import akka.actor.Actor.Receive
-import akka.actor.{Props, Actor, ActorRef, ActorSystem}
-import akka.io.Tcp.{Close, Write, Received}
-import akka.testkit.{TestActorRef, TestActor, ImplicitSender, TestKit}
+import akka.actor.{ActorSystem, Props}
+import akka.io.Tcp.{Close, Received, Write}
+import akka.testkit.{ImplicitSender, TestActorRef, TestKit}
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.{WordSpecLike, BeforeAndAfterAll, FlatSpecLike}
+import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 import the.accidental.billionaire.secretchat.actor.TcpHandler
-import the.accidental.billionaire.secretchat.actor.protocol._
+import the.accidental.billionaire.secretchat.protocol._
 import the.accidental.billionaire.secretchat.actor.security.UserData
-import the.accidental.billionaire.secretchat.utils.ReceivePipeline
+
 import scala.concurrent.duration._
 
 /**
