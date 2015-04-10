@@ -1,4 +1,4 @@
-package the.accidental.billionaire.secretchat.actor
+package the.accidental.billionaire.secretchat
 
 import akka.io.Tcp.Write
 import akka.util.ByteString
