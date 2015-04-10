@@ -1,6 +1,6 @@
 package the.accidental.billionaire.secretchat.utils
 
-import akka.actor.Actor
+import akka.actor.{ActorRef, Actor}
 
 /**
  * Trait implementing Receive Pipeline Pattern. Mixin this trait
@@ -9,6 +9,7 @@ import akka.actor.Actor
  */
 trait ReceivePipeline extends Actor {
 
+  val connection:ActorRef
   private var pipeline: Vector[Receive ⇒ Receive] = Vector.empty
   private var aroundCache: Option[(Receive, Receive)] = None
 
