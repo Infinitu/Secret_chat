@@ -37,8 +37,8 @@ package object protocol {
     def body(implicit userData: Option[UserData]):ByteString
     def serialize(implicit userData:Option[UserData]) = {
       val body = this.body
-      ByteString((header & 0x1100) >> 8, header & 0x0011) ++
-        ByteString(body.length & 0x11000000 >> 24, body.length & 0x00110000 >> 16, body.length & 0x00001100 >> 8, body.length & 0x00000011) ++
+      ByteString((header & 0xFF00) >> 8, header & 0x00FF) ++
+        ByteString((body.length & 0xFF000000) >> 24, (body.length & 0x00FF0000) >> 16, (body.length & 0x0000FF00) >> 8, body.length & 0x000000FF) ++
         body
     }
   }
