@@ -66,7 +66,7 @@ package object protocol {
    * 0x0002
    */
   case object Pong extends  CommandCase{
-    override val header: Int = 0x1002
+    override val header: Int = 0x0002
     def body(implicit userData: Option[UserData]) = ByteString()
   }
 
