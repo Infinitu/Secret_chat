@@ -4,9 +4,6 @@ import akka.io.Tcp.Write
 import akka.util.ByteString
 import the.accidental.billionaire.secretchat.actor.security.UserData
 
-import scala.collection.immutable.IndexedSeq.Impl
-import scala.collection.parallel.ParallelCollectionImplicits.traversable2ops
-
 /**
  * Created by infinitu on 15. 4. 3..
  */
@@ -32,26 +29,26 @@ package object protocol {
         None
   }
 
-  implicit def Command2Write(command:CommandCase):Write = Write(command.serialize)
+  implicit def Command2Write(command:CommandCase)(implicit userData: Option[UserData]):Write = Write(command.serialize)
 
 
   trait CommandCase{
-    abstract val header:Int
-    abstract def body(implicit userData: Option[UserData]):ByteString
+    val header:Int
+    def body(implicit userData: Option[UserData]):ByteString
     def serialize(implicit userData:Option[UserData]) = {
       val body = this.body
-      ByteString(header & 0x1100 >> 8, header & 0x0011) ++
+      ByteString((header & 0x1100) >> 8, header & 0x0011) ++
         ByteString(body.length & 0x11000000 >> 24, body.length & 0x00110000 >> 16, body.length & 0x00001100 >> 8, body.length & 0x00000011) ++
         body
     }
   }
 
-  trait AddressEncrypter { this : CommandCase =>
-    def addressEncrypt(plainAddress:String)(implicit userData:Option[UserData]) = {
+  object AddressEncrypter {
+    def addressEncrypt(plainAddress:String)(implicit userData:Option[UserData]):String = {
       //todo implement.
       plainAddress
     }
-    def addressDecrypt(encrptedAddress:String)(implicit userData:Option[UserData]) = {
+    def addressDecrypt(encrptedAddress:String)(implicit userData:Option[UserData]):String = {
       //todo implement
       encrptedAddress
     }
@@ -60,7 +57,7 @@ package object protocol {
   /**
    * 0x0001
    */
-  case class Ping() extends CommandCase {
+  case object Ping extends CommandCase {
     override val header:Int = 0x0001
     def body(implicit userData: Option[UserData]) = ByteString()
   }
@@ -68,7 +65,7 @@ package object protocol {
   /**
    * 0x0002
    */
-  case class Pong() extends  CommandCase{
+  case object Pong extends  CommandCase{
     override val header: Int = 0x1002
     def body(implicit userData: Option[UserData]) = ByteString()
   }
@@ -137,10 +134,11 @@ package object protocol {
   /**
    * 0x2001
    */
-  case class SendChatMessage(address:String,messageJsonStr:String) extends  CommandCase with AddressEncrypter{
+  case class SendChatMessage(address:String,messageJsonStr:String) extends  CommandCase{
     override val header: Int = 0x2001
-    private def this(bodyParam:Array[String]) = this(addressDecrypt(bodyParam(0)), bodyParam(1))
-    def this(body:ByteString)=this(body.decodeString(DefaultCharset).split('|'))
+    import AddressEncrypter._
+    private def this(bodyParam:Array[String])(implicit userData: Option[UserData]) = this(AddressEncrypter.addressDecrypt(bodyParam(0))(userData), bodyParam(1))
+    def this(body:ByteString)(implicit userData: Option[UserData])=this(body.decodeString(DefaultCharset).split('|'))
     def body(implicit userData: Option[UserData]) = ByteString("%s|%s|".format(addressEncrypt(address),messageJsonStr))
   }
   /**
@@ -187,8 +185,9 @@ package object protocol {
   /**
    * 0x2101
    */
-  case class ReceiveMessageArrival(senderAddress:String,sendDateTime:Long, idx:Int, messageJson:String) extends  CommandCase with AddressEncrypter{
+  case class ReceiveMessageArrival(senderAddress:String,sendDateTime:Long, idx:Int, messageJson:String) extends  CommandCase{
     override val header: Int = 0x2101
+    import AddressEncrypter._
     def body(implicit userData: Option[UserData]) = ByteString("%s|%d|%d|%s|".format(addressEncrypt(senderAddress),sendDateTime,idx,messageJson))
   }
 
@@ -223,20 +222,22 @@ package object protocol {
   /**
    * 0x2111
    */
-  case class ReceivingMessageSuccessful(senderAddress:String, sendDatetime:Long, idx:Int) extends  CommandCase with AddressEncrypter{
+  case class ReceivingMessageSuccessful(senderAddress:String, sendDatetime:Long, idx:Int) extends  CommandCase{
     override val header: Int = 0x2111
-    private def this(bodyParam:Array[String]) = this(addressDecrypt(bodyParam(0)), bodyParam(1), bodyParam(2), bodyParam(3), bodyParam(4))
-    def this(body:ByteString)=this(body.decodeString(DefaultCharset).split('|'))
+    import AddressEncrypter._
+    private def this(bodyParam:Array[String])(implicit userData: Option[UserData]) = this(AddressEncrypter.addressDecrypt(bodyParam(0)), bodyParam(1).toLong, bodyParam(2).toInt)
+    def this(body:ByteString)(implicit userData: Option[UserData])=this(body.decodeString(DefaultCharset).split('|'))
     def body(implicit userData: Option[UserData]) = ByteString("%s|%d|%d|".format(addressEncrypt(senderAddress),sendDatetime,idx),DefaultCharset)
   }
 
   /**
    * 0x2112
    */
-  case class ReceivingMessageFailed(senderAddress:String, sendDatetime:Long, idx:Int) extends  CommandCase with AddressEncrypter{
+  case class ReceivingMessageFailed(senderAddress:String, sendDatetime:Long, idx:Int) extends  CommandCase {
     override val header: Int = 0x2112
-    private def this(bodyParam:Array[String]) = this(addressDecrypt(bodyParam(0)), bodyParam(1).toLong, bodyParam(2).toInt)
-    def this(body:ByteString)=this(body.decodeString(DefaultCharset).split('|'))
+    import AddressEncrypter._
+    private def this(bodyParam:Array[String])(implicit userData: Option[UserData]) = this(AddressEncrypter.addressDecrypt(bodyParam(0)), bodyParam(1).toLong, bodyParam(2).toInt)
+    def this(body:ByteString)(implicit userData: Option[UserData])=this(body.decodeString(DefaultCharset).split('|'))
     def body(implicit userData: Option[UserData]) = ByteString("%s|%d|%d|".format(addressEncrypt(senderAddress),sendDatetime,idx),DefaultCharset)
   }
 
@@ -259,26 +260,29 @@ package object protocol {
   /**
    * 0x3003
    */
-  case class MissingMessage(senderAddress:String, sendDateTime:Long, idx:Int, messageJson:String) extends  CommandCase with AddressEncrypter{
+  case class MissingMessage(senderAddress:String, sendDateTime:Long, idx:Int, messageJson:String) extends  CommandCase{
     override val header: Int = 0x3003
+    import AddressEncrypter._
     def body(implicit userData: Option[UserData]) = ByteString("%s|%d|%d|%s|".format(addressEncrypt(senderAddress),sendDateTime,idx,messageJson))
   }
 
   /**
    * 0x3101
    */
-  case class CheckMessageRead(address:String, lastCheckDateTime:Long) extends  CommandCase with AddressEncrypter{
+  case class CheckMessageRead(address:String, lastCheckDateTime:Long) extends  CommandCase{
     override val header: Int = 0x3101
-    private def this(bodyParam:Array[String]) = this(addressDecrypt(bodyParam(0)), bodyParam(1).toLong)
-    def this(body:ByteString)=this(body.decodeString(DefaultCharset).split('|'))
+    import AddressEncrypter._
+    private def this(bodyParam:Array[String])(implicit userData: Option[UserData]) = this(AddressEncrypter.addressDecrypt(bodyParam(0)), bodyParam(1).toLong)
+    def this(body:ByteString)(implicit userData: Option[UserData])=this(body.decodeString(DefaultCharset).split('|'))
     def body(implicit userData: Option[UserData]) = ByteString("%s|%d|".format(addressEncrypt(address),lastCheckDateTime))
   }
 
   /**
    * 0x3102
    */
-  case class LastMessageCheckDateTime(senderAddress:String, lastCheckDateTime:Long) extends  CommandCase with AddressEncrypter{
+  case class LastMessageCheckDateTime(senderAddress:String, lastCheckDateTime:Long) extends  CommandCase{
     override val header: Int = 0x3102
+    import AddressEncrypter._
     def body(implicit userData: Option[UserData]) = ByteString("%s|%d|".format(addressEncrypt(senderAddress),lastCheckDateTime))
   }
 
@@ -325,8 +329,9 @@ package object protocol {
   /**
    * 0x4201
    */
-  case class MatchEstablished(virtualSenderAddress:String) extends  CommandCase with AddressEncrypter{
+  case class MatchEstablished(virtualSenderAddress:String) extends  CommandCase{
     override val header: Int = 0x4201
+    import AddressEncrypter._
     def body(implicit userData: Option[UserData]) = ByteString(addressEncrypt(virtualSenderAddress)
       ,DefaultCharset)
   }
@@ -343,9 +348,10 @@ package object protocol {
   /**
    * 0x4301
    */
-  case class RandomChatExit(virtualSenderAddress:String) extends  CommandCase with AddressEncrypter{
+  case class RandomChatExit(virtualSenderAddress:String) extends  CommandCase{
     override val header: Int = 0x4301
-    def this(body:ByteString)=this(addressDecrypt(body.decodeString(DefaultCharset)))
+    import AddressEncrypter._
+    def this(body:ByteString)(implicit userData: Option[UserData])=this(AddressEncrypter.addressDecrypt(body.decodeString(DefaultCharset)))
     def body(implicit userData: Option[UserData]) = ByteString(addressEncrypt(virtualSenderAddress),DefaultCharset)
   }
 
