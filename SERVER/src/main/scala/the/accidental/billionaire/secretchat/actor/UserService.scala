@@ -12,13 +12,17 @@ import the.accidental.billionaire.secretchat.actor.security.UserData
 
 object UserService{
   val config:Config = ConfigFactory.load().getConfig("mongo")
+
   val mongo_host = config.getString("host")
   val mongo_port = config.getInt("port")
   val mongo_dbname = config.getString("dbname")
+
   val collectionName = "user"
   val col_deviceId = "deviceId"
   val col_accessToken = "accessToken"
   val col_encryptToken = "encryptToken"
+
+  val actorPath = "UserService"
 
   case class LoginReqest(deviceId:String, accessToken:String)
   case class LoginOkay(userdata:UserData)

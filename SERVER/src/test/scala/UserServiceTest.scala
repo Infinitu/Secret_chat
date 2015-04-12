@@ -1,13 +1,17 @@
-import akka.actor.{ActorSystem, Props}
-import akka.testkit.{ImplicitSender, TestActorRef, TestKit}
+import akka.actor.{Props, ActorSystem}
+import akka.io.Tcp.{Close, Write, Received}
+import akka.testkit.{TestActorRef, ImplicitSender, TestKit}
 import com.github.simplyscala.{MongoEmbedDatabase, MongodProps}
 import com.mongodb.casbah.MongoClient
 import com.mongodb.casbah.commons.MongoDBObject
 import com.typesafe.config.{Config, ConfigFactory}
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
-import the.accidental.billionaire.secretchat.actor.UserService
+import the.accidental.billionaire.secretchat.actor.{security, TcpHandler, UserService}
 import the.accidental.billionaire.secretchat.actor.security.UserData
+import the.accidental.billionaire.secretchat.protocol.{AuthFailed, SessionLoginOkay, SessionLoginRequest}
+
+import scala.concurrent.duration.FiniteDuration
 
 
 /**
@@ -54,5 +58,38 @@ class UserServiceTest(_system:ActorSystem) extends TestKit(_system) with WordSpe
       actorRef ! LoginReqest("someid","someToken")
       expectMsg(LoginFailed)
     }
+
+    implicit val a:Option[UserData]=None
+
+    val serviceActorRef = TestActorRef(Props[UserService],UserService.actorPath)
+
+    "works well with TCP Handler in correct Condition" in {
+      if(DB.collectionExists(collectionName))
+        (DB getCollection collectionName).drop()
+      val coll = DB getCollection collectionName
+      val devid = "test_deviceID"
+      val accToken = "test_accToken"
+      val encToken = "test_encToken"
+      coll insert MongoDBObject(col_deviceId->devid, col_accessToken->accToken, col_encryptToken->encToken)
+
+      val actorRef = TestActorRef(Props(new TcpHandler(self)))
+      val actor:TcpHandler = actorRef.underlyingActor
+
+
+       actorRef ! Received(SessionLoginRequest(" ",devid,accToken," "," ").serialize)
+      expectMsg(Write(SessionLoginOkay().serialize))
+      actor.userData should be (Some(UserData(devid,accToken,encToken)))
+
+      actorRef.stop()
+    }
+
+    "works well with TCP Handler in incorrect Condition" in {
+      val actor = TestActorRef(Props(new TcpHandler(self)))
+      actor ! Received(SessionLoginRequest(" ","will","works"," "," ").serialize)
+      expectMsg(Write(AuthFailed("LoginFailed").serialize))
+      expectMsg(Close)
+      actor.stop()
+    }
+
   }
 }
