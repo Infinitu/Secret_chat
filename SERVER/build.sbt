@@ -10,5 +10,6 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-testkit" % "2.3.9",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.scalamock" %% "scalamock-scalatest-support" % "3.2" % "test",
+  "org.mongodb" %% "casbah" % "2.8.0",
   "com.github.simplyscala" %% "scalatest-embedmongo" % "0.2.2" % "test"
 )
