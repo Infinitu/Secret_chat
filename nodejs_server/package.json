@@ -1,0 +1,21 @@
+{
+  "name": "Billionaire",
+  "version": "0.1.0",
+  "description": "Secret Chat NodeJS Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "secret",
+    "chat"
+  ],
+  "author": "YG",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.0.17",
+    "hat": "0.0.3",
+    "mongodb": "^2.0.27"
+  }
+}
