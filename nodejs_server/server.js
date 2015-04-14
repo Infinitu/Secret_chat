@@ -1,15 +1,12 @@
 /* server.js */
 
 var http = require("http"),
-	route = require("./route.js"),
-	url = require("url"),
-	formidable = require('formidable');
+	formidable = require("formidable"),
+	fieldParser = require("./fieldParser.js");
 
 function onRequest(req, res) {
-	var form;
-
-	form = new formidable.IncomingForm();
-	route.route(req, res, form);
+	var form = new formidable.IncomingForm();
+	fieldParser.fieldParse(req, res, form);
 }
 
 var server = http.createServer(onRequest);
