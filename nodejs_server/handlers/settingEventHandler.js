@@ -1,7 +1,7 @@
 /* settingEventHandler.js */
 
-var msgHandler = require("./msgHandler.js"),
-	dbHandler = require("./dbHandler.js");
+var msgHandler = require("./msgHandler"),
+	dbHandler = require("./dbHandler");
     
 
 exports.read = function(req, res, contents) {
@@ -14,13 +14,25 @@ exports.read = function(req, res, contents) {
 };
 
 exports.update = function(req, res, contents) {
-	
+	_updateUserProfile(contents.accessToken, contents, function(err) {
+		if(err)
+			msgHandler.sendError(res, "find error");
+		
+		exports.read(req, res, contents);
+	});
 };
 
 function _findUserProfile(accessToken, callback) {
-	var operator = { "accessToken" : accessToken };
+	var where = { "accessToken" : accessToken };
 	var options = { "_id" : 0, "nickName" : 1, "birthYear" : 1, "gender" : 1,
 					"bloodType" : 1, "level" : 1, "character" : 1 };
 	
-	dbHandler.findDb(operator, options, callback);
+	dbHandler.findDb(where, options, callback);
+}
+
+function _updateUserProfile(accessToken, contents, callback) {
+	var where = { "accessToken" : accessToken };
+	var operator = { $set : contents };
+	
+	dbHandler.updateDb(where, operator, callback);
 }

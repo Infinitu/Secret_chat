@@ -5,30 +5,42 @@ var mongodb = require('mongodb'),
 	db = new mongodb.Db('secretChat', server, {w: 1});
 	collection = db.collection("members");
 	
-exports.insertDb = function (contents, res, callback) {
-    db.open(function(err) {
+exports.findDb = function (where, options, callback) {
+	db.open(function(err) {
         if (err) throw err;
-        
-        collection.insert(contents, function(err, data) {
-            if (err)
-            	msgHandler.sendError("deviceId is already existed");
+        collection.find(where, options).toArray(function(err, data) {
+            if (err) throw err;
             
-            console.log("insert Data: ", data.result);
-            console.log(JSON.stringify(contents));
-            db.close(callback(res, contents.accessToken));
+            console.log("find data:", JSON.stringify(data[0]));
+            db.close();
+            callback(err, data[0]);
         });
     });
 };
 
-exports.findDb = function (operator, options, callback) {
-	db.open(function(err) {
+exports.insertDb = function (contents, callback) {
+    db.open(function(err) {
         if (err) throw err;
-        collection.find(operator, options).toArray(function(err, foundData) {
+        
+        collection.insert(contents, function(err, data) {
             if (err) throw err;
             
-            console.log("data :", foundData[0]);
+            console.log("insert Data: ", JSON.stringify(contents));
             db.close();
-            callback(null, foundData[0]);
+            callback(err);
+        });
+    });
+};
+
+exports.updateDb = function (where, operator, callback) {
+	db.open(function(err) {
+        if (err) throw err;
+        collection.update(where, operator, function(err, data) {
+            if (err) throw err;
+            
+            console.log("update Data: ", data.result);
+            db.close();
+            callback(err);
         });
     });
 };

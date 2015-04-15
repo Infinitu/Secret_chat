@@ -2,11 +2,11 @@
 
 var http = require("http"),
 	formidable = require("formidable"),
-	fieldParser = require("./fieldParser.js");
+	incomingDataParser = require("./incomingDataParser");
 
 function onRequest(req, res) {
 	var form = new formidable.IncomingForm();
-	fieldParser.fieldParse(req, res, form);
+	incomingDataParser.dataParse(req, res, form);
 }
 
 var server = http.createServer(onRequest);
