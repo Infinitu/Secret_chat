@@ -11,5 +11,7 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.scalamock" %% "scalamock-scalatest-support" % "3.2" % "test",
   "org.mongodb" %% "casbah" % "2.8.0",
-  "com.github.simplyscala" %% "scalatest-embedmongo" % "0.2.2" % "test"
+  "com.github.simplyscala" %% "scalatest-embedmongo" % "0.2.2" % "test",
+  "net.debasishg" %% "redisclient" % "2.15",
+  "com.github.kstyrc"%"embedded-redis"%"0.6"
 )
