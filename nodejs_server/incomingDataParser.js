@@ -1,20 +1,20 @@
 /* incomingDataParser.js */
 
-var url = require("url"),	
+var url        = require("url"),	
 	formidable = require("formidable"),
-	router = require("./router")
+	router     = require("./router")
 	msgHandler = require("./handlers/msgHandler");
 
 exports.dataParse = (function() {
-	var contents = {};
-
-	function dataParse(req, res, form) {
+	function dataParse(req, res, form) {   // ** form의 크기 정하기 (전송 가능한 용량을 확인하여 그 이상은 block)
 		form.parse(req, function(err, contents) {
-			if(err)
+			if (err)
 				msgHandler.sendError(res, "data parsing error");
 			
 			var pathname = url.parse(req.url).pathname;
-			router.route(req, res, pathname, contents);
+			var method = req.method.toUpperCase();
+			
+			router.route(res, pathname, method, contents);
 		});
 	}
 	

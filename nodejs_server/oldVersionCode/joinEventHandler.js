@@ -5,7 +5,7 @@ var hat = require("hat"), // accessToken 생성 module
 	msgHandler = require("./msgHandler"),
 	dbHandler = require("./dbHandler");
 	
-exports.create = function(req, res, contents) {
+exports.create = function(res, contents) {
     	contents.accessToken = _getAccessToken();   // accessToken 생성
     	contents.age = _getAge(contents.birthYear); // 생년월일을 토대로 나이 계산
         contents.level = 0;
@@ -18,8 +18,6 @@ exports.create = function(req, res, contents) {
         	
         	msgHandler.sendJoinConfirmed(res, contents.accessToken);
         });
-        		
-        	
 };
 
 function _getAccessToken() {

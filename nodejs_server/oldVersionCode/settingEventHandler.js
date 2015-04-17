@@ -4,7 +4,7 @@ var msgHandler = require("./msgHandler"),
 	dbHandler = require("./dbHandler");
     
 
-exports.read = function(req, res, contents) {
+exports.read = function(res, contents) {
 	_findUserProfile(contents.accessToken, function(err, results) {
 		if(err)
 			msgHandler.sendError(res, "find error");
@@ -13,7 +13,7 @@ exports.read = function(req, res, contents) {
 	});
 };
 
-exports.update = function(req, res, contents) {
+exports.update = function(res, contents) {
 	_updateUserProfile(contents.accessToken, contents, function(err) {
 		if(err)
 			msgHandler.sendError(res, "find error");
