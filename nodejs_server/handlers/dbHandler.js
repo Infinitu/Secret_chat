@@ -1,7 +1,7 @@
 /* dbHandler.js */
 
 var mongodb = require('mongodb'),
-	server  = new mongodb.Server('localhost', 27017, {}),
+	server  = new mongodb.Server('localhost', 27017, { auto_reconnect : true, poolSize : 7 }), // connectPoolSize 설
 	db      = new mongodb.Db('secretChat', server, {w: 1}),
 	collection = db.collection("members");
 	
@@ -14,14 +14,13 @@ exports.insertDb = function (contents, callback) {
             
             console.log("insert Data: ", data.result);
             console.log("insert Data: ", JSON.stringify(contents));
-            db.close();
             callback(err);
         });
     });
+    db.close();
 };
 	
 exports.findDb = function (where, options, callback) {
-	console.log("start db find!");
 	db.open(function (err) {
         if (err) throw err;
         
@@ -29,10 +28,10 @@ exports.findDb = function (where, options, callback) {
             if (err) throw err;
             
             console.log("find data:", JSON.stringify(data[0]));
-            // db.close();
             callback(err, data[0]);
         });
     });
+	db.close();
 };
 
 exports.updateDb = function (where, operator, callback) {
@@ -43,10 +42,10 @@ exports.updateDb = function (where, operator, callback) {
             if (err) throw err;
             
             console.log("update Data: ", data.result);
-            db.close();
             callback(err);
         });
     });
+	db.close();
 };
 
 exports.removeDb = function (where, callback) {
@@ -57,8 +56,8 @@ exports.removeDb = function (where, callback) {
             if (err) throw err;
             
             console.log("reve Data: ", data.result);
-            db.close();
             callback(err);
         });
     });
+    db.close();
 };

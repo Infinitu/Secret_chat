@@ -66,7 +66,7 @@ function _findFriend(field, value, callback) {
 		where = { "nickNameTag" : value };
 	
 	else if (field === "_id")
-		var where = { "_id" : new objectId(value) };	
+		where = { "_id" : new objectId(value) };	
 	
 	var options = { "_id" : 1, "nickName"  : 1, "gender" : 1, 
 					"age" : 1, "character" : 1 };
