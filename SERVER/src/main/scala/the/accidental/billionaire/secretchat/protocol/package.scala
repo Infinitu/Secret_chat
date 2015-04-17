@@ -165,7 +165,7 @@ package object protocol {
    * 0x2004
    */
   //TODO
-  case class SendChunkedMEssageEnd() extends  CommandCase{
+  case class SendChunkedMessageEnd() extends  CommandCase{
     override val header: Int = 0x2004
     def body(implicit userData: Option[UserData]) = ???
   }
