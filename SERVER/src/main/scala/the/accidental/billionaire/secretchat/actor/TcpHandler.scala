@@ -35,6 +35,8 @@ class TcpHandler(override val connection:ActorRef) extends Actor
     case _=>
   }
   def authorized():Receive = {
+    case SendChatMessage(address,message)=>
+
     case _=>
   }
 

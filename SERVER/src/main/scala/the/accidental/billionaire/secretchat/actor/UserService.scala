@@ -4,7 +4,7 @@ import akka.actor.Actor
 import com.mongodb.casbah.MongoClient
 import com.mongodb.casbah.commons.MongoDBObject
 import com.typesafe.config.{ConfigFactory, Config}
-import the.accidental.billionaire.secretchat.actor.security.UserData
+import the.accidental.billionaire.secretchat.security.UserData
 
 /**
  * Created by infinitu on 15. 3. 24..

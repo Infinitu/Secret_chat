@@ -1,6 +1,6 @@
 package the.accidental.billionaire.secretchat.protocol
 
-import the.accidental.billionaire.secretchat.actor.security.UserData
+import the.accidental.billionaire.secretchat.security.UserData
 import the.accidental.billionaire.secretchat.utils.ReceivePipeline
 
 /**

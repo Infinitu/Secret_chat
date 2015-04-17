@@ -1,11 +1,8 @@
 package the.accidental.billionaire.secretchat
 
-import java.util.Base64
-
 import akka.io.Tcp.Write
 import akka.util.ByteString
-import the.accidental.billionaire.secretchat.actor.security.UserData
-import the.accidental.billionaire.secretchat.utils.crypto.AES
+import the.accidental.billionaire.secretchat.security._
 
 /**
  * Created by infinitu on 15. 4. 3..
@@ -35,29 +32,18 @@ package object protocol {
   implicit def Command2Write(command:CommandCase)(implicit userData: Option[UserData]):Write = Write(command.serialize)
 
 
-  trait CommandCase{
-    val header:Int
-    def body(implicit userData: Option[UserData]):ByteString
-    def serialize(implicit userData:Option[UserData]) = {
+  trait CommandCase {
+    val header: Int
+
+    def body(implicit userData: Option[UserData]): ByteString
+
+    def serialize(implicit userData: Option[UserData]) = {
       val body = this.body
       ByteString((header & 0xFF00) >> 8, header & 0x00FF) ++
         ByteString((body.length & 0xFF000000) >> 24, (body.length & 0x00FF0000) >> 16, (body.length & 0x0000FF00) >> 8, body.length & 0x000000FF) ++
         body
     }
   }
-
-  object AddressEncryptor {
-    private val encrypter = AES
-    def encodeBase64(bytes: Array[Byte]) = Base64.getEncoder.encodeToString(bytes)
-    def decodeBase64(str:String) = Base64.getDecoder.decode(str)
-    def addressEncrypt(plainAddress:String)(implicit userData:Option[UserData]):String = userData.map{userData=>
-      encodeBase64(encrypter.encrypt(plainAddress.getBytes,userData.addressEncryptKey));
-    }.getOrElse(plainAddress)
-    def addressDecrypt(encrptedAddress:String)(implicit userData:Option[UserData]):String  = userData.map{userData=>
-      new String(encrypter.decrypt(decodeBase64(encrptedAddress),userData.addressEncryptKey));
-    }.getOrElse(encrptedAddress)
-  }
-
   /**
    * 0x0001
    */
