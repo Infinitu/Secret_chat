@@ -5,6 +5,7 @@ import com.github.simplyscala.{MongoEmbedDatabase, MongodProps}
 import com.mongodb.casbah.MongoClient
 import com.mongodb.casbah.commons.MongoDBObject
 import com.typesafe.config.{Config, ConfigFactory}
+import org.bson.types.ObjectId
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 import the.accidental.billionaire.secretchat.actor.{TcpHandler, UserService}
@@ -46,10 +47,12 @@ class UserServiceTest(_system:ActorSystem) extends TestKit(_system) with WordSpe
       val devid = "test_deviceID"
       val accToken = "test_accToken"
       val encToken = "test_encToken"
-      coll insert MongoDBObject(col_deviceId->devid, col_accessToken->accToken, col_encryptToken->encToken)
+      val obj = MongoDBObject(col_deviceId->devid, col_accessToken->accToken, col_encryptToken->encToken)
+      coll insert obj
+      val uid = (coll findOne obj).get("_id").asInstanceOf[ObjectId].toHexString
 
       actorRef ! LoginReqest(devid,accToken)
-      expectMsg(LoginOkay(UserData(devid,accToken,encToken)))
+      expectMsg(LoginOkay(UserData(devid,accToken,uid,encToken)))
     }
 
     "login failed with incorrect parameter condition" in {
@@ -69,7 +72,9 @@ class UserServiceTest(_system:ActorSystem) extends TestKit(_system) with WordSpe
       val devid = "test_deviceID"
       val accToken = "test_accToken"
       val encToken = "test_encToken"
-      coll insert MongoDBObject(col_deviceId->devid, col_accessToken->accToken, col_encryptToken->encToken)
+      val obj = MongoDBObject(col_deviceId->devid, col_accessToken->accToken, col_encryptToken->encToken)
+      coll insert obj
+      val uid = (coll findOne obj).get("_id").asInstanceOf[ObjectId].toHexString
 
       val actorRef = TestActorRef(Props(new TcpHandler(self)))
       val actor:TcpHandler = actorRef.underlyingActor
@@ -77,7 +82,7 @@ class UserServiceTest(_system:ActorSystem) extends TestKit(_system) with WordSpe
 
        actorRef ! Received(SessionLoginRequest(" ",devid,accToken," "," ").serialize)
       expectMsg(Write(SessionLoginOkay().serialize))
-      actor.userData should be (Some(UserData(devid,accToken,encToken)))
+      actor.userData should be (Some(UserData(devid,accToken,uid,encToken)))
 
       actorRef.stop()
     }

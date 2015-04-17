@@ -20,7 +20,7 @@ class ProtocolTest() extends FlatSpec with Matchers{
       Base64.getEncoder.encodeToString(encipher.doFinal(plainText.getBytes))
     }
 
-    implicit val udata = Some(UserData("","",secret))
+    implicit val udata = Some(UserData("","","",secret))
     val result = AddressEncryptor.addressEncrypt(plainText)
     result should be (encrypted)
 

@@ -4,6 +4,7 @@ import akka.actor.Actor
 import com.mongodb.casbah.MongoClient
 import com.mongodb.casbah.commons.MongoDBObject
 import com.typesafe.config.{ConfigFactory, Config}
+import org.bson.types.ObjectId
 import the.accidental.billionaire.secretchat.security.UserData
 
 /**
@@ -36,7 +37,7 @@ class UserService extends Actor{
     case LoginReqest(devid,token)=>
       val msg =
         coll.findOne(MongoDBObject(col_deviceId->devid,col_accessToken->token))
-          .map(user=>UserData(devid,token,user.get(col_encryptToken).asInstanceOf[String]))
+          .map(user=>UserData(devid,token,user.get("_id").asInstanceOf[ObjectId].toHexString,user.get(col_encryptToken).asInstanceOf[String]))
           .map(LoginOkay)
       sender ! msg.getOrElse(LoginFailed)
     case _=>

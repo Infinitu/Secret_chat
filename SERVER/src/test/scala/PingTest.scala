@@ -43,7 +43,4 @@ class PingTest(_system:ActorSystem) extends TestKit(_system) with WordSpecLike w
       expectNoMsg(2.seconds)
     }
   }
-
-
-
 }
