@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS UserProfiles(nickName text not null,birthYear text not null,gender text not null,bloodType text not null,userCharacter text not null,imageUrl text not null)

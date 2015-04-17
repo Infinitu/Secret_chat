@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/activity_setting"
+    android:background="@drawable/activity_join"
     android:id="@+id/start_activity"
     android:orientation="vertical">
 
 
-    <RelativeLayout
+    <FrameLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -18,8 +18,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Main"
-            android:id="@+id/join_tv_top"
+            android:text="채팅"
+            android:id="@+id/main_tv_top"
             android:layout_gravity="center"
             style="#ffffff"
             android:textColor="#ffffff"
@@ -27,32 +27,65 @@
             android:gravity="center_vertical|center_horizontal"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
-    </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
+        <ImageButton
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:layout_marginRight="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/main_imageButton_setting"
+            android:src="@drawable/icon_setting"
+            android:layout_gravity="right|center_vertical" />
+    </FrameLayout>
+
+    <RelativeLayout
+        xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:background="#f2f2f3">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="설정"
-        android:id="@+id/main_temp_button_setting"
-        android:layout_marginTop="100dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="친구추가"
-        android:id="@+id/main_temp_button_addFriend" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="가입"
-        android:id="@+id/main_temp_button_signIn" />
+        <com.gc.materialdesign.views.ButtonFloat
+            android:id="@+id/main_buttonFloat_addFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#1E88E5"
+            materialdesign:iconDrawable="@drawable/icon_add_friend"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp" />
 
-        </LinearLayout>
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gridView"
+            android:numColumns="2"
+            />
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:id="@+id/main_layout_startRandomChat">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="렌덤채팅 시작"
+            android:id="@+id/main_tv_startRandomChat"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="22sp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </FrameLayout>
 </LinearLayout>

@@ -15,7 +15,7 @@ public class StartActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        final Intent joinIntent = new Intent(this,MainActivity.class);
+        final Intent joinIntent = new Intent(this,Join.class);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable(){
