@@ -7,7 +7,7 @@ import org.scalatest._
 import redis.embedded.RedisServer
 import the.accidental.billionaire.secretchat.MessageDispatcher.SendMessage
 import the.accidental.billionaire.secretchat.{MissingMessageDispatcher, MessageDispatcher}
-import the.accidental.billionaire.secretchat.actor.security.UserData
+import the.accidental.billionaire.secretchat.security.UserData
 
 /**
  * Created by infinitu on 2015. 4. 17..
@@ -36,6 +36,7 @@ class MessageTest(_system:ActorSystem) extends TestKit(_system) with WordSpecLik
     "register and unregister path to redis" in{
       val address = "address_test"
       actor ! MessageDispatcher.RegisterClientConnection(address)
+      Thread.sleep(500) //because of async prcoessing.
       redisClient.hget(presence_collection_name,address) should be (Some(self.path.toString))
 
       actor ! MessageDispatcher.UnregisterClientConnection(address)

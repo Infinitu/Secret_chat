@@ -7,11 +7,10 @@ import com.mongodb.casbah.commons.MongoDBObject
 import com.typesafe.config.{Config, ConfigFactory}
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
-import the.accidental.billionaire.secretchat.actor.{security, TcpHandler, UserService}
-import the.accidental.billionaire.secretchat.actor.security.UserData
+import the.accidental.billionaire.secretchat.actor.{TcpHandler, UserService}
+import the.accidental.billionaire.secretchat.security.UserData
 import the.accidental.billionaire.secretchat.protocol.{AuthFailed, SessionLoginOkay, SessionLoginRequest}
 
-import scala.concurrent.duration.FiniteDuration
 
 
 /**

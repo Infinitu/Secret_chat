@@ -5,7 +5,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 import the.accidental.billionaire.secretchat.actor.TcpHandler
 import the.accidental.billionaire.secretchat.protocol._
-import the.accidental.billionaire.secretchat.actor.security.UserData
+import the.accidental.billionaire.secretchat.security.UserData
 
 import scala.concurrent.duration._
 

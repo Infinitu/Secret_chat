@@ -3,8 +3,7 @@ import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 
 import org.scalatest.{Matchers, FlatSpec}
-import the.accidental.billionaire.secretchat.actor.security.UserData
-import the.accidental.billionaire.secretchat.protocol.AddressEncryptor
+import the.accidental.billionaire.secretchat.security._
 
 /**
  * Created by infinitu on 2015. 4. 17..

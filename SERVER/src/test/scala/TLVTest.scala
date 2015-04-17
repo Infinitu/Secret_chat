@@ -5,7 +5,7 @@ import akka.util.ByteString
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{BeforeAndAfterAll, FlatSpecLike, _}
 import the.accidental.billionaire.secretchat.protocol.{Command, CommandCase, TLVInterpreter}
-import the.accidental.billionaire.secretchat.actor.security.UserData
+import the.accidental.billionaire.secretchat.security.UserData
 import the.accidental.billionaire.secretchat.utils.ReceivePipeline
 
 

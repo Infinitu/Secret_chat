@@ -124,13 +124,25 @@ package object protocol {
   /**
    * 0x2001
    */
-  case class SendChatMessage(address:String,messageJsonStr:String) extends  CommandCase{
+  class SendChatMessagePlain(val address:String,val messageJsonStr:String) extends  CommandCase{
     override val header: Int = 0x2001
-    import AddressEncryptor._
-    private def this(bodyParam:Array[String])(implicit userData: Option[UserData]) = this(AddressEncryptor.addressDecrypt(bodyParam(0))(userData), bodyParam(1))
+    private def this(bodyParam:Array[String])(implicit userData: Option[UserData]) = this(bodyParam(0), bodyParam(1))
     def this(body:ByteString)(implicit userData: Option[UserData])=this(body.decodeString(DefaultCharset).split('|'))
-    def body(implicit userData: Option[UserData]) = ByteString("%s|%s|".format(addressEncrypt(address),messageJsonStr))
+    def body(implicit userData: Option[UserData]) = ByteString("%s|%s|".format(getAddress,messageJsonStr))
+    def getAddress(implicit userData: Option[UserData]) = address
   }
+
+  case class SendSystemChatMessage(sysAddress:String,override val messageJsonStr:String) extends  SendChatMessagePlain("system_"+sysAddress,messageJsonStr)
+  case class SendRandomChatMessage(virtualAddress:String,override val messageJsonStr:String) extends  SendChatMessagePlain("random_"+virtualAddress,messageJsonStr)
+
+  /**
+   * 0x2001
+   */
+  case class SendChatMessage(override val address:String,override val messageJsonStr:String) extends  SendChatMessagePlain(address,messageJsonStr){
+    def this(message:SendChatMessagePlain)(implicit userData: Option[UserData]) = this(AddressEncryptor.addressDecrypt(message.address)(userData),message.messageJsonStr)
+    override def getAddress(implicit userData: Option[UserData]): String = AddressEncryptor.addressEncrypt(address)
+  }
+
   /**
    * 0x2002
    */
@@ -175,13 +187,22 @@ package object protocol {
   /**
    * 0x2101
    */
-  case class ReceiveMessageArrival(senderAddress:String,sendDateTime:Long, idx:Int, messageJson:String) extends  CommandCase{
+  class ReceiveMessageArrivalPlain(val senderAddress:String, val sendDateTime:Long, val idx:Int, val messageJson:String) extends  CommandCase{
     override val header: Int = 0x2101
-    import AddressEncryptor._
-    def body(implicit userData: Option[UserData]) = ByteString("%s|%d|%d|%s|".format(addressEncrypt(senderAddress),sendDateTime,idx,messageJson))
+    def body(implicit userData: Option[UserData]) = ByteString("%s|%d|%d|%s|".format(getAddress,sendDateTime,idx,messageJson))
+    def getAddress(implicit userData: Option[UserData]) = senderAddress
   }
 
-  /**
+  case class ReceiveSystemMessageArrival(systemAddress:String,override val sendDateTime:Long,override val  idx:Int,override val  messageJson:String) extends  ReceiveMessageArrivalPlain("system_"+systemAddress,sendDateTime,idx,messageJson)
+  case class ReceiveRandomMessageArrival(virtualAddress:String,override val sendDateTime:Long,override val  idx:Int,override val  messageJson:String) extends  ReceiveMessageArrivalPlain("random_"+virtualAddress,sendDateTime,idx,messageJson)
+  case class ReceiveMessageArrival(override val senderAddress:String,override val sendDateTime:Long,override val  idx:Int,override val  messageJson:String) extends  ReceiveMessageArrivalPlain(senderAddress,sendDateTime,idx,messageJson) {
+    override def getAddress(implicit userData: Option[UserData]) = AddressEncryptor.addressEncrypt(senderAddress)
+  }
+
+
+
+
+    /**
    * 0x2102
    */
   //TODO

@@ -7,7 +7,8 @@ import the.accidental.billionaire.secretchat.utils.ReceivePipeline
  * Created by infinitu on 2015. 4. 6..
  */
 trait BodyInterpreter {this: ReceivePipeline =>
-
+  val systemChatPattern = "^(system_)(.+)$".r
+  val randomChatPattern = "^(random_)(.+)$".r
   implicit var userData: Option[UserData] = None
   pipelineInner(receiveTLVMessage)
 
@@ -20,7 +21,15 @@ trait BodyInterpreter {this: ReceivePipeline =>
     case Command(0x1001,length,body)=>
       inner(new SessionLoginRequest(body))
     case Command(0x2001,length,body)=>
-      inner(new SendChatMessage(body))
+      val msg = new SendChatMessagePlain(body)
+      msg.address match {
+        case systemChatPattern(_,addr)=>
+          new SendSystemChatMessage(addr,msg.messageJsonStr)
+        case randomChatPattern(_,addr)=>
+          new SendRandomChatMessage(addr,msg.messageJsonStr)
+        case _=>
+          new SendChatMessage(msg)
+      }
     case Command(0x2111,length,body)=>
       inner(new ReceivingMessageSuccessful(body))
     case Command(0x2112,length,body)=>
