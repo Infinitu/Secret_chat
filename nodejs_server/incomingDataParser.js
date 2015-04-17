@@ -16,7 +16,7 @@ exports.dataParse = (function() {
 			if (err)
 				msgHandler.sendError(res, "data parsing error");
 			
-			if(file)
+			if(file.image)
 				inputContents.imageUrl = file.image.path;
 			
 			var pathname = url.parse(req.url).pathname;

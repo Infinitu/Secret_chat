@@ -12,7 +12,6 @@ exports.insertDb = function (contents, callback) {
         collection.insert(contents, function(err, data) {
             if (err) throw err;
             
-            console.log("insert Data: ", data.result);
             console.log("insert Data: ", JSON.stringify(contents));
             callback(err);
         });
@@ -55,7 +54,7 @@ exports.removeDb = function (where, callback) {
         collection.remove(where, function (err, data) {
             if (err) throw err;
             
-            console.log("reve Data: ", data.result);
+            console.log("remove Data: ", data.result);
             callback(err);
         });
     });

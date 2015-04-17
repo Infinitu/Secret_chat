@@ -69,28 +69,28 @@ function _findFriend(field, value, callback) {
 		where = { "_id" : new objectId(value) };	
 	
 	var options = { "_id" : 1, "nickName"  : 1, "gender" : 1, 
-					"age" : 1, "character" : 1 };
+					"age" : 1, "userCharacter" : 1 , "imageUrl" : 1 };
 
 	dbHandler.findDb(where, options, callback);
 }
 
 function _readFriends(accessToken, callback) {
-	var where = { "accessToken" : accessToken };
-	var options = { "_id" : 0, "friends" : 1 };  // _id, accessToken을 제외한 다른 정보만 return
+	var where   = { "accessToken" : accessToken };
+	var options = { "_id" : 0, "friends" : 1 };
 	
 	dbHandler.findDb(where, options, callback);
 }
 
 function _addFriend(accessToken, friendId, callback) {
-	var where = { "accessToken" : accessToken };
+	var where    = { "accessToken" : accessToken };
 	var operator = { $addToSet : { "friends" : friendId } };
 	
 	dbHandler.updateDb(where, operator, callback);
 }
 
-function _removeFriend(friendId, callback) {
-	var id = require("mongodb").ObjectID(friendId);
-	var where = { "_id" : id };
+function _removeFriend(accessToken, friendId, callback) {
+	var where   = { "accessToken" : accessToken };
+	var options = { $unset : { "friends" : friendId } };
 	
-	dbHandler.removeDb(where, callback);
+	dbHandler.updateDb(where, options, callback);
 }

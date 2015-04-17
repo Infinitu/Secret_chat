@@ -1,11 +1,11 @@
 /* userInfoHandler.js */
 
-var	fs   = require("fs"),
+var	hat  = require("hat"),   // accessToken 생성 module
+	rack = hat.rack(),       // accessToken 생성 변수 -> 사용방법 : rack(); = 중복없는 token 생성
 	mime = require("mime"),
-	hat  = require("hat"), // accessToken 생성 module
-	rack = hat.rack(),     // accessToken 생성 변수 -> 사용방법 : rack(); = 중복없는 token 생성
-	msgHandler = require("./msgHandler"),
-	dbHandler  = require("./dbHandler");
+	msgHandler  = require("./msgHandler"),
+	dbHandler   = require("./dbHandler"),
+	fileHandler = require("./fileHandler");
 
 var PROFILE_FOLDER = "./profileImages/";
 	
@@ -26,7 +26,7 @@ exports.join = function(res, contents) {
     	var message = {};
     	
     	message.accessToken = contents.accessToken;
-    	message.imageUrl = contents.imageUrl;
+    	message.imageUrl    = contents.imageUrl;
     	
     	msgHandler.sendJSON(res, message);
 	});
@@ -75,14 +75,18 @@ function _getAge(birthYear) {
 }
 
 function _getImageUrl(contents) {
+	if (!contents.imageUrl)
+		return null;
+	
 	var oldImageUrl = contents.imageUrl;
 	var newImageUrl = PROFILE_FOLDER + contents.accessToken + "_profile_image."
 					  + mime.extension(mime.lookup(oldImageUrl));
 
-	fs.rename(oldImageUrl, newImageUrl, function(err) {
+	fileHandler.renameFile(oldImageUrl, newImageUrl, function(err) {
 		if (err)
 			msgHandler.sendError(res, "rename download file error!");
 	});
+	
 	return newImageUrl;
 }
 
@@ -93,7 +97,7 @@ function _insertUserProfile(contents, callback) {
 function _findUserProfile(accessToken, callback) {
 	var where = { "accessToken" : accessToken };
 	var options = { "_id" : 0, "nickName" : 1, "birthYear" : 1, "gender" : 1,
-					"bloodType" : 1, "level" : 1, "character" : 1 };  // _id, accessToken을 제외한 다른 정보만 return
+					"bloodType" : 1, "level" : 1, "userCharacter" : 1, "imageUrl" : 1 };
 	
 	dbHandler.findDb(where, options, callback);
 }
