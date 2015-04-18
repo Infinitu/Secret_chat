@@ -8,7 +8,7 @@ import the.accidental.billionaire.secretchat.security._
 /**
  * Created by infinitu on 2015. 4. 17..
  */
-class ProtocolTest() extends FlatSpec with Matchers{
+class SecurityTest() extends FlatSpec with Matchers{
 
   "A AddressEncryptor" should "encrypt and decrypt well" in{
     val secret = "secretKEY1231231"
