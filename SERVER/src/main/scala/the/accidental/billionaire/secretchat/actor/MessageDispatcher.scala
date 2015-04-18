@@ -1,20 +1,19 @@
-package the.accidental.billionaire.secretchat
+package the.accidental.billionaire.secretchat.actor
 
-import akka.actor.{ActorRef, ActorPath, Actor}
-import akka.actor.Actor.Receive
+import akka.actor.{Actor, ActorPath}
 import com.redis.RedisClientPool
-import com.typesafe.config.{ConfigFactory, Config}
-import the.accidental.billionaire.secretchat.MessageDispatcher.{UnregisterClientConnection, RegisterClientConnection}
-import the.accidental.billionaire.secretchat.protocol.{ReceiveMessageArrival, SendChatMessage}
+import com.typesafe.config.{Config, ConfigFactory}
 
 import scala.collection.mutable
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 /**
  * Created by infinitu on 2015. 4. 17..
  */
 object MessageDispatcher{
+  val actorPath = "MessageDispatcher"
+
   val config:Config = ConfigFactory.load().getConfig("redis")
 
   val redis_host = config.getString("host")
@@ -30,9 +29,9 @@ object MessageDispatcher{
 
 class MessageDispatcher(missingPath:String) extends Actor{
 
-  def this()=this(MissingMessageDispatcher.pathname)
+  def this()=this("user/"+MissingMessageDispatcher.pathname)
 
-  val missingDispatcher = context.actorSelection(missingPath)
+  val missingDispatcher = context.system.actorSelection(missingPath)
 
   import MessageDispatcher._
   val localConnectionMap = mutable.HashMap[String,ActorPath]()

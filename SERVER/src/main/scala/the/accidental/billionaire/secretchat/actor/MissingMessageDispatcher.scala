@@ -1,7 +1,6 @@
-package the.accidental.billionaire.secretchat
+package the.accidental.billionaire.secretchat.actor
 
 import akka.actor.Actor
-import akka.actor.Actor.Receive
 
 /**
  * Created by infinitu on 2015. 4. 17..

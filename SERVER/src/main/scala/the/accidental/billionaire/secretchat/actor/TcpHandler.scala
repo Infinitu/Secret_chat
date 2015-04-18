@@ -3,6 +3,7 @@ package the.accidental.billionaire.secretchat.actor
 import akka.actor.{Actor, ActorRef}
 import akka.event.Logging
 import akka.io.Tcp.Close
+import the.accidental.billionaire.secretchat.actor.MessageDispatcher
 import the.accidental.billionaire.secretchat.protocol._
 import the.accidental.billionaire.secretchat.utils.ReceivePipeline
 
@@ -17,6 +18,9 @@ class TcpHandler(override val connection:ActorRef) extends Actor
 
   override def receive = unauthorized
   val log = Logging(this)
+  val msgDispatcher = context.system.actorSelection("/user/"+MessageDispatcher.actorPath)
+
+  import MessageDispatcher._
 
   def unauthorized:Receive = {
     case req @ SessionLoginRequest(version,id,token,os,device)=>
@@ -27,6 +31,8 @@ class TcpHandler(override val connection:ActorRef) extends Actor
     case UserService.LoginOkay(userdata)=>
       log.info("session authorized successfully : {}",userdata)
       this.userData = Some(userdata)
+      msgDispatcher ! RegisterClientConnection(userdata.userAddress)
+
       context become authorized
       writeToConnection( SessionLoginOkay() )
     case UserService.LoginFailed=>

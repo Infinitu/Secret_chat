@@ -5,8 +5,9 @@ import com.typesafe.config.{ConfigFactory, Config}
 import org.scalamock.scalatest.MockFactory
 import org.scalatest._
 import redis.embedded.RedisServer
-import the.accidental.billionaire.secretchat.MessageDispatcher.SendMessage
-import the.accidental.billionaire.secretchat.{MissingMessageDispatcher, MessageDispatcher}
+import the.accidental.billionaire.secretchat.actor.MessageDispatcher
+import MessageDispatcher.SendMessage
+import the.accidental.billionaire.secretchat.MissingMessageDispatcher
 import the.accidental.billionaire.secretchat.security.UserData
 
 /**
