@@ -3,9 +3,10 @@
 var	hat  = require("hat"),   // accessToken 생성 module
 	rack = hat.rack(),       // accessToken 생성 변수 -> 사용방법 : rack(); = 중복없는 token 생성
 	mime = require("mime"),
-	msgHandler  = require("./msgHandler"),
-	dbHandler   = require("./dbHandler"),
-	fileHandler = require("./fileHandler");
+	msgHandler    = require("./msgHandler"),
+	dbHandler     = require("./dbHandler"),
+	fileHandler   = require("./fileHandler"),
+	cipherHandler = require("./cipherHandler");
 
 var PROFILE_FOLDER = "./profileImages/";
 	
@@ -19,16 +20,19 @@ exports.join = function(res, contents) {
 	contents.accessToken = _getAccessToken();   // accessToken 생성
 	contents.imageUrl = _getImageUrl(contents);
     
-	_insertUserProfile(contents, function(err) {
+	_insertUserProfile(contents, function(err, userInfo) {
     	if (err)
     		msgHandler.sendError("insert user info error!");
     	
-    	var message = {};
-    	
-    	message.accessToken = contents.accessToken;
-    	message.imageUrl    = contents.imageUrl;
-    	
-    	msgHandler.sendJSON(res, message);
+    	var key = contents._id.toString();
+    	cipherHandler.encryptData(contents.accessToken, key, function(encryptedData) {
+	    	var message = {};
+	    	
+	    	message.accessToken = encryptedData;
+	    	message.imageUrl    = contents.imageUrl;
+	    	
+	    	msgHandler.sendJSON(res, message);
+    	});
 	});
 };
 

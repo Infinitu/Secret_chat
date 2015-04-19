@@ -9,7 +9,7 @@ exports.insertDb = function (contents, callback) {
     db.open(function(err) {
         if (err) throw err;
         
-        collection.insert(contents, function(err, data) {
+        collection.insert(contents, function(err) {
             if (err) throw err;
             
             console.log("insert Data: ", JSON.stringify(contents));
