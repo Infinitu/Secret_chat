@@ -133,11 +133,9 @@ package object protocol {
   }
 
   case class SendSystemChatMessage(sysAddress:String,override val messageJsonStr:String) extends  SendChatMessagePlain("system_"+sysAddress,messageJsonStr)
+
   case class SendRandomChatMessage(virtualAddress:String,override val messageJsonStr:String) extends  SendChatMessagePlain("random_"+virtualAddress,messageJsonStr)
 
-  /**
-   * 0x2001
-   */
   case class SendChatMessage(override val address:String,override val messageJsonStr:String) extends  SendChatMessagePlain(address,messageJsonStr){
     def this(message:SendChatMessagePlain)(implicit userData: Option[UserData]) = this(AddressEncryptor.addressDecrypt(message.address)(userData),message.messageJsonStr)
     override def getAddress(implicit userData: Option[UserData]): String = AddressEncryptor.addressEncrypt(address)

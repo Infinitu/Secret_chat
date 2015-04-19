@@ -6,8 +6,6 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest._
 import redis.embedded.RedisServer
 import the.accidental.billionaire.secretchat.actor.MessageDispatcher
-import MessageDispatcher.SendMessage
-import the.accidental.billionaire.secretchat.MissingMessageDispatcher
 import the.accidental.billionaire.secretchat.security.UserData
 
 /**
@@ -48,7 +46,7 @@ class MessageTest(_system:ActorSystem) extends TestKit(_system) with WordSpecLik
     "send message to Missing if address is not logined" in {
       val address = "missingAddr"
       val myAddr = "myAddr"
-      val message = MessageDispatcher.SendMessage(myAddr, SendMessage(address,""))
+      val message = MessageDispatcher.SendMessage(address,myAddr,0,"")
       actor ! message
       expectMsg(message)
     }

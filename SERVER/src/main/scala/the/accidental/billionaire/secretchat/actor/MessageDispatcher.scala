@@ -24,12 +24,12 @@ object MessageDispatcher{
 
   case class RegisterClientConnection(address:String)
   case class UnregisterClientConnection(address:String)
-  case class SendMessage(address:String,msg:Any)
+  case class SendMessage(address:String,sender:String,timestamp:Long,msg:Any)
 }
 
 class MessageDispatcher(missingPath:String) extends Actor{
 
-  def this()=this("user/"+MissingMessageDispatcher.pathname)
+  def this()=this("user/"+MissingMessageDispatcher.actorPath)
 
   val missingDispatcher = context.system.actorSelection(missingPath)
 
@@ -44,7 +44,7 @@ class MessageDispatcher(missingPath:String) extends Actor{
     case UnregisterClientConnection(address)=>
       localConnectionMap -= address
       unregisterOnRedis(address)
-    case m @ SendMessage(address,_)=>
+    case m @ SendMessage(address,sender,_,_)=>
       withActorPath(address){pathOpt=>
         val dest = pathOpt.map{path=>
           context.actorSelection(path)

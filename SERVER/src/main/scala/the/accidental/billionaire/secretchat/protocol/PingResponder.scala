@@ -10,7 +10,8 @@ import scala.concurrent.ExecutionContext.Implicits._
  */
 object PingResponder{
   case object PingTimeout
-  case object sendPing
+  case object SendPing
+  case object AliveClient
 }
 trait PingResponder {this:ReceivePipeline with BodyInterpreter=>
 
@@ -23,8 +24,10 @@ trait PingResponder {this:ReceivePipeline with BodyInterpreter=>
 
   def receivePingPong(inner:Receive):Receive ={
     case Ping=> sendPong()
-    case Pong=> pingTimerReset()
-    case PingResponder.sendPing => sendPing()
+    case Pong=>
+      pingTimerReset()
+      inner(PingResponder.AliveClient)
+    case PingResponder.SendPing => sendPing()
     case notPing=> inner(notPing)
   }
 

@@ -28,7 +28,7 @@ class PingTest(_system:ActorSystem) extends TestKit(_system) with WordSpecLike w
       val actor = TestActorRef(Props(new TcpHandler(self){
         override val timeout: FiniteDuration = 1 second
       }))
-      actor ! PingResponder.sendPing
+      actor ! PingResponder.SendPing
       expectMsg(Write(Ping.serialize))
       expectMsg(2.seconds, Close)
     }
@@ -37,7 +37,7 @@ class PingTest(_system:ActorSystem) extends TestKit(_system) with WordSpecLike w
       val actor = TestActorRef(Props(new TcpHandler(self){
         override val timeout: FiniteDuration = 1 second
       }))
-      actor ! PingResponder.sendPing
+      actor ! PingResponder.SendPing
       expectMsg(Write(Ping.serialize))
       actor ! Received(Pong.serialize)
       expectNoMsg(2.seconds)
