@@ -54,7 +54,7 @@ void readCallback( CFReadStreamRef stream, CFStreamEventType eventType, void *cl
             break;
         case kCFStreamEventHasBytesAvailable:
             receiveData(read_stream);
-            printf("can reads!");
+            printf("can reads!\n");
             break;
         case kCFStreamEventEndEncountered:
             
@@ -84,14 +84,18 @@ void writeCallback ( CFWriteStreamRef stream, CFStreamEventType eventType, void 
 void sendOpenedNotification(){
     CFNotificationCenterPostNotification(notiCenter, CFSTR("opend"), NULL, NULL, TRUE);
 }
-
+int kk=0;
 void tlvComplete(struct tlv_stuct tlvdata){
-    
+    bodyparse(tlvdata);
+    if(tlvdata.body!=nil)
+        free(tlvdata.body);
 }
 
 void messageComplete(CFDictionaryRef dictionary){
-    
+    kk++;
+    printf("%d\n",kk);
+    printf("hello\n");
 }
 void parseError(uint16_t header){
-    
+     printf("err\n");
 }

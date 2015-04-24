@@ -11,16 +11,23 @@
 uint8_t buff[SOCKET_BUFF_SIZE];
 
 
-int state = 0;
+int state = 1;
 
 uint32_t fragmentSize;
 struct tlv_stuct parseData;
 
 void receiveBuffer(uint8_t *ptr, long length);
 
+bool isParsing = false;
+
 void receiveData(CFReadStreamRef stream){
-    long len = CFReadStreamRead(stream, buff, SOCKET_BUFF_SIZE);
-    receiveBuffer(buff, len);
+    if(isParsing)
+        return;
+    isParsing = true;
+    long len;
+    while((len = CFReadStreamRead(stream, buff, SOCKET_BUFF_SIZE))>0)
+        receiveBuffer(buff, len);
+    isParsing=false;
 }
 
 void receiveBuffer(uint8_t *ptr, long length){
@@ -29,12 +36,17 @@ void receiveBuffer(uint8_t *ptr, long length){
     switch(state){
         case STATE_HEADER:
             if(fragmentSize>0){
-                parseData.header = (parseData.header & 0x1100) | *ptr;
+                parseData.header = (parseData.header & 0xff00) | *ptr;
                 length --;
                 ptr = &ptr[1];
             }
+            else if(length==1){
+                parseData.header = ((ptr[0] << 8) & 0xff00);
+                length--;
+                return;
+            }
             else {
-                parseData.header = ((ptr[0] << 8) & 0x1100) | ptr[1];
+                parseData.header = ((ptr[0] << 8) & 0xff00) | ptr[1];
                 length-=2;
                 ptr = &ptr[2];
             }
@@ -43,10 +55,11 @@ void receiveBuffer(uint8_t *ptr, long length){
             return receiveBuffer(ptr, length);
             break;
         case STATE_LENGTH:
-            if(fragmentSize==0)
+            if(fragmentSize==0){
                 parseData.length = 0;
+            }
             for(;length>0 && fragmentSize<4;fragmentSize++){
-                parseData.length = ((parseData.length << 8)&0x11111100)|*ptr;
+                parseData.length = ((parseData.length << 8)&0xffffffff00)|*ptr;
                 ptr = &ptr[1];
                 length--;
             }
@@ -68,7 +81,9 @@ void receiveBuffer(uint8_t *ptr, long length){
             ptr = &ptr[needs];
             if(fragmentSize >= parseData.length){
                 tlvComplete(parseData);
+                parseData.body = nil;
                 state = STATE_HEADER;
+                fragmentSize = 0;
             }
             return receiveBuffer(ptr, length);
             

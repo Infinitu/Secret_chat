@@ -9,8 +9,6 @@
 #include "BodyInterpreter.h"
 #include <stdarg.h>
 
-
-
 CFStringRef* buildKVList(int cnt, ...);
 int splitWithPipe(CFStringRef** result, uint8_t* body, long length);
 
@@ -40,7 +38,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 5;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 3){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -60,7 +58,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 3;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -76,7 +74,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 3;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -92,7 +90,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 3;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -108,7 +106,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 7;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 5){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -132,7 +130,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 2;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -146,7 +144,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 2;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -160,7 +158,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 2;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -174,7 +172,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 5;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 4){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -203,7 +201,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 5;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 4){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -217,7 +215,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 5;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 4){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -237,7 +235,7 @@ void bodyparse(struct tlv_stuct tlv){
             kvlen = 3;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 2){
                 parseError(tlv.header);
-                goto parseError;
+                goto errorBreak;
             }
             keys = buildKVList(kvlen,
                                KEY_MSG_TYPE,
@@ -274,7 +272,7 @@ void bodyparse(struct tlv_stuct tlv){
     
     CFDictionaryRef dict = CFDictionaryCreate(kCFAllocatorDefault,(const void**)keys,(const void**)values, kvlen, NULL,NULL);
     messageComplete(dict);
-parseError:
+errorBreak:
     if(keys!=nil)
         free((void*)keys);
     if(values!=nil)
@@ -304,7 +302,7 @@ CFStringRef* buildKVList(int cnt, ...){
 int splitWithPipe(CFStringRef** result, uint8_t* body, long length){
     if(length<=0)
         return 0;
-    body[length] = (uint8_t)"\0";
+    body[length] = (uint8_t)'\0';
     long idx = length;
     int cnt = (body[length-1]=='|')?0:1;
     while(idx--){
@@ -320,7 +318,7 @@ int splitWithPipe(CFStringRef** result, uint8_t* body, long length){
         long st = idx;
         long len = 0;
         for(;body[len+st]!='\0';len++);
-        slist[i] = CFStringCreateWithBytes(kCFAllocatorDefault, &body[st], length, kCFStringEncodingUTF8, true);
+        slist[i] = CFStringCreateWithBytes(kCFAllocatorDefault, &body[st], len+1, kCFStringEncodingUTF8, true);
         idx += len+1;
     }
     
