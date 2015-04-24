@@ -1,6 +1,6 @@
 /* msgHandler.js */
-var fs   = require("fs"), 
-	mime = require("mime");
+
+var mime = require("mime");
 
 exports.sendString = function(res, msg) {
 	res.writeHead(200, { "Content-type" : "text/plain" });

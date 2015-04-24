@@ -1,11 +1,11 @@
 /* userInfoHandler.js */
 
-var	hat  = require("hat"),   // accessToken 생성 module
-	rack = hat.rack(),       // accessToken 생성 변수 -> 사용방법 : rack(); = 중복없는 token 생성
+var	fs   = require("fs"),
 	path = require("path"),
-	msgHandler    = require("./msgHandler"),
-	dbHandler     = require("./dbHandler"),
-	fileHandler   = require("./fileHandler");
+	hat  = require("hat"),   // accessToken 생성 module
+	rack = hat.rack(),       // accessToken 생성 변수 -> 사용방법 : rack(); = 중복없는 token 생성
+	msgHandler = require("./msgHandler"),
+	dbHandler  = require("./dbHandler");
 
 var PROFILE_FOLDER = "./profileImages/";
 	
@@ -23,7 +23,6 @@ exports.join = function(res, contents) {
     	
     	var message = {};
     	message.accessToken = contents.accessToken;
-    	
     	msgHandler.sendJSON(res, message);
 	});
 };
@@ -46,7 +45,7 @@ exports.update = function(res, contents) {
 
 exports.remove = function(res, contents) {
 	_removeUserProfile(contents.accessToken, function(err) {
-		if (err) msgHandler.sendError(res, "Delete user info error!");
+		if (err) msgHandler.sendError(res, "delete user info error!");
 		
 		var message = "deleted!";
     	msgHandler.sendString(res, message);
@@ -71,12 +70,8 @@ function _getImageUrl(contents) {
 	if (!contents.imageUrl)
 		return null;
 	
-	console.log("contents.imageUrl :", contents.imageUrl);
-	
-	var newImageUrl = PROFILE_FOLDER + contents.accessToken + "_profile_image"
-					  + path.extname(contents.imageUrl);
-
-	fileHandler.renameFile(contents.imageUrl, newImageUrl);
+	var newImageUrl = PROFILE_FOLDER + contents.accessToken + "_profile_image" + path.extname(contents.imageUrl);
+	fs.rename(contents.imageUrl, newImageUrl);
 	
 	return newImageUrl;
 }
@@ -93,7 +88,7 @@ function _findUserProfile(accessToken, callback) {
 	dbHandler.findDb(where, options, callback);
 }
 
-function _updateUserProfile(accessToken, contents, callback) { // age 와 nickNameTag 변경 필요
+function _updateUserProfile(accessToken, contents, callback) {
 	if (contents.birthYear)
 		contents.age = _getAge(contents.birthYear);
 	

@@ -1,15 +1,14 @@
 /* route.js */
 
-var	msgHandler         = require("./handlers/msgHandler"),
-	userEventHandler   = require("./handlers/userEventHandler"),
+var userEventHandler   = require("./handlers/userEventHandler"),
 	friendEventHandler = require("./handlers/friendEventHandler");
 
 exports.route = (function() {
 	var handlers = { "/join"      : { POST : userEventHandler.join },
-					 "/uninstall" : { DELETE : userEventHandler.remove },
-					 "/setting"   : { POST : userEventHandler.read,   PUT : userEventHandler.update },
+					 "/setting"   : { POST : userEventHandler.read, PUT : userEventHandler.update },
 					 "/addfriend" : { POST : friendEventHandler.find },
-					 "/main"      : { POST : friendEventHandler.read }
+					 "/main"      : { POST : friendEventHandler.read },
+					 "/uninstall" : { DELETE : userEventHandler.remove }
 	};
 	
 	function route(res, pathname, method, contents) {
@@ -17,7 +16,7 @@ exports.route = (function() {
 			handlers[pathname][method](res, contents);
 		
 		else
-			msgHandler.sendError(res, "router error");
+			console.log("router error");
 	}
 	
 	return route;

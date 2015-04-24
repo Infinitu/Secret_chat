@@ -18,16 +18,6 @@ exports.find = function(res, contents) {
 	});
 };
 
-//exports.add = function(res, contents) {
-//	_addFriend(contents.accessToken, contents.friendId, function(err) {
-//		if (err) msgHandler.sendError(res, "find userId error!");
-//		
-//	    	var message = "added friend!";
-//	    	msgHandler.sendString(res, message);
-//	});
-//};
-// add는 서버에 저장하지 않고 client에 저장
-
 exports.read = function(res, contents) {
 	var friendsInfo = [];
 	var friends     = contents.friends.split(",");
@@ -64,34 +54,3 @@ function _findFriend(field, value, callback) {
 
 	dbHandler.findDb(where, options, callback);
 }
-
-//exports.remove = function(res, contents) {
-//_removeFriend(contents.accessToken, contents.friendId, function(err) {
-//	if (err) msgHandler.sendError(res, "add friend error!");
-//	
-//	var message = "removed" + contents.friendId;
-//	msgHandler.sendString(res, message);
-//});
-//};
-//remove는 서버에서 삭제하지 않고 client에서 삭제
-
-//function _addFriend(accessToken, friendId, callback) {
-//	var where   = { "accessToken" : accessToken };
-//	var options = { $push : { "friends" : friendId } };
-//
-//	dbHandler.updateDb(where, options, callback);
-//}
-
-//function _readFriends(accessToken, callback) {
-//	var where   = { "accessToken" : accessToken };
-//	var options = { "_id" : 0, "friends" : 1 };
-//	
-//	dbHandler.findDb(where, options, callback);
-//}
-
-//function _removeFriend(accessToken, friendId, callback) {
-//	var where   = { "accessToken" : accessToken };
-//	var options = { $pull : { "friends" : friendId } };
-//	
-//	dbHandler.updateDb(where, options, callback);
-//}

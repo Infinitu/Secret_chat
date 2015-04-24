@@ -1,13 +1,12 @@
 /* incomingDataParser.js */
 
-var	url        = require("url"),	
-	router     = require("./router"),
-	msgHandler = require("./handlers/msgHandler");
+var	url    = require("url"),	
+	router = require("./router");
 
 exports.dataParse = (function() {
 	function dataParse(req, res, form) {
 		form.parse(req, function(err, inputContents, file) {
-			if (err) msgHandler.sendError(res, "data parsing error");
+			if (err) console.log("data parsing error");
 			
 			if (file.image)
 				inputContents.imageUrl = file.image.path;
