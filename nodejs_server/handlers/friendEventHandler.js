@@ -1,25 +1,32 @@
 /* friendEventHandler.js */
 
-var objectId   = require("mongodb").ObjectID,
-	msgHandler = require("./msgHandler"),
-	dbHandler  = require("./dbHandler");
+var ObjectId      = require("mongodb").ObjectID,
+	msgHandler    = require("./msgHandler"),
+	dbHandler     = require("./dbHandler"),
+	cipherHandler = require("./cipherHandler");
 
 exports.find = function(res, contents) {
 	_findFriend("nickNameTag", contents.nickNameTag, function(err, friendInfo) {
 		if (err)
 			msgHandler.sendError(res, "find friend error!");
 		
-		msgHandler.sendJSON(res, friendInfo);
+		cipherHandler.encryptData(friendInfo._id, contents.accessToken, function(err, encryptedId) {
+			if (err)
+				msgHandler.sendError(res, "encrypt friendID error!");
+			
+			friendInfo._id = encryptedId;
+			msgHandler.sendJSON(res, friendInfo);
+		});
 	});
 };
-    
+
 exports.add = function(res, contents) {
-	_addFriend(contents.accessToken, contents.friendId, function(err, friendId) {
+	_addFriend(contents.accessToken, contents.friendId, function(err) {
 		if (err)
-			msgHandler.sendError(res, "add friend error!");
+			msgHandler.sendError(res, "find userId error!");
 		
-    	var message = "added friend!";
-    	msgHandler.sendString(res, message);
+	    	var message = "added friend!";
+	    	msgHandler.sendString(res, message);
 	});
 };
 
@@ -30,18 +37,21 @@ exports.read = function(res, contents) {
 		
 		var friendsInfo = [];
 		var numberOfFriends = userFriends.friends.length;
-		var numberOfInfo = 0;
+		var numberOfInfo = 0
 		
 		for (var i = 0; i < numberOfFriends; i++) {
-			_findFriend("_id", userFriends.friends[i], function(err, friendInfo) {
-				if (err)
-					msgHandler.sendError(res, "find friend error!");
+			cipherHandler.decryptData(userFriends.friends[numberOfInfo], contents.accessToken, function(err, decryptedId) {
+				if (err) msgHandler.sendError(res, "decrypt friendId error!");
 				
-				friendsInfo.push(friendInfo);
-				numberOfInfo++;
-				
-				if (numberOfInfo === numberOfFriends)
-					msgHandler.sendJSON(res, friendsInfo);
+				_findFriend("_id", decryptedId, function(err, friendInfo) {
+					if (err) msgHandler.sendError(res, "find friend error!");
+					
+					friendsInfo.push(friendInfo);
+					numberOfInfo++;
+					
+					if (numberOfInfo === numberOfFriends)
+						msgHandler.sendJSON(res, friendsInfo);
+				});
 			});
 		}
 	});
@@ -49,29 +59,33 @@ exports.read = function(res, contents) {
 
 exports.remove = function(res, contents) {
 	_removeFriend(contents.accessToken, contents.friendId, function(err) {
-		var friendId = contents.friendId;
-		
 		if (err)
 			msgHandler.sendError(res, "add friend error!");
 		
-    	var message = "removed" + friendId;
+    	var message = "removed" + contents.friendId;
     	msgHandler.sendString(res, message);
 	});
 };
 
 function _findFriend(field, value, callback) {
-	var where = {};
-	
-	if (field === "nickNameTag")
-		where = { "nickNameTag" : value };
-	
-	else if (field === "_id")
-		where = { "_id" : new objectId(value) };	
-	
-	var options = { "_id" : 1, "nickName"  : 1, "gender" : 1, 
-					"age" : 1, "userCharacter" : 1 , "imageUrl" : 1 };
+	if (field == "nickNameTag") {
+		var where   = { "nickNameTag" : value };
+		var options = { "_id" : 1, "nickName"  : 1, "gender" : 1, 
+						"userCharacter" : 1 , "imageUrl" : 1 };
+	} else {
+		var where   = { "_id" : new ObjectId(value) };
+		var options = { "_id" : 0, "nickName"  : 1, "gender" : 1, 
+						"userCharacter" : 1 , "imageUrl" : 1 };
+	}
 
 	dbHandler.findDb(where, options, callback);
+}
+
+function _addFriend(accessToken, friendId, callback) {
+	var where   = { "accessToken" : accessToken };
+	var options = { $push : { "friends" : friendId } };
+
+	dbHandler.updateDb(where, options, callback);
 }
 
 function _readFriends(accessToken, callback) {
@@ -81,16 +95,9 @@ function _readFriends(accessToken, callback) {
 	dbHandler.findDb(where, options, callback);
 }
 
-function _addFriend(accessToken, friendId, callback) {
-	var where    = { "accessToken" : accessToken };
-	var operator = { $addToSet : { "friends" : friendId } };
-	
-	dbHandler.updateDb(where, operator, callback);
-}
-
 function _removeFriend(accessToken, friendId, callback) {
 	var where   = { "accessToken" : accessToken };
-	var options = { $unset : { "friends" : friendId } };
+	var options = { $pull : { "friends" : friendId } };
 	
 	dbHandler.updateDb(where, options, callback);
 }

@@ -2,7 +2,7 @@
 
 var	url        = require("url"),	
 	formidable = require("formidable"),
-	router     = require("./router")
+	router     = require("./router"),
 	msgHandler = require("./handlers/msgHandler");
 
 exports.dataParse = (function() {
