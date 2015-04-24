@@ -1,0 +1,459 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D0024151AEA09D40034D2D5 /* BodyInterpreter.c in Sources */ = {isa = PBXBuildFile; fileRef = 1D0024131AEA09D40034D2D5 /* BodyInterpreter.c */; };
+		1D0D27BE1AE49C17001B1C64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0D27BD1AE49C17001B1C64 /* AppDelegate.swift */; };
+		1D0D27C01AE49C17001B1C64 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0D27BF1AE49C17001B1C64 /* ViewController.swift */; };
+		1D0D27C31AE49C17001B1C64 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D0D27C11AE49C17001B1C64 /* Main.storyboard */; };
+		1D0D27C51AE49C17001B1C64 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D0D27C41AE49C17001B1C64 /* Images.xcassets */; };
+		1D0D27C81AE49C17001B1C64 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D0D27C61AE49C17001B1C64 /* LaunchScreen.xib */; };
+		1D0D27D41AE49C17001B1C64 /* secretchatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0D27D31AE49C17001B1C64 /* secretchatTests.swift */; };
+		1D0D27E31AE4A4D6001B1C64 /* ProtocolSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 1D0D27E11AE4A4D6001B1C64 /* ProtocolSocket.c */; };
+		1DD964B51AE7A75100527B76 /* TLVParsor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DD964B31AE7A75100527B76 /* TLVParsor.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1D0D27CE1AE49C17001B1C64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D0D27B01AE49C17001B1C64 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D0D27B71AE49C17001B1C64;
+			remoteInfo = secretchat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D0024131AEA09D40034D2D5 /* BodyInterpreter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BodyInterpreter.c; sourceTree = "<group>"; };
+		1D0024141AEA09D40034D2D5 /* BodyInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyInterpreter.h; sourceTree = "<group>"; };
+		1D0D27B81AE49C17001B1C64 /* secretchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = secretchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D0D27BC1AE49C17001B1C64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D0D27BD1AE49C17001B1C64 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1D0D27BF1AE49C17001B1C64 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1D0D27C21AE49C17001B1C64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1D0D27C41AE49C17001B1C64 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1D0D27C71AE49C17001B1C64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		1D0D27CD1AE49C17001B1C64 /* secretchatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = secretchatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D0D27D21AE49C17001B1C64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D0D27D31AE49C17001B1C64 /* secretchatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secretchatTests.swift; sourceTree = "<group>"; };
+		1D0D27DD1AE4A463001B1C64 /* secretchat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "secretchat-Bridging-Header.h"; sourceTree = "<group>"; };
+		1D0D27E11AE4A4D6001B1C64 /* ProtocolSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ProtocolSocket.c; sourceTree = "<group>"; };
+		1D0D27E21AE4A4D6001B1C64 /* ProtocolSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolSocket.h; sourceTree = "<group>"; };
+		1DD964B31AE7A75100527B76 /* TLVParsor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TLVParsor.c; sourceTree = "<group>"; };
+		1DD964B41AE7A75100527B76 /* TLVParsor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLVParsor.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D0D27B51AE49C17001B1C64 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D0D27CA1AE49C17001B1C64 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1D0D27AF1AE49C17001B1C64 = {
+			isa = PBXGroup;
+			children = (
+				1D0D27BA1AE49C17001B1C64 /* secretchat */,
+				1D0D27D01AE49C17001B1C64 /* secretchatTests */,
+				1D0D27B91AE49C17001B1C64 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1D0D27B91AE49C17001B1C64 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D0D27B81AE49C17001B1C64 /* secretchat.app */,
+				1D0D27CD1AE49C17001B1C64 /* secretchatTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D0D27BA1AE49C17001B1C64 /* secretchat */ = {
+			isa = PBXGroup;
+			children = (
+				1D0D27E41AE4A4E9001B1C64 /* Networking */,
+				1D0D27BD1AE49C17001B1C64 /* AppDelegate.swift */,
+				1D0D27BF1AE49C17001B1C64 /* ViewController.swift */,
+				1D0D27C11AE49C17001B1C64 /* Main.storyboard */,
+				1D0D27C41AE49C17001B1C64 /* Images.xcassets */,
+				1D0D27C61AE49C17001B1C64 /* LaunchScreen.xib */,
+				1D0D27BB1AE49C17001B1C64 /* Supporting Files */,
+				1D0D27DD1AE4A463001B1C64 /* secretchat-Bridging-Header.h */,
+			);
+			path = secretchat;
+			sourceTree = "<group>";
+		};
+		1D0D27BB1AE49C17001B1C64 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1D0D27BC1AE49C17001B1C64 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1D0D27D01AE49C17001B1C64 /* secretchatTests */ = {
+			isa = PBXGroup;
+			children = (
+				1D0D27D31AE49C17001B1C64 /* secretchatTests.swift */,
+				1D0D27D11AE49C17001B1C64 /* Supporting Files */,
+			);
+			path = secretchatTests;
+			sourceTree = "<group>";
+		};
+		1D0D27D11AE49C17001B1C64 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1D0D27D21AE49C17001B1C64 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1D0D27E41AE4A4E9001B1C64 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1D0D27E21AE4A4D6001B1C64 /* ProtocolSocket.h */,
+				1D0D27E11AE4A4D6001B1C64 /* ProtocolSocket.c */,
+				1DD964B41AE7A75100527B76 /* TLVParsor.h */,
+				1DD964B31AE7A75100527B76 /* TLVParsor.c */,
+				1D0024141AEA09D40034D2D5 /* BodyInterpreter.h */,
+				1D0024131AEA09D40034D2D5 /* BodyInterpreter.c */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D0D27B71AE49C17001B1C64 /* secretchat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D0D27D71AE49C17001B1C64 /* Build configuration list for PBXNativeTarget "secretchat" */;
+			buildPhases = (
+				1D0D27B41AE49C17001B1C64 /* Sources */,
+				1D0D27B51AE49C17001B1C64 /* Frameworks */,
+				1D0D27B61AE49C17001B1C64 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = secretchat;
+			productName = secretchat;
+			productReference = 1D0D27B81AE49C17001B1C64 /* secretchat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1D0D27CC1AE49C17001B1C64 /* secretchatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D0D27DA1AE49C17001B1C64 /* Build configuration list for PBXNativeTarget "secretchatTests" */;
+			buildPhases = (
+				1D0D27C91AE49C17001B1C64 /* Sources */,
+				1D0D27CA1AE49C17001B1C64 /* Frameworks */,
+				1D0D27CB1AE49C17001B1C64 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1D0D27CF1AE49C17001B1C64 /* PBXTargetDependency */,
+			);
+			name = secretchatTests;
+			productName = secretchatTests;
+			productReference = 1D0D27CD1AE49C17001B1C64 /* secretchatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1D0D27B01AE49C17001B1C64 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = the.accidental.billionaire;
+				TargetAttributes = {
+					1D0D27B71AE49C17001B1C64 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					1D0D27CC1AE49C17001B1C64 = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = 1D0D27B71AE49C17001B1C64;
+					};
+				};
+			};
+			buildConfigurationList = 1D0D27B31AE49C17001B1C64 /* Build configuration list for PBXProject "secretchat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1D0D27AF1AE49C17001B1C64;
+			productRefGroup = 1D0D27B91AE49C17001B1C64 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D0D27B71AE49C17001B1C64 /* secretchat */,
+				1D0D27CC1AE49C17001B1C64 /* secretchatTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D0D27B61AE49C17001B1C64 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0D27C31AE49C17001B1C64 /* Main.storyboard in Resources */,
+				1D0D27C81AE49C17001B1C64 /* LaunchScreen.xib in Resources */,
+				1D0D27C51AE49C17001B1C64 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D0D27CB1AE49C17001B1C64 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D0D27B41AE49C17001B1C64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0024151AEA09D40034D2D5 /* BodyInterpreter.c in Sources */,
+				1D0D27C01AE49C17001B1C64 /* ViewController.swift in Sources */,
+				1DD964B51AE7A75100527B76 /* TLVParsor.c in Sources */,
+				1D0D27BE1AE49C17001B1C64 /* AppDelegate.swift in Sources */,
+				1D0D27E31AE4A4D6001B1C64 /* ProtocolSocket.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D0D27C91AE49C17001B1C64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0D27D41AE49C17001B1C64 /* secretchatTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1D0D27CF1AE49C17001B1C64 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D0D27B71AE49C17001B1C64 /* secretchat */;
+			targetProxy = 1D0D27CE1AE49C17001B1C64 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1D0D27C11AE49C17001B1C64 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1D0D27C21AE49C17001B1C64 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1D0D27C61AE49C17001B1C64 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1D0D27C71AE49C17001B1C64 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1D0D27D51AE49C17001B1C64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1D0D27D61AE49C17001B1C64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1D0D27D81AE49C17001B1C64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = secretchat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "secretchat/secretchat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1D0D27D91AE49C17001B1C64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = secretchat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "secretchat/secretchat-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		1D0D27DB1AE49C17001B1C64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = secretchatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/secretchat.app/secretchat";
+			};
+			name = Debug;
+		};
+		1D0D27DC1AE49C17001B1C64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = secretchatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/secretchat.app/secretchat";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D0D27B31AE49C17001B1C64 /* Build configuration list for PBXProject "secretchat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D0D27D51AE49C17001B1C64 /* Debug */,
+				1D0D27D61AE49C17001B1C64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1D0D27D71AE49C17001B1C64 /* Build configuration list for PBXNativeTarget "secretchat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D0D27D81AE49C17001B1C64 /* Debug */,
+				1D0D27D91AE49C17001B1C64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1D0D27DA1AE49C17001B1C64 /* Build configuration list for PBXNativeTarget "secretchatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D0D27DB1AE49C17001B1C64 /* Debug */,
+				1D0D27DC1AE49C17001B1C64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1D0D27B01AE49C17001B1C64 /* Project object */;
+}
