@@ -8,8 +8,8 @@ exports.route = (function() {
 	var handlers = { "/join"      : { POST : userEventHandler.join },
 					 "/uninstall" : { DELETE : userEventHandler.remove },
 					 "/setting"   : { POST : userEventHandler.read,   PUT : userEventHandler.update },
-					 "/addfriend" : { POST : friendEventHandler.find, PUT : friendEventHandler.add },
-					 "/main"      : { POST : friendEventHandler.read, DELETE : friendEventHandler.remove },
+					 "/addfriend" : { POST : friendEventHandler.find },
+					 "/main"      : { POST : friendEventHandler.read }
 	};
 	
 	function route(res, pathname, method, contents) {

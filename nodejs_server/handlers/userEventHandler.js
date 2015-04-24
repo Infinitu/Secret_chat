@@ -10,13 +10,13 @@ var	hat  = require("hat"),   // accessToken 생성 module
 var PROFILE_FOLDER = "./profileImages/";
 	
 exports.join = function(res, contents) {
-	contents.age = _getAge(contents.birthYear);      // 생년월일을 토대로 나이 계산
-	contents.nickNameTag = contents.nickName + "1";  // 닉네임 tag logic 구성 필요 -> make nockName Tag
-    contents.level = 0;
+	contents.age = _getAge(contents.birthYear);
+	contents.nickNameTag   = contents.nickName + "1"; // 닉네임 tag logic 구성 필요 -> make nockName Tag
     contents.userCharacter = { "gentle" : 0, "cool" : 0, "pervert" : 0, "common" : 0 };
-    contents.joinDate = new Date();              // 가입일 생성
-	contents.accessToken = _getAccessToken();    // accessToken 생성
-	contents.imageUrl = _getImageUrl(contents);
+    contents.joinDate      = new Date();
+	contents.accessToken   = _getAccessToken();       // accessToken 생성
+	contents.imageUrl      = _getImageUrl(contents);
+	contents.level = 0;
     
 	_insertUserProfile(contents, function(err, userInfo) {
     	if (err) msgHandler.sendError("insert user info error!");
@@ -71,6 +71,8 @@ function _getImageUrl(contents) {
 	if (!contents.imageUrl)
 		return null;
 	
+	console.log("contents.imageUrl :", contents.imageUrl);
+	
 	var newImageUrl = PROFILE_FOLDER + contents.accessToken + "_profile_image"
 					  + path.extname(contents.imageUrl);
 
@@ -83,15 +85,21 @@ function _insertUserProfile(contents, callback) {
 	dbHandler.insertDb(contents, callback);
 }
 
-function _findUserProfile(accessToken, callback) { // client에 저장하고 정보 변경 시만 저장하는 방법으로 변경 필요
+function _findUserProfile(accessToken, callback) {
 	var where   = { "accessToken" : accessToken };
 	var options = { "_id" : 0, "nickName" : 1, "birthYear" : 1, "gender" : 1,
-					"bloodType" : 1, "level" : 1, "userCharacter" : 1, "imageUrl" : 1 };
+					"bloodType" : 1, "level" : 1, "userCharacter" : 1 };
 	
 	dbHandler.findDb(where, options, callback);
 }
 
-function _updateUserProfile(accessToken, contents, callback) {
+function _updateUserProfile(accessToken, contents, callback) { // age 와 nickNameTag 변경 필요
+	if (contents.birthYear)
+		contents.age = _getAge(contents.birthYear);
+	
+	if (contents.nickName)
+		contents.nickNameTag = contents.nickName + "1";
+	
 	var where    = { "accessToken" : accessToken };
 	var operator = { $set : contents };
 	

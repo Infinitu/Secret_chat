@@ -16,7 +16,7 @@ exports.encryptData = function (data, accessToken, callback) {
 		var cipher = crypto.createCipher(ALGORITHM, key);
 		var cipherChunks  = "";
 		cipherChunks  = cipher.update(_128BitData, CLEAR_ENCODING, CIPHER_ENCODING);
-	    cipherChunks += cipher.final(cipherEncoding);
+	    cipherChunks += cipher.final(CIPHER_ENCODING);
 		
 	    callback(err, cipherChunks);
 	});
@@ -28,7 +28,7 @@ exports.decryptData = function (encryptedData, accessToken, callback) {
 		key += info._id;
 		
 		var decipher = crypto.createDecipher(ALGORITHM, key);
-		var decryptedData = decipher.update(encryptedData, CLEAR_ENCODING, CIPHER_ENCODING);
+		var decryptedData = decipher.update(encryptedData, CIPHER_ENCODING, CLEAR_ENCODING);
 		decryptedData = decryptedData.slice(0, 24); // 128 Bit string 을 96 bit string 으로 변환
 		
 	    callback(err, decryptedData);
