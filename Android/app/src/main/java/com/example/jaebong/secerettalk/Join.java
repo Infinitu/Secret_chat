@@ -25,21 +25,18 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import retrofit.mime.TypedByteArray;
 import retrofit.mime.TypedFile;
 import retrofit.mime.TypedInput;
 
 
 public class Join extends ActionBarActivity implements View.OnClickListener {
 
-    private String imgDecodableString;
     public UserProfile profile;
 
     private ImageView addProfileImage;
@@ -53,17 +50,17 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
     private int day;
     private String date;
     private Intent intent;
-    DatePickerDialog dialog;
+    private DatePickerDialog dialog;
 
-    RadioGroup sexGroup;
-    RadioButton sexButton;
+    private RadioGroup sexGroup;
+    private RadioButton sexButton;
 
-    RadioGroup bloodTypeGroup;
-    RadioButton bloodTypeButton;
+    private RadioGroup bloodTypeGroup;
+    private RadioButton bloodTypeButton;
 
     private RelativeLayout startLayout;
 
-    Proxy proxy;
+    private Proxy proxy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,41 +127,29 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
                 fileUri = data.getData();
                 if (Build.VERSION.SDK_INT < 19) {
                     filePath = getPath(fileUri);
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 4;
                     Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+
                     addProfileImage.setImageBitmap(bitmap);
                     imageTypedFile = new TypedFile("image/jpeg", new File(fileUri.getPath()));
 
                 } else {
                     ParcelFileDescriptor parcelFileDescriptor;
                     try {
+                        String SAVE_FILE_URL = getApplicationContext().getFilesDir().getPath().toString();
                         parcelFileDescriptor = getContentResolver().openFileDescriptor(fileUri, "r");
                         FileDescriptor fileDescriptor2 = parcelFileDescriptor.getFileDescriptor();
+
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+
                         Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor2);
                         parcelFileDescriptor.close();
+                        SaveBitmapToFileCache(image,SAVE_FILE_URL,"/MyImage.jpg");
                         addProfileImage.setImageBitmap(image);
 
-
-                        parcelFileDescriptor = getContentResolver().openFileDescriptor(fileUri, "r");
-                        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-                        final InputStream fileStream = new FileInputStream(fileDescriptor);
-
-                        final long fsize = parcelFileDescriptor.getStatSize();
-                        imageTypedFile = new TypedInput() {
-                            @Override
-                            public String mimeType() {
-                                return "image/jpeg";
-                            }
-
-                            @Override
-                            public long length() {
-                                return fsize;
-                            }
-
-                            @Override
-                            public InputStream in() throws IOException {
-                                return fileStream;
-                            }
-                        };
+                       imageTypedFile = new TypedFile("image/jpeg", new File( SAVE_FILE_URL+"/MyImage.jpg"));
 
 
                     } catch (Exception e) {
@@ -175,7 +160,41 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
         }
     }
 
+    public  void SaveBitmapToFileCache(Bitmap bitmap, String strFilePath,
+                                       String filename) {
 
+        File file = new File(strFilePath);
+        Log.i("Join",strFilePath);
+
+        // If no folders
+        if (!file.exists()) {
+            file.mkdirs();
+            //Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+        }
+
+        File fileCacheItem = new File(strFilePath + filename);
+        OutputStream out = null;
+
+        if (!fileCacheItem.exists()) {
+            file.mkdirs();
+            //Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            fileCacheItem.createNewFile();
+            out = new FileOutputStream(fileCacheItem);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public String getPath(Uri uri) {
         if (uri == null) {
             return null;

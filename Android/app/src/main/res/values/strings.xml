@@ -9,5 +9,6 @@
     <string name="title_activity_add_friend">AddFriend</string>
     <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_chatting">Chatting</string>
+    <string name="title_activity_message_box">MessageBox</string>
 
 </resources>

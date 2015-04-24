@@ -32,7 +32,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         addFriend.setOnClickListener(this);
         startRandomChat.setOnClickListener(this);
 
-
+//        Intent implictIntent = new Intent();
+//        implictIntent.setAction("com.example.jaebong.secerettalk.SyncDataService");
+//        startService(implictIntent);
 
     }
 

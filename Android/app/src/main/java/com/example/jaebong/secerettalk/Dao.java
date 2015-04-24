@@ -27,15 +27,32 @@ public class Dao {
                     "bloodType text not null," +
                     "userCharacter text not null," +
                     "imageUrl text not null)";
+            db.execSQL(userProfileSQL);
 
-            Log.i("Dao", "SQL Success");
+            Log.i("Dao", "User sql Success");
         }catch(Exception e){
-            Log.i("Dao","SQL Fail"+e);
+            Log.e("Dao","User SQL Fail"+e);
+            e.printStackTrace();
+        }
+
+        try{
+            String chattingSQL = "CREATE TABLE IF NOT EXISTS ChattingData(" +
+                    "type text not null," +
+                    " imageUrl text not null," +
+                    " address text not null," +
+                    " sender text not null," +
+                    " message text," +
+                    " sendTime long not null )";
+            db.execSQL(chattingSQL);
+
+            Log.i("Dao","Chatting Sql Success");
+        }catch(Exception e){
+            Log.e("Dao","Chatting Sql Fail" + e);
             e.printStackTrace();
         }
     }
 
-    public void insertJsonData(String jsonData) {
+    public void insertUserProfileData(String jsonData) {
 
 
         String nickName;
@@ -61,9 +78,13 @@ public class Dao {
                 userCharacter = jObj.getString("userCharacter");
                 image_url = jObj.getString("imageUrl");
 
-                String sql = "INSERT INTO UserProfiles(nickName, birthYear, gender, bloodType, userCharacter, imageUrl )"
-                        + " VALUES("+"'" + nickName + "', '" + birthYear + "', '" + gender + "','" + bloodType
-                        + "', '" + userCharacter + "', '" + image_url + "');";
+                String sql = "INSERT INTO UserProfiles(nickName, birthYear, gender, bloodType, userCharacter, imageUrl ) VALUES("
+                      +"'"+ nickName + "', '"
+                      + birthYear + "', '"
+                      + gender + "','"
+                      + bloodType + "', '"
+                      + userCharacter + "', '"
+                      + image_url + "');";
 
                 db.execSQL(sql);
                 Log.i("Dao","jsonData Insert Success");
@@ -77,4 +98,16 @@ public class Dao {
 
     }
 
+    public void insertChattingMessage(Message msg){
+        String sql = "INSERT INTO ChattingData(type,imageUrl,address,sender,message,sendTime) VALUES("
+                +"'"+msg.getType()+"','"
+                +msg.getImageUrl()+"','"
+                +msg.getAdress()+"','"
+                +msg.getSender()+"','"
+                +msg.getMessage()+"','"
+                +msg.getSendTime()+"');";
+        db.execSQL(sql);
+        Log.i("Dao","ChattingMessageInsert Success");
+
+    }
 }

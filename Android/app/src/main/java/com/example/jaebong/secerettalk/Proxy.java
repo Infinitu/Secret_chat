@@ -13,12 +13,12 @@ import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 import retrofit.mime.TypedInput;
 
-/**
+/**`
  * Created by JaeBong on 15. 4. 15..
  */
 public class Proxy {
     //SEVER URL과 PORT를 static겸 fianl로 선언
-    public static final String SERVER_URL = "http://192.168.2.25:8080";
+    public static final String SERVER_URL = "http://180.68.52.170:8080";
 
 
     //HTTP통신을 위해 Retrofit 사용
@@ -83,5 +83,9 @@ public class Proxy {
 
                 }
         );
+    }
+
+    public String getUserProfileJson(){
+        return null;
     }
 }

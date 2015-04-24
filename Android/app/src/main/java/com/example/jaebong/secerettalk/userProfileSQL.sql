@@ -1,1 +1,3 @@
 CREATE TABLE IF NOT EXISTS UserProfiles(nickName text not null,birthYear text not null,gender text not null,bloodType text not null,userCharacter text not null,imageUrl text not null)
+CREATE TABLE IF NOT EXISTS ChattingData(type text not null, imageUrl text not null, address text not null, sender text not null, message text, sendTime long not null )
+INSERT INTO ChattingData(type,imageUrl,address,sender,message,sendTime) VALUES()

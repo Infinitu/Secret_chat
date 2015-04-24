@@ -6,6 +6,7 @@ import retrofit.Callback;
 import retrofit.client.Response;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
@@ -24,7 +25,7 @@ public interface SecretChatService {
             @Part("birthYear") String birthYear,
             @Part("gender") String gender,
             @Part("bloodType") String bloodType,
-            @Part("uploadedfile") TypedInput imageFile,
+            @Part("image") TypedInput imageFile,
             Callback<Response> cb
     );
 
