@@ -19,13 +19,10 @@ exports.join = function(res, contents) {
 	contents.imageUrl = _getImageUrl(contents);
     
 	_insertUserProfile(contents, function(err, userInfo) {
-    	if (err)
-    		msgHandler.sendError("insert user info error!");
+    	if (err) msgHandler.sendError("insert user info error!");
     	
     	var message = {};
-    	
     	message.accessToken = contents.accessToken;
-    	message.imageUrl    = contents.imageUrl;      // accessToken을 알면 imageUrl 송부 필요 없을 듯
     	
     	msgHandler.sendJSON(res, message);
 	});
@@ -33,8 +30,7 @@ exports.join = function(res, contents) {
 
 exports.read = function(res, contents) {
 	_findUserProfile(contents.accessToken, function(err, userInfo) {
-		if (err)
-			msgHandler.sendError(res, "find user info error!");
+		if (err) msgHandler.sendError(res, "find user info error!");
 		
 		msgHandler.sendJSON(res, userInfo);
 	});
@@ -42,8 +38,7 @@ exports.read = function(res, contents) {
 
 exports.update = function(res, contents) {
 	_updateUserProfile(contents.accessToken, contents, function(err) {
-		if (err)
-			msgHandler.sendError(res, "update user info error!");
+		if (err) msgHandler.sendError(res, "update user info error!");
 		
 		exports.read(res, contents);
 	});
@@ -51,8 +46,7 @@ exports.update = function(res, contents) {
 
 exports.remove = function(res, contents) {
 	_removeUserProfile(contents.accessToken, function(err) {
-		if (err)
-			msgHandler.sendError(res, "Delete user info error!");
+		if (err) msgHandler.sendError(res, "Delete user info error!");
 		
 		var message = "deleted!";
     	msgHandler.sendString(res, message);
@@ -80,10 +74,7 @@ function _getImageUrl(contents) {
 	var newImageUrl = PROFILE_FOLDER + contents.accessToken + "_profile_image"
 					  + path.extname(contents.imageUrl);
 
-	fileHandler.renameFile(contents.imageUrl, newImageUrl, function(err) {
-		if (err)
-			msgHandler.sendError(res, "rename download file error!");
-	});
+	fileHandler.renameFile(contents.imageUrl, newImageUrl);
 	
 	return newImageUrl;
 }

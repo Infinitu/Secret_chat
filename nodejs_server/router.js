@@ -13,7 +13,7 @@ exports.route = (function() {
 	};
 	
 	function route(res, pathname, method, contents) {
-		if(typeof handlers[pathname][method] === "function")
+		if (typeof handlers[pathname][method] === "function")
 			handlers[pathname][method](res, contents);
 		
 		else
