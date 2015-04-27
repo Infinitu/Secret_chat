@@ -4,26 +4,30 @@ var	fs   = require("fs"),
 	path = require("path"),
 	hat  = require("hat"),   // accessToken 생성 module
 	rack = hat.rack(),       // accessToken 생성 변수 -> 사용방법 : rack(); = 중복없는 token 생성
-	msgHandler = require("./msgHandler"),
-	dbHandler  = require("./dbHandler");
+	msgHandler    = require("./msgHandler"),
+	dbHandler     = require("./dbHandler"),
+	cipherHandler = require("./cipherHandler"); 
 
 var PROFILE_FOLDER = "./profileImages/";
 	
 exports.join = function(res, contents) {
-	contents.age = _getAge(contents.birthYear);
+	contents.age           = _getAge(contents.birthYear);
 	contents.nickNameTag   = contents.nickName + "1"; // 닉네임 tag logic 구성 필요 -> make nockName Tag
     contents.userCharacter = { "gentle" : 0, "cool" : 0, "pervert" : 0, "common" : 0 };
     contents.joinDate      = new Date();
 	contents.accessToken   = _getAccessToken();       // accessToken 생성
 	contents.imageUrl      = _getImageUrl(contents);
-	contents.level = 0;
+	contents.level         = 0;
     
 	_insertUserProfile(contents, function(err, userInfo) {
     	if (err) msgHandler.sendError("insert user info error!");
     	
     	var message = {};
-    	message.accessToken = contents.accessToken;
-    	msgHandler.sendJSON(res, message);
+    	
+    	cipherHandler.encryptToken(contents.accessToken, function(token) {
+    		message.accessToken = token;
+    		msgHandler.sendJSON(res, message);
+    	});
 	});
 };
 

@@ -1,12 +1,27 @@
 /* cipherHandler.js */
 
-var crypto    = require("crypto"),
+var jwt       = require("jwt-simple");
+	crypto    = require("crypto"),
 	dbHandler = require("./dbHandler");
 
-var ALGORITHM       = "aes-128-cbc",
+var TOKEN_CIPHER    = "Ginger",
+	ALGORITHM       = "aes-128-cbc",
 	CLEAR_ENCODING  = "utf8",
 	CIPHER_ENCODING = "base64";
 	
+exports.encryptToken = function (accessToken, callback) {
+	var token = jwt.encode(accessToken, TOKEN_CIPHER);
+	
+	callback(token);
+}
+
+exports.decryptToken = function (accessToken, callback) {
+	var token = jwt.decode(accessToken, TOKEN_CIPHER);
+	
+	callback(token);
+}
+
+
 exports.encryptData = function (data, accessToken, callback) {
 	_findUserId(accessToken, function(err, info) {
 		var key = "";
