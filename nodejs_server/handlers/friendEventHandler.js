@@ -45,11 +45,11 @@ function _findFriend(field, value, callback) {
 	if (field === "nickNameTag") {
 		var where   = { "nickNameTag" : value };
 		var options = { "_id" : 1, "nickName"  : 1, "gender" : 1, 
-						"userCharacter" : 1 , "imageUrl" : 1 };
+						"age" : 1, "userCharacter" : 1 , "imageUrl" : 1 };
 	} else {
 		var where   = { "_id" : new ObjectID(value) };
 		var options = { "_id" : 0, "nickName"  : 1, "gender" : 1, 
-						"userCharacter" : 1 , "imageUrl" : 1 };
+						"age" : 1, "userCharacter" : 1 , "imageUrl" : 1 };
 	}
 
 	dbHandler.findDb(where, options, callback);

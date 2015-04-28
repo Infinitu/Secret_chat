@@ -1,0 +1,91 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/YG/.nvm/v0.10.38/bin/node',
+1 verbose cli   '/Users/YG/.nvm/v0.10.38/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'generatekey',
+1 verbose cli   '--save' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.38
+4 warn package.json Billionaire@0.1.0 No repository field.
+5 warn package.json Billionaire@0.1.0 No README data
+6 warn package.json crypto@0.0.3 crypto is also the name of a node core module.
+7 verbose readDependencies using package.json deps
+8 verbose cache add [ 'generatekey', null ]
+9 verbose cache add name=undefined spec="generatekey" args=["generatekey",null]
+10 verbose parsed url { protocol: null,
+10 verbose parsed url   slashes: null,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: null,
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: null,
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: 'generatekey',
+10 verbose parsed url   path: 'generatekey',
+10 verbose parsed url   href: 'generatekey' }
+11 silly lockFile 81123bfc-generatekey generatekey
+12 verbose lock generatekey /Users/YG/.npm/81123bfc-generatekey.lock
+13 silly lockFile 81123bfc-generatekey generatekey
+14 silly lockFile 81123bfc-generatekey generatekey
+15 verbose addNamed [ 'generatekey', '' ]
+16 verbose addNamed [ null, '*' ]
+17 silly lockFile 5f9e57a9-generatekey generatekey@
+18 verbose lock generatekey@ /Users/YG/.npm/5f9e57a9-generatekey.lock
+19 silly addNameRange { name: 'generatekey', range: '*', hasData: false }
+20 verbose request where is /generatekey
+21 verbose request registry https://registry.npmjs.org/
+22 verbose request id 3a8232ce3a2a3503
+23 verbose url raw /generatekey
+24 verbose url resolving [ 'https://registry.npmjs.org/', './generatekey' ]
+25 verbose url resolved https://registry.npmjs.org/generatekey
+26 verbose request where is https://registry.npmjs.org/generatekey
+27 info trying registry request attempt 1 at 22:15:56
+28 http GET https://registry.npmjs.org/generatekey
+29 http 404 https://registry.npmjs.org/generatekey
+30 verbose headers { date: 'Tue, 28 Apr 2015 13:15:57 GMT',
+30 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+30 verbose headers   'content-type': 'application/json',
+30 verbose headers   'cache-control': 'max-age=0',
+30 verbose headers   'content-length': '51',
+30 verbose headers   'accept-ranges': 'bytes',
+30 verbose headers   via: '1.1 varnish',
+30 verbose headers   age: '0',
+30 verbose headers   'x-served-by': 'cache-nrt6132-NRT',
+30 verbose headers   'x-cache': 'MISS',
+30 verbose headers   'x-cache-hits': '0',
+30 verbose headers   'x-timer': 'S1430226957.570057,VS0,VE198',
+30 verbose headers   'keep-alive': 'timeout=10, max=50',
+30 verbose headers   connection: 'Keep-Alive' }
+31 silly registry.get cb [ 404,
+31 silly registry.get   { date: 'Tue, 28 Apr 2015 13:15:57 GMT',
+31 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+31 silly registry.get     'content-type': 'application/json',
+31 silly registry.get     'cache-control': 'max-age=0',
+31 silly registry.get     'content-length': '51',
+31 silly registry.get     'accept-ranges': 'bytes',
+31 silly registry.get     via: '1.1 varnish',
+31 silly registry.get     age: '0',
+31 silly registry.get     'x-served-by': 'cache-nrt6132-NRT',
+31 silly registry.get     'x-cache': 'MISS',
+31 silly registry.get     'x-cache-hits': '0',
+31 silly registry.get     'x-timer': 'S1430226957.570057,VS0,VE198',
+31 silly registry.get     'keep-alive': 'timeout=10, max=50',
+31 silly registry.get     connection: 'Keep-Alive' } ]
+32 silly lockFile 5f9e57a9-generatekey generatekey@
+33 silly lockFile 5f9e57a9-generatekey generatekey@
+34 error 404 404 Not Found: generatekey
+34 error 404
+34 error 404 'generatekey' is not in the npm registry.
+34 error 404 You should bug the author to publish it
+34 error 404 It was specified as a dependency of 'Billionaire'
+34 error 404
+34 error 404 Note that you can also install from a
+34 error 404 tarball, folder, or http url, or git url.
+35 error System Darwin 14.3.0
+36 error command "/Users/YG/.nvm/v0.10.38/bin/node" "/Users/YG/.nvm/v0.10.38/bin/npm" "install" "generatekey" "--save"
+37 error cwd /Users/YG/Documents/Secret_chat/nodejs_server
+38 error node -v v0.10.38
+39 error npm -v 1.4.28
+40 error code E404
+41 verbose exit [ 1, true ]

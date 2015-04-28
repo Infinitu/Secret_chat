@@ -2,7 +2,7 @@
 
 var mongodb = require("mongodb"),
 	server  = new mongodb.Server("localhost", 27017, { auto_reconnect : true, poolSize : 10 }),
-	db      = new mongodb.Db("secretChat", server, { w: 1 }),
+	db      = new mongodb.Db("secretChat", server, { w: 1 });
 	collection = db.collection("members");
 
 db.open();
@@ -17,10 +17,11 @@ exports.insertDb = function (contents, callback) {
 };
 	
 exports.findDb = function (where, options, callback) {
-    collection.find(where, options).toArray(function(err, data) {
+	collection.find(where, options).toArray(function(err, data) {
         if (err) throw err;
             
         console.log("find data:", JSON.stringify(data[0]));
+        console.log("find Db err:", err);
         callback(err, data[0]);
     });
 };
@@ -36,6 +37,17 @@ exports.updateDb = function (where, operator, callback) {
 
 exports.removeDb = function (where, callback) {
     collection.remove(where, function (err, data) {
+        if (err) throw err;
+        
+        console.log("remove Data: ", data.result);
+        callback(err);
+    });
+};
+
+exports.removeNickNameTag = function (where, callback) {
+	var nickNameTagCollection = db.collection("nickNameTag");
+	
+	nickNameTagCollection.remove(where, function (err, data) {
         if (err) throw err;
         
         console.log("remove Data: ", data.result);

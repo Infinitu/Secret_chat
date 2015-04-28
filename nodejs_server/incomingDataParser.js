@@ -12,7 +12,6 @@ exports.dataParse = (function() {
 			if (inputContents.accessToken) {
 				cipherHandler.decryptToken(inputContents.accessToken, function(token) {
 					inputContents.accessToken = token;
-					console.log(token);
 				});
 			}
 			
@@ -24,6 +23,7 @@ exports.dataParse = (function() {
 			
 			router.route(res, pathname, method, inputContents);
 		});
+
 	}
 	
 	return dataParse;

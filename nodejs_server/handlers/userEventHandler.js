@@ -11,20 +11,17 @@ var	fs   = require("fs"),
 var PROFILE_FOLDER = "./profileImages/";
 	
 exports.join = function(res, contents) {
-	contents.age           = _getAge(contents.birthYear);
-	contents.nickNameTag   = contents.nickName + "1"; // 닉네임 tag logic 구성 필요 -> make nockName Tag
+	contents.chatLevel     = 0;
     contents.userCharacter = { "gentle" : 0, "cool" : 0, "pervert" : 0, "common" : 0 };
     contents.joinDate      = new Date();
-	contents.accessToken   = _getAccessToken();       // accessToken 생성
+    contents.accessToken   = _getAccessToken();       // accessToken 생성
 	contents.imageUrl      = _getImageUrl(contents);
-	contents.level         = 0;
-    
+	
 	_insertUserProfile(contents, function(err, userInfo) {
     	if (err) msgHandler.sendError("insert user info error!");
     	
-    	var message = {};
-    	
     	cipherHandler.encryptToken(contents.accessToken, function(token) {
+    		var message = {};
     		message.accessToken = token;
     		msgHandler.sendJSON(res, message);
     	});
@@ -60,14 +57,6 @@ function _getAccessToken() {
 	var accesstoken = rack();
 	
 	return accesstoken;
-}
-
-function _getAge(birthYear) {
-	var date = new Date();
-	var presentYear = date.getFullYear();
-	var age = presentYear - birthYear + 1;
-	
-	return age;
 }
 
 function _getImageUrl(contents) {
