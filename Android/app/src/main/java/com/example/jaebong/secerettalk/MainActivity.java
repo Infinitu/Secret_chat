@@ -44,11 +44,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         switch(v.getId()){
             case R.id.main_imageButton_setting :
                 intent = new Intent(this,Setting.class);
-                Log.i("HI","hi");
+                Log.i("Main","hi");
                 startActivity(intent);
                 break;
             case R.id.main_buttonFloat_addFriend :
                 intent = new Intent(this,AddFriend.class);
+                Log.i("Main","AddFriend");
                 startActivity(intent);
                 break;
             case R.id.main_layout_startRandomChat:

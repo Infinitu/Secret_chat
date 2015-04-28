@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -22,14 +23,17 @@ public class Chatting extends ActionBarActivity implements View.OnClickListener 
     private EditText editMessageBox;
     private TextView sendButton;
     private Message message;
-    private Dao dao;
+    private ProviderDao dao;
+    private ListView messageListView;
     private long time;
+    private  ArrayList<Message> MessageList;
+    private  MessageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
-        dao = new Dao(getApplicationContext());
+        dao = new ProviderDao(getApplicationContext());
         message = new Message();
 
         time= System.currentTimeMillis();
@@ -42,21 +46,34 @@ public class Chatting extends ActionBarActivity implements View.OnClickListener 
 
         editMessageBox = (EditText)findViewById(R.id.chatting_editText_eidtMessage);
         sendButton = (TextView)findViewById(R.id.chatting_tv_sendButton);
+        messageListView =(ListView)findViewById(R.id.chatting_listView_messageList);
 
         sendButton.setOnClickListener(this);
+        chattingListView(dao.getMessageList());
+
+
         Log.i("Chatting","cal :" + strNow);
 
 
     }
 
-//    private void chattingListiew(ArrayList<Message> messages){
-//
-//        Cursor mCursor = getContentResolver().query(
-//
-//        );
-//
-//
-//    }
+
+    private void chattingListView(ArrayList<Message> messages){
+
+        Cursor mCursor = getContentResolver().query(
+                SecretTalkContract.Messages.CONTENT_URI,
+                SecretTalkContract.Messages.PROJECTION_ALL,null,null,
+                SecretTalkContract.Messages.SEND_TIME
+
+        );
+
+        adapter = new MessageAdapter(this,mCursor,R.layout.activity_message_box);
+        messageListView.setAdapter(adapter);
+
+
+    }
+
+
 
 
     @Override
@@ -71,14 +88,17 @@ public class Chatting extends ActionBarActivity implements View.OnClickListener 
                 else {
                     break;
                 }
+                message.set_id(message.get_id()+1);
                 message.setType("Text");
-                message.setAdress("1234");
+                message.setAddress("1234");
                 message.setSender("Me");
+                message.setNickName("윤영기");
                 message.setSendTime(time);
+                dao.insertMyChattingMessage(message);
 
-                dao.insertChattingMessage(message);
-                message.setSender("You");
-                dao.insertChattingMessage(message);
+                message.setSender("Others");
+                message.set_id(message.get_id()+1);
+                dao.insertMyChattingMessage(message);
 
                 editMessageBox.setText("");
 

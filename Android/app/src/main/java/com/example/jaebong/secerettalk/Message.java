@@ -4,25 +4,44 @@ package com.example.jaebong.secerettalk;
  * Created by JaeBong on 15. 4. 20..
  */
 public class Message {
+    private static int _id;
     private String type;
     private String imageUrl;
-    private String adress;
+    private String address;
     private String sender;
     private String message;
     private long sendTime;
+    private String nickName;
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getNickName() {
+
+        return nickName;
+    }
 
     public Message() {
+        this._id = 0;
+
         this.imageUrl = "";
         this.message = "";
     }
 
-    public Message(String type, String imageUrl, String adress, String sender, String message, long sendTime) {
+    public int get_id() {
+        return _id;
+    }
+
+    public Message(int _id, String type, String imageUrl, String adress, String sender, String message, long sendTime, String nickName) {
+        this._id = _id;
         this.type = type;
         this.imageUrl = imageUrl;
-        this.adress = adress;
+        this.address = adress;
         this.sender = sender;
         this.message = message;
         this.sendTime = sendTime;
+        this.nickName = nickName;
     }
 
     public void setType(String type) {
@@ -33,8 +52,8 @@ public class Message {
         this.imageUrl = imageUrl;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String adress) {
+        this.address = adress;
     }
 
     public void setSender(String sender) {
@@ -43,6 +62,10 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
     public void setSendTime(long sendTime) {
@@ -57,8 +80,8 @@ public class Message {
         return imageUrl;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     public String getSender() {

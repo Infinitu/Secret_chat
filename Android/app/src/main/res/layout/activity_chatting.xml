@@ -3,7 +3,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.jaebong.secerettalk.Chatting"
     android:orientation="vertical"
-    android:background="#a7b9c5">
+    android:background="#a7b9c5"
+    android:windowSoftInputMode="stateVisible|adjustResize">
+
 
     <FrameLayout
         android:orientation="vertical"
@@ -57,7 +59,10 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/listView" />
+            android:id="@+id/chatting_listView_messageList"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll"
+            />
     </RelativeLayout>
 
     <FrameLayout
