@@ -8,25 +8,24 @@ var randomkey  = require("random-key"),
 var RAMDOMDIGITS = 5;
 
 exports.getNickNameTag = function(res, contents) {
+	console.log("start get nickNameTag!");
 	var nickNameTag = contents.nickName + randomkey.generateDigits(RAMDOMDIGITS);
-	console.log("nickNameTag :", nickNameTag);
 	
 	_isOverlapped(nickNameTag, function(err, isOverlapped) {
-		console.log("isOverlapped :", isOverlapped);
-		
 		if (err) console.log("find nickNameTag Error!");
 		
-		if (isOverlapped)
-			exports.getNickNameTag(nickName, callback);
+		if (isOverlapped) {
+			exports.getNickNameTag(res, contents);
+			return ;
+		}
 		
-		var where = { "accessToken" : contents.accessToken };
+		var where    = { "accessToken" : contents.accessToken };
 		var operator = { $set : { "nickNameTag" : nickNameTag } };
 		
 		dbHandler.updateDb(where, operator, function(err) {
 			if (err) console.log("insert nickNameTag Error!");
 			
 			_deleteNickNameTagAfterHour(nickNameTag);
-			
 			msgHandler.sendJSON(res, nickNameTag);
 		});
 	});
