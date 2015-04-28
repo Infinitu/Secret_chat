@@ -25,7 +25,7 @@ exports.getNickNameTag = function(res, contents) {
 		dbHandler.updateDb(where, operator, function(err) {
 			if (err) console.log("insert nickNameTag Error!");
 			
-			_deleteNickNameTagAfterHour(nickNameTag);
+			_deleteNickNameTagAfterHour(contents.accessToken, nickNameTag);
 			msgHandler.sendJSON(res, nickNameTag);
 		});
 	});
@@ -45,16 +45,21 @@ function _isOverlapped(nickNameTag, callback) {
 	});
 }
 
-function _deleteNickNameTagAfterHour(nickNameTag) {
+function _deleteNickNameTagAfterHour(accessToken, nickNameTag) {
 	var date = new Date();
 	date.setHours(date.getHours() + 1);
 	
+	var _accessToken = accessToken;
+	var _nickNameTag = nickNameTag;
+	
 	var remove = scheduler.scheduleJob(date, function(){
-		var where   = { "nickNameTag" : nickNameTag };
+		var where   = { "nickNameTag" : _nickNameTag };
 	    var options = { "accessToken": 1, "nickNameTag" : 1 };
 	    
 		dbHandler.findDb(where, options, function(err, data) {
 			if (err) console.log("err delete nickNameTag Error!");
+			
+			if (_accessToken != data.accessToken) return ;
 			
 			if (data) {
 				var _where    = { "accessToken" : data.accessToken };
@@ -64,6 +69,6 @@ function _deleteNickNameTagAfterHour(nickNameTag) {
 					if (err) console.log("delete nickNameTag Error!");
 				});
 			}
-		}.bind(nickNameTag));
+		}.bind(_nickNameTag).bind(_accessToken));
 	});
 }
