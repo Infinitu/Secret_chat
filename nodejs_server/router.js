@@ -10,7 +10,8 @@ exports.route = (function() {
 					 "/getTag"    : { POST : nickNameTagHandler.getNickNameTag },
 					 "/addfriend" : { POST : friendEventHandler.find },
 					 "/main"      : { POST : friendEventHandler.read },
-					 "/uninstall" : { DELETE : userEventHandler.remove }
+					 "/uninstall" : { DELETE : userEventHandler.remove },
+					 "/profileImages" : { GET : friendEventHandler.showImage }
 	};
 	
 	function route(res, pathname, method, contents) {

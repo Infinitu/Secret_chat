@@ -18,8 +18,15 @@ exports.dataParse = (function() {
 			if (file.image)
 				inputContents.imageUrl = file.image.path;
 			
-			var pathname = url.parse(req.url).pathname;
 			var method = req.method.toUpperCase();
+			var pathname = url.parse(req.url).pathname;
+			
+			if (method === "GET") {
+				var path = [];
+				path = pathname.split("/");
+				pathname = "/" + path[1];
+				inputContents.imageName = path[2];
+			}
 			
 			router.route(res, pathname, method, inputContents);
 		});

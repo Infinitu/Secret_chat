@@ -1,6 +1,7 @@
 /* friendEventHandler.js */
 
 var ObjectID      = require("mongodb").ObjectID,
+	fs            = require("fs"),
 	msgHandler    = require("./msgHandler"),
 	dbHandler     = require("./dbHandler"),
 	cipherHandler = require("./cipherHandler");
@@ -12,6 +13,7 @@ exports.find = function(res, contents) {
 		cipherHandler.encryptData(friendInfo._id, contents.accessToken, function(err, encryptedId) {
 			if (err) msgHandler.sendError(res, "encrypt friendID error!");
 			
+			friendInfo.imageUrl = "http://192.168.0.14:8080" + friendInfo.imageUrl.replace("./", "/");
 			friendInfo._id = encryptedId;
 			msgHandler.sendJSON(res, friendInfo);
 		});
@@ -41,15 +43,23 @@ exports.read = function(res, contents) {
 	}
 };
 
+exports.showImage = function(res, contents) {
+	var filePath = "./profileImages" + "/" + contents.imageName;
+
+	fs.readFile(filePath, function(err, data) {
+		msgHandler.sendFile(res, data, filePath);
+	});
+};
+
 function _findFriend(field, value, callback) {
 	if (field === "nickNameTag") {
 		var where   = { "nickNameTag" : value };
-		var options = { "_id" : 1, "nickName"  : 1, "gender" : 1, 
-						"age" : 1, "userCharacter" : 1 , "imageUrl" : 1 };
+		var options = { "_id" : 1, "nickName"  : 1, "age" : 1, "gender" : 1, "bloodType" : 1,
+						"imageUrl" : 1, "chatLevel" : 1, "gentle" : 1, "cool" : 1, "pervert" : 1, "common" : 1};
 	} else {
 		var where   = { "_id" : new ObjectID(value) };
-		var options = { "_id" : 0, "nickName"  : 1, "gender" : 1, 
-						"age" : 1, "userCharacter" : 1 , "imageUrl" : 1 };
+		var options = { "_id" : 0, "nickName"  : 1, "gender" : 1, "bloodType" : 1,
+						"imageUrl" : 1, "chatLevel" : 1, "gentle" : 1, "cool" : 1, "pervert" : 1, "common" : 1};
 	}
 
 	dbHandler.findDb(where, options, callback);
