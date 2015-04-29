@@ -1,0 +1,112 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jaebong.secerettalk.Chatting"
+    android:orientation="vertical"
+    android:background="#a7b9c5"
+    android:windowSoftInputMode="stateVisible|adjustResize">
+
+
+    <FrameLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:background="#b9cbd7"
+        android:layout_weight="1"
+        android:layout_marginBottom="0.2dp">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton2"
+            android:layout_gravity="left|center_vertical"
+            android:src="@drawable/icon_backward_setting"
+            android:background="@null" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:id="@+id/chatting_tv_top"
+            android:layout_gravity="center"
+            style="#ffffff"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:layout_marginRight="10dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/chatting_imageButton_break"
+            android:src="@drawable/icon_break"
+            android:layout_gravity="right|center_vertical" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="#b9cbd7"
+        android:layout_marginBottom="0.2dp"
+        >
+
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/chatting_listView_messageList"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll"
+            />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_layout_startRandomChat"
+        android:background="#ffffff">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/imageButton3"
+            android:layout_gravity="left|center_vertical"
+            android:src="@drawable/icon_extra_features"
+            android:background="#d0d0d0"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="전송"
+            android:id="@+id/chatting_tv_sendButton"
+            android:layout_gravity="right|center_vertical"
+            android:background="#ffff3c"
+            android:clickable="true"
+            android:textColor="#9a9ab8"
+            android:textSize="15sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginRight="5dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chatting_editText_eidtMessage"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:textColor="#000000"
+            android:maxHeight="160dp" />
+
+    </FrameLayout>
+</LinearLayout>
