@@ -1,0 +1,308 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jaebong.secerettalk.Setting"
+    android:orientation="vertical"
+    android:background="@drawable/activity_setting">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#493333">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="설 정"
+            android:id="@+id/setting_tv_top"
+            android:layout_gravity="center"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/setting_imgBtn_back"
+            android:layout_gravity="left|center_vertical"
+            android:src="@drawable/icon_backward_setting"
+            android:background="@null"
+            />
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="11"
+        android:background="#bfb8bc">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="5"
+                android:background="#ffffff"
+
+                android:layout_marginBottom="0.2dp">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_profile"
+                    android:background="@null"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="프로필 사진"
+                    android:id="@+id/textView4"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="70dp"
+                    android:textColor="#bbbbbb" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="5"
+                android:layout_marginLeft="0.1dp"
+                android:layout_marginBottom="0.2dp"
+                android:background="#ffffff">
+
+                <FrameLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="닉네임"
+                        android:id="@+id/setting_tv_nick"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="깡통열차"
+                        android:id="@+id/setting_tv_editable_nick"
+                        android:textColor="#000000"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="15dp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="태어난 해"
+                        android:id="@+id/setting_tv_birth"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1995"
+                        android:id="@+id/setting_tv_editable_birth"
+                        android:textColor="#000000"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="15dp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="남성"
+                        android:id="@+id/setting_tv_editable_sex"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A형"
+                        android:id="@+id/setting_tv_editable_blood"
+                        android:textColor="#000000"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="15dp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="레벨"
+                        android:id="@+id/setting_tv_level"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Level 1(0)"
+                        android:id="@+id/setting_tv_editable_level"
+                        android:textColor="#000000"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="15dp" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4"
+               >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="성향"
+                        android:id="@+id/setting_tv_tendency"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="0.2dp"
+                android:background="#ffffff"
+                android:layout_gravity="right"
+                android:id="@+id/setting_layout_help">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이용안내"
+                    android:id="@+id/setting_tv_help"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="0.2dp"
+                android:background="#ffffff"
+                android:id="@+id/setting_layout_secretMode">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SECRET MODE"
+                    android:id="@+id/setting_tv_secretMode"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="0.2dp"
+                android:background="#ffffff"
+                android:id="@+id/setting_layout_arlamSetting">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="알람 설정"
+                    android:id="@+id/setting_tv_alramSetting"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="0.2dp"
+                android:background="#ffffff" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="푸쉬 아이콘"
+                    android:id="@+id/setting_tv_pushIcon"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="0.2dp"
+                android:background="#ffffff"
+                android:id="@+id/setting_layout_tendencyOppositeSex">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="선호하는 이성 성향"
+                    android:id="@+id/setting_tv_tendencyOppositeSex"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
