@@ -5,21 +5,26 @@ var userEventHandler   = require("./handlers/userEventHandler"),
 	nickNameTagHandler = require("./handlers/nickNameTagHandler");
 
 exports.route = (function() {
-	var handlers = { "/join"      : { POST : userEventHandler.join },
-					 "/setting"   : { POST : userEventHandler.read, PUT : userEventHandler.update },
-					 "/getTag"    : { POST : nickNameTagHandler.getNickNameTag },
-					 "/addfriend" : { POST : friendEventHandler.find },
-					 "/main"      : { POST : friendEventHandler.read },
-					 "/uninstall" : { DELETE : userEventHandler.remove },
+	var handlers = { "/join"          : { POST : userEventHandler.join },
+					 "/setting"       : { POST : userEventHandler.read, PUT : userEventHandler.update },
+					 "/getTag"        : { POST : nickNameTagHandler.getNickNameTag },
+					 "/addfriend"     : { POST : friendEventHandler.find },
+					 "/main"          : { POST : friendEventHandler.read },
+					 "/uninstall"     : { DELETE : userEventHandler.remove },
 					 "/profileImages" : { GET : friendEventHandler.showImage }
 	};
 	
 	function route(res, pathname, method, contents) {
-		if (typeof handlers[pathname][method] === "function")
-			handlers[pathname][method](res, contents);
-		
-		else
-			console.log("router error");
+		try {
+			if (typeof handlers[pathname][method] === "function")
+				handlers[pathname][method](res, contents);
+			
+			else
+				console.log("router error");
+		} catch(e) {
+			console.log("catch error!");
+			console.log(e);
+		}
 	}
 	
 	return route;
