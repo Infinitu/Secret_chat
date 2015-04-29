@@ -63,9 +63,9 @@ package object protocol {
   /**
    * 0x1001
    */
-  case class SessionLoginRequest(version: String, deviceId: String, accessToken: String, osName: String, deviceName: String) extends  CommandCase{
+  case class SessionLoginRequest(version: String, deviceId: String, accessToken: String, osName: String, appversion:String, deviceName: String) extends  CommandCase{
     override val header: Int = 0x1001
-    private def this(bodyParam:Array[String]) = this(bodyParam(0), bodyParam(1), bodyParam(2), bodyParam(3), bodyParam(4))
+    private def this(bodyParam:Array[String]) = this(bodyParam(0), bodyParam(1), bodyParam(2), bodyParam(3), bodyParam(4),bodyParam(5))
     def this(body:ByteString)=this(body.decodeString(DefaultCharset).split('|'))
     def body(implicit userData: Option[UserData]) = ByteString("%s|%s|%s|%s|%s|".format(version,deviceId,accessToken,osName,deviceName),DefaultCharset)
   }
