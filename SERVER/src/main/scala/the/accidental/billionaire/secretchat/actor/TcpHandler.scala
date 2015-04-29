@@ -37,9 +37,11 @@ class TcpHandler(override val connection:ActorRef) extends Actor
       context become authorized
       writeToConnection( SessionLoginOkay() )
     case UserService.LoginFailed=>
-      writeToConnection( AuthFailed("LoginFailed") )
+      writeToConnection( AuthFailed("LoginFailed"))
       closeSession()
-    case _=>
+
+    case x=>
+      println(x)
   }
 
   def authorized():Receive = {
