@@ -19,3 +19,4 @@
 
 
 void socket_init();
+void sendMessage(int header, CFStringRef body);

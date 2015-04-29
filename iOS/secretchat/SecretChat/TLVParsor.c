@@ -25,8 +25,11 @@ void receiveData(CFReadStreamRef stream){
         return;
     isParsing = true;
     long len;
-    while((len = CFReadStreamRead(stream, buff, SOCKET_BUFF_SIZE))>0)
+    do{
+        len = CFReadStreamRead(stream, buff, SOCKET_BUFF_SIZE);
         receiveBuffer(buff, len);
+    }while(len>=SOCKET_BUFF_SIZE);
+
     isParsing=false;
 }
 
@@ -64,7 +67,12 @@ void receiveBuffer(uint8_t *ptr, long length){
                 length--;
             }
             if(fragmentSize>=4){
-                state = STATE_BODY;
+                if(parseData.length==0){
+                    tlvComplete(parseData);
+                    state = STATE_HEADER;
+                }
+                else
+                    state = STATE_BODY;
                 fragmentSize = 0;
             }
             return receiveBuffer(ptr, length);

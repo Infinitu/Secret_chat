@@ -318,7 +318,7 @@ int splitWithPipe(CFStringRef** result, uint8_t* body, long length){
         long st = idx;
         long len = 0;
         for(;body[len+st]!='\0';len++);
-        slist[i] = CFStringCreateWithBytes(kCFAllocatorDefault, &body[st], len+1, kCFStringEncodingUTF8, true);
+        slist[i] = CFStringCreateWithBytes(kCFAllocatorDefault, &body[st], len, kCFStringEncodingUTF8, true);
         idx += len+1;
     }
     

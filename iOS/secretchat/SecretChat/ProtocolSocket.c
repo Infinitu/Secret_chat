@@ -28,7 +28,7 @@ void socket_init(){
     
     notiCenter = CFNotificationCenterGetLocalCenter();
     
-    CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, CFSTR("localhost"), 8080, &read_stream, &write_stream);
+    CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, CFSTR("localhost"), 9000    , &read_stream, &write_stream);
 
     CFStreamClientContext readContext={0,NULL,NULL,NULL,NULL};
     CFReadStreamSetClient(read_stream, kCFStreamEventOpenCompleted|kCFStreamEventHasBytesAvailable|kCFStreamEventErrorOccurred|kCFStreamEventEndEncountered,
@@ -70,9 +70,12 @@ void writeCallback ( CFWriteStreamRef stream, CFStreamEventType eventType, void 
     switch (eventType) {
         case kCFStreamEventOpenCompleted:
             printf("write opened\n");
+
             break;
         case kCFStreamEventCanAcceptBytes:
             printf("can writes!\n");
+            if(!writable)
+                sendOpenedNotification();
             writable = true;
             break;
         default:
@@ -82,9 +85,9 @@ void writeCallback ( CFWriteStreamRef stream, CFStreamEventType eventType, void 
 }
 
 void sendOpenedNotification(){
-    CFNotificationCenterPostNotification(notiCenter, CFSTR("opend"), NULL, NULL, TRUE);
+    CFNotificationCenterPostNotification(notiCenter, CFSTR("opened"), NULL, NULL, false);
 }
-int kk=0;
+
 void tlvComplete(struct tlv_stuct tlvdata){
     bodyparse(tlvdata);
     if(tlvdata.body!=nil)
@@ -92,10 +95,35 @@ void tlvComplete(struct tlv_stuct tlvdata){
 }
 
 void messageComplete(CFDictionaryRef dictionary){
-    kk++;
-    printf("%d\n",kk);
-    printf("hello\n");
+    CFNotificationCenterPostNotification(notiCenter, CFSTR("newmsg"), NULL, dictionary, true);
 }
 void parseError(uint16_t header){
      printf("err\n");
 }
+
+void sendMessage(int header, CFStringRef bodyRef){
+
+    uint8_t *body = (uint8_t*)CFStringGetCStringPtr(bodyRef, kCFStringEncodingUTF8);
+    long cnt = 0;
+    while(body[cnt++]!='\0');
+    uint8_t headerAndLength[6] =
+    {((header&0xff00)>>8),
+         (header&0xff),
+        ((cnt&0xff000000)>>24),
+        ((cnt&0x00ff0000)>>16),
+        ((cnt&0x0000ff00)>>8),
+        (cnt&0x000000ff)};
+    long res;
+    res = CFWriteStreamWrite(write_stream, headerAndLength, 6);
+    printf("%ld\n",res);
+    res = CFWriteStreamWrite(write_stream, body,cnt);
+    printf("%ld\n",res);
+    
+    
+    
+    
+    
+}
+
+
+
