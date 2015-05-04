@@ -18,7 +18,7 @@
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="fill_parent"
-            android:id="@+id/imageButton2"
+            android:id="@+id/chatting_imageButton_back"
             android:layout_gravity="left|center_vertical"
             android:src="@drawable/icon_backward_setting"
             android:background="@null" />

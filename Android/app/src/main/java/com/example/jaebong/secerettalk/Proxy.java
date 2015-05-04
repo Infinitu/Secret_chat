@@ -1,5 +1,6 @@
 package com.example.jaebong.secerettalk;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -18,14 +19,15 @@ import retrofit.mime.TypedInput;
  */
 public class Proxy {
     //SEVER URL과 PORT를 static겸 fianl로 선언
-    public static final String SERVER_URL = "http://180.68.52.170:8080";
+    public static final String SERVER_URL = "http://192.168.0.14:8080";
 
 
     //HTTP통신을 위해 Retrofit 사용
     private RestAdapter restAdapter;
     private SecretChatService service;
+    private UserDataDao dao;
 
-    public Proxy(){
+    public Proxy(Context context){
         //server 주소 지정
         restAdapter = new RestAdapter.Builder()
                 .setEndpoint(SERVER_URL)
@@ -35,17 +37,23 @@ public class Proxy {
         service = restAdapter
                 .create(SecretChatService.class);
 
+        dao = new UserDataDao(context);
+
     }
 
+
     public void sendUserProfile(UserProfile profile, TypedInput imageFile){
+
+        Callback<Response> callBack;
+
         service.sendUserProfile(
                 profile.getNickName(),
-                profile.getBirthYear(),
+                profile.getAge(),
                 profile.getGender(),
                 profile.getBloodType(),
                 imageFile,
-                new Callback<Response>(){
 
+                new Callback<Response>(){
                     @Override
                     public void failure(RetrofitError error) {
                         Log.e("Proxy", "retrofitError " + error);
@@ -54,7 +62,7 @@ public class Proxy {
                     }
 
                     @Override
-                    public void success(Response result, Response response) {
+                   public void success(Response result, Response response) {
                         BufferedReader reader = null;
                         StringBuilder sb = new StringBuilder();
                         try {
@@ -76,13 +84,15 @@ public class Proxy {
 
 
                         String accessToken = sb.toString();
-                        Log.i("Proxy","accessToken : " + accessToken);
 
+                        dao.insertAccessToken(accessToken);
 
                     }
 
                 }
         );
+
+
     }
 
     public String getUserProfileJson(){

@@ -50,7 +50,6 @@ public class CustomAdapter_chattingList extends ArrayAdapter<UserProfile> {
         TextView userCharacter = (TextView) row.findViewById(R.id.tile_textView_character_left);
 
         userName.setText(ProfileList.get(position).getNickName());
-        userCharacter.setText(ProfileList.get(position).getCharacter());
 
         return row;
     }

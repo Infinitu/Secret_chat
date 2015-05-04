@@ -1,14 +1,11 @@
 package com.example.jaebong.secerettalk;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by JaeBong on 15. 4. 17..
@@ -22,6 +19,8 @@ public class UserDataDao {
         this.context = context;
         sqLiteInitialize();
         profileTableCreate();
+        myDataTableCreate();
+        accessTokenTableCreate();
         chatTableCreate();
     }
 
@@ -30,10 +29,95 @@ public class UserDataDao {
         db = context.openOrCreateDatabase("LocalDATA.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
     }
 
-    private void myDataTableCreate(){
-        try{
+    private void accessTokenTableCreate() {
+        try {
+            String accessToken = "CREATE TABLE IF NOT EXISTS AccessToken(accessToken text not null);";
+            db.execSQL(accessToken);
+            Log.i("Dao", "AccessToken Table Success");
+        } catch (Exception e) {
+            Log.e("Dao", "AccessToken Table fail" + e);
+        }
+    }
+
+    public void insertAccessToken(String accessToken) {
+        String sql = "INSERT INTO AccessToken(accessToken) Values("
+                + "'" + accessToken + "');";
+        db.execSQL(sql);
+
+    }
+
+    private void myDataTableCreate() {
+        try {
             String myDataSQL = "CREATE TABLE IF NOT EXISTS MyData(" +
-                    "accessToken text not null," +
+                    " nickName text not null," +
+                    " age int not null," +
+                    " gender text not null," +
+                    " bloodType text not null," +
+                    " imageUrl text," +
+                    " chatLevel int not null," +
+                    " gentle int not null," +
+                    " cool int not null," +
+                    " pervert int not null," +
+                    " common int not null," +
+                    " nickNameTag text)";
+            db.execSQL(myDataSQL);
+
+            Log.i("Dao", "MY DATA SQL Success");
+        } catch (Exception e) {
+            Log.e("Dao", "MY DATA SQL Fail" + e);
+            e.printStackTrace();
+        }
+    }
+
+    public void insertMyData(UserProfile profile) {
+        String nickName;
+        int age;
+        String gender;
+        String bloodType;
+        String imageUrl;
+        int chatLevel;
+        int gentle;
+        int cool;
+        int pervert;
+        int common;
+
+        nickName = profile.getNickName();
+        age = profile.getAge();
+        gender = profile.getGender();
+        bloodType = profile.getBloodType();
+        imageUrl = profile.getImageUrl();
+        chatLevel = profile.getChatLevel();
+        gentle = profile.getGentle();
+        cool = profile.getCool();
+        pervert = profile.getPervert();
+        common = profile.getCommon();
+
+        Log.i("Dao","profile : "+ profile.toString());
+
+        try {
+            String sql = "INSERT INTO MyData(nickName, age, gender, bloodType, imageUrl, chatLevel, gentle, cool, pervert,common) VALUES("
+                    + "'" + nickName + "', '"
+                    + age + "', '"
+                    + gender + "','"
+                    + bloodType + "', '"
+                    + imageUrl + "', '"
+                    + chatLevel + "', '"
+                    + gentle + "', '"
+                    + cool + "', '"
+                    + pervert + "', '"
+                    + common + "');";
+
+            db.execSQL(sql);
+            Log.i("Dao", "MyData Insert Success");
+        } catch (Exception e) {
+            Log.e("Dao", "MyData Insert FAIL" + e);
+        }
+    }
+
+    private void profileTableCreate() {
+        try {
+            String userProfileSQL = "CREATE TABLE IF NOT EXISTS UserProfiles(" +
+                    "id text primary key not null," +
                     " nickName text not null," +
                     " age int not null," +
                     " gender text not null," +
@@ -43,28 +127,8 @@ public class UserDataDao {
                     " gentle int not null," +
                     " cool int not null," +
                     " pervert int not null," +
-                    " common int not null," +
-                    " nickNameTag text not null)";
-            db.execSQL(myDataSQL);
+                    " common int not null)";
 
-            Log.i("Dao", "MY DATA SQL Success");
-        }catch (Exception e) {
-            Log.e("Dao", "MY DATA SQL Fail" + e);
-            e.printStackTrace();
-        }
-    }
-
-    private void profileTableCreate() {
-        try {
-            String userProfileSQL = "CREATE TABLE IF NOT EXISTS UserProfiles(" +
-                    "id text ," +
-                    "nickName text not null," +
-                    "birthYear text not null," +
-                    "gender text not null," +
-                    "bloodType text not null," +
-                    "userCharacter text not null," +
-                    "imageUrl text not null," +
-                    "accessToken text)";
             db.execSQL(userProfileSQL);
 
             Log.i("Dao", "User sql Success");
@@ -74,34 +138,19 @@ public class UserDataDao {
         }
     }
 
-    private void chatTableCreate() {
-        try {
-            String chattingSQL = "CREATE TABLE IF NOT EXISTS Messages(" +
-                    "type text not null," +
-                    " imageUrl text not null," +
-                    " address text not null," +
-                    " sender text not null," +
-                    " message text," +
-                    " sendTime long not null,"+
-                    "nickName text)";
-            db.execSQL(chattingSQL);
-
-            Log.i("Dao", "Chatting Sql Success");
-        } catch (Exception e) {
-            Log.e("Dao", "Chatting Sql Fail" + e);
-            e.printStackTrace();
-        }
-    }
-
     public void insertJSONUserProfileData(String jsonData) {
 
         String id;
         String nickName;
-        String birthYear;
+        String age;
         String gender;
         String bloodType;
-        String userCharacter;
-        String image_url;
+        String imageUrl;
+        int chatLevel;
+        int gentle;
+        int cool;
+        int pervert;
+        int common;
 
         try {
             JSONObject jDataObj = new JSONObject(jsonData);
@@ -114,20 +163,28 @@ public class UserDataDao {
 
                 id = jObj.getString("id");
                 nickName = jObj.getString("nickName");
-                birthYear = jObj.getString("birthYear");
+                age = jObj.getString("age");
                 gender = jObj.getString("gender");
                 bloodType = jObj.getString("bloodType");
-                userCharacter = jObj.getString("userCharacter");
-                image_url = jObj.getString("imageUrl");
+                imageUrl = jObj.getString("imageUrl");
+                chatLevel = jObj.getInt("chatLevel");
+                gentle = jObj.getInt("gentle");
+                cool = jObj.getInt("cool");
+                pervert = jObj.getInt("pervert");
+                common = jObj.getInt("common");
 
-                String sql = "INSERT INTO UserProfiles(id,nickName, birthYear, gender, bloodType, userCharacter, imageUrl ) VALUES("
+                String sql = "INSERT INTO UserProfiles(id,nickName, age, gender, bloodType, imageUrl, chatLevel, gentle, cool, pervert,common ) VALUES("
                         + "'" + id + "', '"
                         + nickName + "', '"
-                        + birthYear + "', '"
+                        + age + "', '"
                         + gender + "','"
                         + bloodType + "', '"
-                        + userCharacter + "', '"
-                        + image_url + "');";
+                        + imageUrl + "', '"
+                        + chatLevel + "', '"
+                        + gentle + "', '"
+                        + cool + "', '"
+                        + pervert + "', '"
+                        + common + "');";
 
                 db.execSQL(sql);
                 Log.i("Dao", "jsonData Insert Success");
@@ -139,6 +196,25 @@ public class UserDataDao {
         }
 
 
+    }
+
+    private void chatTableCreate() {
+        try {
+            String chattingSQL = "CREATE TABLE IF NOT EXISTS Messages(" +
+                    "type text not null," +
+                    " imageUrl text not null," +
+                    " address text not null," +
+                    " sender text not null," +
+                    " message text," +
+                    " sendTime long not null," +
+                    "nickName text)";
+            db.execSQL(chattingSQL);
+
+            Log.i("Dao", "Chatting Sql Success");
+        } catch (Exception e) {
+            Log.e("Dao", "Chatting Sql Fail" + e);
+            e.printStackTrace();
+        }
     }
 
 

@@ -25,6 +25,7 @@ public class StartActivity extends ActionBarActivity {
             }
         },1000);
 
+
     }
 
 

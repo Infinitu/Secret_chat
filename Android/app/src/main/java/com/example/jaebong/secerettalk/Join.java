@@ -1,6 +1,6 @@
 package com.example.jaebong.secerettalk;
-
-import android.app.DatePickerDialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -13,44 +13,33 @@ import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import retrofit.mime.TypedFile;
 import retrofit.mime.TypedInput;
 
 
-public class Join extends ActionBarActivity implements View.OnClickListener {
-
-    public UserProfile profile;
-
+public class Join extends ActionBarActivity implements View.OnClickListener{
     private ImageView addProfileImage;
 
     private EditText nickName;
 
     private LinearLayout birthLayout;
-    private TextView birth;
-    private int year;
-    private int month;
-    private int day;
-    private String date;
+    private TextView age;
     private Intent intent;
-    private DatePickerDialog dialog;
 
     private RadioGroup sexGroup;
     private RadioButton sexButton;
@@ -62,12 +51,13 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
 
     private Proxy proxy;
 
+    private UserDataDao dao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
 
-        profile = new UserProfile();
 
         addProfileImage = (ImageView) findViewById(R.id.join_add_profile);
         addProfileImage.setOnClickListener(this);
@@ -76,15 +66,8 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
         nickName = (EditText) findViewById(R.id.join_editText_nickName);
 
         //birth를 위한 작업
-        birth = (TextView) findViewById(R.id.join_tv_birth);
+        age = (TextView) findViewById(R.id.join_tv_birth);
         birthLayout = (LinearLayout) findViewById(R.id.join_layout_birth);
-
-        GregorianCalendar calendar = new GregorianCalendar();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_YEAR);
-        dialog = new DatePickerDialog(this, dateSetListener, year, month, day);
-
         birthLayout.setOnClickListener(this);
 
         //sex를 받아오기 위한 작업
@@ -97,27 +80,59 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
         startLayout = (RelativeLayout) findViewById(R.id.join_layout_start);
         startLayout.setOnClickListener(this);
 
-        proxy = new Proxy();
+        proxy = new Proxy(getApplicationContext());
+        dao = new UserDataDao(getApplicationContext());
 
 
     }
 
 
-    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            //picker에서 입력받은 생일을 저장
-            date = String.format("%d", year);
-            //birthday에 date정보를 string으로 저장
-            birth.setText(date);
-        }
-    };
+    public void showAgePicker() {
+        RelativeLayout linearLayout = new RelativeLayout(this);
+        final NumberPicker aNumberPicker = new NumberPicker(this);
+        aNumberPicker.setMaxValue(100);
+        aNumberPicker.setMinValue(1);
+        aNumberPicker.setValue(20);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
+        RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        numPicerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        linearLayout.setLayoutParams(params);
+        linearLayout.addView(aNumberPicker, numPicerParams);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("나이를 고르세요");
+        alertDialogBuilder.setView(linearLayout);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("확인",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                age.setText("" + aNumberPicker.getValue());
+
+                            }
+                        })
+                .setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+
+    }
 
     private static int REQUEST_PHOTO_ALBUM = 1;
-    private String filePath;
+    private String filePath = "";
     private String fileName;
     private Uri fileUri;
     private TypedInput imageTypedFile;
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -146,12 +161,11 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
 
                         Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor2);
                         parcelFileDescriptor.close();
-                        SaveBitmapToFileCache(image,SAVE_FILE_URL,"/MyImage.jpg");
+                        SaveBitmapToFileCache(image, SAVE_FILE_URL, "/MyImage.jpg");
                         addProfileImage.setImageBitmap(image);
+                        filePath = SAVE_FILE_URL + "/MyImage.jpg";
 
-                       imageTypedFile = new TypedFile("image/jpeg", new File( SAVE_FILE_URL+"/MyImage.jpg"));
-
-
+                        imageTypedFile = new TypedFile("image/jpeg", new File(SAVE_FILE_URL + "/MyImage.jpg"));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -160,11 +174,11 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
         }
     }
 
-    public  void SaveBitmapToFileCache(Bitmap bitmap, String strFilePath,
-                                       String filename) {
+    public void SaveBitmapToFileCache(Bitmap bitmap, String strFilePath,
+                                      String filename) {
 
         File file = new File(strFilePath);
-        Log.i("Join",strFilePath);
+        Log.i("Join", strFilePath);
 
         // If no folders
         if (!file.exists()) {
@@ -195,6 +209,7 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
             }
         }
     }
+
     public String getPath(Uri uri) {
         if (uri == null) {
             return null;
@@ -210,6 +225,47 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
         return uri.getPath();
     }
 
+    public UserProfile collectProfileData() {
+        UserProfile profile = new UserProfile();
+
+        //nickName
+        profile.setNickName(nickName.getText().toString());
+
+        //age
+        profile.setAge(Integer.parseInt(age.getText().toString()));
+
+        //gender
+        int selectedSexId = sexGroup.getCheckedRadioButtonId();
+        sexButton = (RadioButton) findViewById(selectedSexId);
+
+        if (sexButton.getText().equals("남성"))
+            profile.setGender("m");
+        else
+            profile.setGender("w");
+
+        //bloodType
+        int selectedBloodTypeId = bloodTypeGroup.getCheckedRadioButtonId();
+        bloodTypeButton = (RadioButton) findViewById(selectedBloodTypeId);
+
+        String checkedBloodType = (String) bloodTypeButton.getText();
+        Log.i("Join", "bloodType" + checkedBloodType);
+
+        if (checkedBloodType.equals("A형"))
+            profile.setBloodType("a");
+        else if (checkedBloodType.equals("B형"))
+            profile.setBloodType("b");
+        else if (checkedBloodType.equals("AB형"))
+            profile.setBloodType("ab");
+        else
+            profile.setBloodType("o");
+
+        //imageUrl
+        profile.setImageUrl(filePath);
+
+
+        return profile;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -223,53 +279,28 @@ public class Join extends ActionBarActivity implements View.OnClickListener {
                 break;
 
             case R.id.join_layout_birth:
-                dialog.show();
+                showAgePicker();
                 break;
 
             case R.id.join_layout_start:
 
-                Log.i("JOIN", nickName.getText().toString());
+                UserProfile profile = new UserProfile();
+                profile = collectProfileData();
 
+                Log.i("Join","profile : "+profile.toString());
 
-                //성별을 profile에 저장
-                int selectedSexId = sexGroup.getCheckedRadioButtonId();
-                sexButton = (RadioButton) findViewById(selectedSexId);
-
-                profile.setNickName(nickName.getText().toString());
-                profile.setBirthYear(date);
-
-
-                Log.i("Join", "sex" + sexButton.getText());
-                if (sexButton.getText().equals("남성"))
-                    profile.setGender("m");
-                else
-                    profile.setGender("w");
-
-                int selectedBloodTypeId = bloodTypeGroup.getCheckedRadioButtonId();
-                bloodTypeButton = (RadioButton) findViewById(selectedBloodTypeId);
-
-                //혈액형을 profile에 저장
-                String checkedBloodType = (String) bloodTypeButton.getText();
-                Log.i("Join", "bloodType" + checkedBloodType);
-
-                if (checkedBloodType.equals("A형"))
-                    profile.setBloodType("a");
-                else if (checkedBloodType.equals("B형"))
-                    profile.setBloodType("b");
-                else if (checkedBloodType.equals("AB형"))
-                    profile.setBloodType("ab");
-                else
-                    profile.setBloodType("o");
-
+                dao.insertMyData(profile);
                 proxy.sendUserProfile(profile, imageTypedFile);
 
                 intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
 
+                startActivity(intent);
+                this.finish();
                 break;
 
 
         }
     }
+
 
 }

@@ -106,7 +106,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="태어난 해"
+                android:text="나이"
                 android:id="@+id/tv4"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
@@ -117,12 +117,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/join_tv_birth"
-                android:layout_marginLeft="200dp"
+                android:layout_marginLeft="60dp"
                 android:textColor="#000000"
                 android:textSize="17sp"
                 android:layout_gravity="center_vertical"
                 android:hint="0000년"
-                android:text="1995" />
+                android:text="20" />
         </LinearLayout>
 
         <LinearLayout
@@ -241,12 +241,13 @@
             android:layout_height="0dp"
             android:background="#ffffff"
 
-            android:layout_weight="0.8">
+            android:layout_weight="0.8"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="가입을 통해 본은인 서비스의 이용약관 및 개인정보보호정책에 동의합니다"
+                android:text="가입을 통해 본인은 서비스의 이용약관 및 개인정보보호정책에 동의합니다"
                 android:id="@+id/textView3"
                 android:layout_gravity="center_vertical"
                 android:textColor="#bbbbbb"

@@ -3,6 +3,7 @@ package com.example.jaebong.secerettalk;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,7 @@ public class ProviderDao {
         }
         cursor.close();
 
+        Log.i("ProviderDao","getMessageList Success");
         return messageList;
 
     }
@@ -69,7 +71,7 @@ public class ProviderDao {
         values.put("nickName",msg.getNickName());
 
         context.getContentResolver().insert(SecretTalkContract.Messages.CONTENT_URI,values);
-
+        Log.i("ProviderDao","pushMessage Success");
         }
 
 }

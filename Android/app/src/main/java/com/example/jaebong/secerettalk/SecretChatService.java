@@ -22,7 +22,7 @@ public interface SecretChatService {
     @POST("/join")
     void sendUserProfile(
             @Part("nickName") String nickName,
-            @Part("birthYear") String birthYear,
+            @Part("age") int age,
             @Part("gender") String gender,
             @Part("bloodType") String bloodType,
             @Part("image") TypedInput imageFile,

@@ -9,13 +9,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 
 public class Chatting extends ActionBarActivity implements View.OnClickListener {
@@ -38,12 +34,6 @@ public class Chatting extends ActionBarActivity implements View.OnClickListener 
 
         time= System.currentTimeMillis();
 
-        Date date = new Date(time);
-
-        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        String strNow = sdfNow.format(date);
-
-
         editMessageBox = (EditText)findViewById(R.id.chatting_editText_eidtMessage);
         sendButton = (TextView)findViewById(R.id.chatting_tv_sendButton);
         messageListView =(ListView)findViewById(R.id.chatting_listView_messageList);
@@ -51,8 +41,6 @@ public class Chatting extends ActionBarActivity implements View.OnClickListener 
         sendButton.setOnClickListener(this);
         chattingListView(dao.getMessageList());
 
-
-        Log.i("Chatting","cal :" + strNow);
 
 
     }
@@ -67,7 +55,7 @@ public class Chatting extends ActionBarActivity implements View.OnClickListener 
 
         );
 
-        adapter = new MessageAdapter(this,mCursor,R.layout.activity_message_box);
+        adapter = new MessageAdapter(this,mCursor,R.layout.view_message_box);
         messageListView.setAdapter(adapter);
 
 
