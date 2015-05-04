@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="프로필 사진을 등록하세요"
-                android:id="@+id/textView"
+                android:id="@+id/join_textView_profileResist"
                 android:layout_below="@+id/join_add_profile"
                 android:layout_centerHorizontal="true"
                 android:textColor="#bfb8bc" />

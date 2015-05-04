@@ -40,6 +40,7 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
     private LinearLayout birthLayout;
     private TextView age;
     private Intent intent;
+    private TextView resister;
 
     private RadioGroup sexGroup;
     private RadioButton sexButton;
@@ -61,6 +62,8 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
 
         addProfileImage = (ImageView) findViewById(R.id.join_add_profile);
         addProfileImage.setOnClickListener(this);
+
+        resister = (TextView)findViewById(R.id.join_textView_profileResist);
 
         //nickName을 받아오기 위해서
         nickName = (EditText) findViewById(R.id.join_editText_nickName);
@@ -161,6 +164,8 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
 
                         Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor2);
                         parcelFileDescriptor.close();
+                        resister.setText("");
+
                         SaveBitmapToFileCache(image, SAVE_FILE_URL, "/MyImage.jpg");
                         addProfileImage.setImageBitmap(image);
                         filePath = SAVE_FILE_URL + "/MyImage.jpg";

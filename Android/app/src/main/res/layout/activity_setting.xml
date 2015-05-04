@@ -11,6 +11,16 @@
         android:layout_weight="1"
         android:background="#493333">
 
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="15dp"
+            android:id="@+id/setting_imgBtn_back"
+            android:layout_gravity="left|center_vertical"
+            android:src="@drawable/icon_backward_setting"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,14 +29,6 @@
             android:layout_gravity="center"
             android:textSize="20sp" />
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/setting_imgBtn_back"
-            android:layout_gravity="left|center_vertical"
-            android:src="@drawable/icon_backward_setting"
-            android:background="@null"
-            />
     </FrameLayout>
 
     <LinearLayout
@@ -50,22 +52,18 @@
 
                 android:layout_marginBottom="0.2dp">
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageButton"
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/setting_imageButton_profileImage"
                     android:layout_gravity="center"
                     android:src="@drawable/icon_profile"
-                    android:background="@null"/>
+                    android:background="@null"
+                    android:scaleType="fitStart"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="프로필 사진"
-                    android:id="@+id/textView4"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="70dp"
-                    android:textColor="#bbbbbb" />
+                    android:onClick="onClick"
+                    android:nestedScrollingEnabled="true" />
+
             </FrameLayout>
 
             <LinearLayout
@@ -111,7 +109,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="태어난 해"
+                        android:text="나이"
                         android:id="@+id/setting_tv_birth"
                         android:layout_gravity="center_vertical"
                         android:textColor="#000000"
@@ -120,7 +118,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1995"
+                        android:text="20"
                         android:id="@+id/setting_tv_editable_birth"
                         android:textColor="#000000"
                         android:layout_gravity="right|center_vertical"
@@ -170,7 +168,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Level 1(0)"
+                        android:text="Level 1"
                         android:id="@+id/setting_tv_editable_level"
                         android:textColor="#000000"
                         android:layout_gravity="right|center_vertical"
@@ -189,6 +187,42 @@
                         android:layout_height="wrap_content"
                         android:text="성향"
                         android:id="@+id/setting_tv_tendency"
+                        android:textColor="#000000"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="젠틀맨 0"
+                        android:id="@+id/textView5"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="감성변태 0"
+                        android:id="@+id/textView6"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="상남자 0"
+                        android:id="@+id/textView7"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="평범 0"
+                        android:id="@+id/textView8"
                         android:textColor="#000000"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="5dp" />

@@ -1,11 +1,11 @@
 package com.example.jaebong.secerettalk;
 
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
-/**
- * Created by JaeBong on 15. 4. 29..
- */
+
 public class MessageBox extends ActionBarActivity {
 
     @Override
@@ -13,4 +13,5 @@ public class MessageBox extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_message_box);
     }
+
 }

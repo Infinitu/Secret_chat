@@ -103,11 +103,8 @@ public class SecretTalkProvider extends ContentProvider {
             //Database에 Insert하고 ID를 리턴받음
 
             long id = db.insert("Messages",null,values);
-            Log.i("Provider","id : " +id);
 
             Uri itemUri = ContentUris.withAppendedId(uri,id);
-            Log.i("Provider", "Uri :" +itemUri);
-
             getContext().getContentResolver().notifyChange(itemUri, null);
 
             return itemUri;

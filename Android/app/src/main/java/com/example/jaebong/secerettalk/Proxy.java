@@ -14,12 +14,13 @@ import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 import retrofit.mime.TypedInput;
 
-/**`
+/**
+ * `
  * Created by JaeBong on 15. 4. 15..
  */
 public class Proxy {
     //SEVER URL과 PORT를 static겸 fianl로 선언
-    public static final String SERVER_URL = "http://192.168.0.14:8080";
+    public static final String SERVER_URL = "http://192.168.1.108:8080";
 
 
     //HTTP통신을 위해 Retrofit 사용
@@ -27,7 +28,7 @@ public class Proxy {
     private SecretChatService service;
     private UserDataDao dao;
 
-    public Proxy(Context context){
+    public Proxy(Context context) {
         //server 주소 지정
         restAdapter = new RestAdapter.Builder()
                 .setEndpoint(SERVER_URL)
@@ -42,9 +43,7 @@ public class Proxy {
     }
 
 
-    public void sendUserProfile(UserProfile profile, TypedInput imageFile){
-
-        Callback<Response> callBack;
+    public void sendUserProfile(UserProfile profile, TypedInput imageFile) {
 
         service.sendUserProfile(
                 profile.getNickName(),
@@ -53,7 +52,7 @@ public class Proxy {
                 profile.getBloodType(),
                 imageFile,
 
-                new Callback<Response>(){
+                new Callback<Response>() {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.e("Proxy", "retrofitError " + error);
@@ -62,7 +61,7 @@ public class Proxy {
                     }
 
                     @Override
-                   public void success(Response result, Response response) {
+                    public void success(Response result, Response response) {
                         BufferedReader reader = null;
                         StringBuilder sb = new StringBuilder();
                         try {
@@ -95,7 +94,52 @@ public class Proxy {
 
     }
 
-    public String getUserProfileJson(){
+    public void findUser(String nickNameTag) {
+        service.sendTag(
+                dao.getAccessToken(),
+                nickNameTag,
+                new Callback<Response>() {
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.e("Proxy", "retrofitError " + error);
+                        error.printStackTrace();
+
+                    }
+
+                    @Override
+                    public void success(Response result, Response response) {
+                        BufferedReader reader = null;
+                        StringBuilder sb = new StringBuilder();
+                        try {
+
+                            reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
+
+                            String line;
+
+                            try {
+                                while ((line = reader.readLine()) != null) {
+                                    sb.append(line);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        String jsonData = sb.toString();
+                        Log.i("Proxy",jsonData);
+
+                        dao.insertJSONUserProfileData(jsonData);
+
+                    }
+
+                }
+        );
+    }
+
+    public String getUserProfileJson() {
         return null;
     }
 }

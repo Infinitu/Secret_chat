@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import java.util.Date;
 
 
 public class Chatting extends ActionBarActivity implements View.OnClickListener {
+
+    private ImageView backButton;
 
     private EditText editMessageBox;
     private TextView sendButton;
@@ -32,15 +35,25 @@ public class Chatting extends ActionBarActivity implements View.OnClickListener 
         dao = new ProviderDao(getApplicationContext());
         message = new Message();
 
+
         time= System.currentTimeMillis();
 
+        Date date = new Date(time);
+
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        String strNow = sdfNow.format(date);
+
+        backButton = (ImageView)findViewById(R.id.chatting_imageButton_back);
         editMessageBox = (EditText)findViewById(R.id.chatting_editText_eidtMessage);
         sendButton = (TextView)findViewById(R.id.chatting_tv_sendButton);
         messageListView =(ListView)findViewById(R.id.chatting_listView_messageList);
 
         sendButton.setOnClickListener(this);
+        backButton.setOnClickListener(this);
         chattingListView(dao.getMessageList());
 
+
+        Log.i("Chatting","cal :" + strNow);
 
 
     }
@@ -89,6 +102,14 @@ public class Chatting extends ActionBarActivity implements View.OnClickListener 
                 dao.insertMyChattingMessage(message);
 
                 editMessageBox.setText("");
+
+                chattingListView(dao.getMessageList());
+
+               break;
+
+            case R.id.chatting_imageButton_back:
+                this.finish();
+                break;
 
         }
     }
