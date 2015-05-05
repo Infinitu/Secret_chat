@@ -1,5 +1,5 @@
 //
-//  Friends.h
+//  Friend.h
 //  SecretChat
 //
 //  Created by 김창규 on 2015. 5. 4..
@@ -8,7 +8,7 @@
 
 #import <Realm/Realm.h>
 
-@interface Friends : RLMObject
+@interface Friend : RLMObject
 @property NSString* address;
 @property NSString* nickname;
 @property NSString* profileImg;
