@@ -8,9 +8,10 @@
 
 #include "ProtocolSocket.h"
 
-
 bool writable = false;
 bool readable = false;
+
+enum socket_status status = DISCONNECTED;
 
 CFReadStreamRef read_stream = NULL;
 CFWriteStreamRef write_stream = NULL;
@@ -101,9 +102,8 @@ void parseError(uint16_t header){
      printf("err\n");
 }
 
-void sendMessage(int header, CFStringRef bodyRef){
+void sendMessage(int header, uint8_t * body){
 
-    uint8_t *body = (uint8_t*)CFStringGetCStringPtr(bodyRef, kCFStringEncodingUTF8);
     long cnt = 0;
     while(body[cnt++]!='\0');
     uint8_t headerAndLength[6] =
@@ -118,10 +118,6 @@ void sendMessage(int header, CFStringRef bodyRef){
     printf("%ld\n",res);
     res = CFWriteStreamWrite(write_stream, body,cnt);
     printf("%ld\n",res);
-    
-    
-    
-    
     
 }
 

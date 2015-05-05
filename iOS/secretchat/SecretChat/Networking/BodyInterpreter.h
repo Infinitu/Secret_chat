@@ -14,6 +14,7 @@
 #endif /* defined(__secretchat__BodyInterpreter__) */
 
 #import "TLVParsor.h"
+#define KEY_MSG_HEADER      CFSTR("MSG_MSGHEADER")
 #define KEY_MSG_TYPE        CFSTR("MSG_TYPE")
 #define KEY_CAUSE           CFSTR("CAUSE")
 #define KEY_CHUNKED_TYPE    CFSTR("CHUNKED")

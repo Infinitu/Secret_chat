@@ -17,22 +17,22 @@ void bodyparse(struct tlv_stuct tlv){
     const CFStringRef *keys=nil;
     const CFStringRef *values=nil;
     CFStringRef *param=nil;
-    
+    CFNumberRef headnum = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &tlv.header);
     switch (tlv.header) {
         case 0x0001: // ping
             kvlen = 1;
-            keys = buildKVList(kvlen,KEY_MSG_TYPE);
-            values = buildKVList(kvlen,VALUE_MSG_TYPE_PING);
+            keys = buildKVList(kvlen,KEY_MSG_HEADER,KEY_MSG_TYPE);
+            values = buildKVList(kvlen,headnum,VALUE_MSG_TYPE_PING);
             break;
         case 0x0002: // pong
             kvlen = 1;
-            keys = buildKVList(kvlen,KEY_MSG_TYPE);
-            values = buildKVList(kvlen,VALUE_MSG_TYPE_PONG);
+            keys = buildKVList(kvlen,KEY_MSG_HEADER,KEY_MSG_TYPE);
+            values = buildKVList(kvlen,headnum,VALUE_MSG_TYPE_PONG);
             break;
         case 0x1002: // session okay
             kvlen = 1;
-            keys = buildKVList(kvlen,KEY_MSG_TYPE);
-            values = buildKVList(kvlen,VALUE_MSG_TYPE_SEESION_OK);
+            keys = buildKVList(kvlen,KEY_MSG_HEADER,KEY_MSG_TYPE);
+            values = buildKVList(kvlen,headnum,VALUE_MSG_TYPE_SEESION_OK);
             break;
         case 0x1003: // redirect server
             kvlen = 5;
@@ -41,6 +41,7 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_CAUSE,
                                KEY_REDIRECT_SERVER_HOST,
@@ -48,6 +49,7 @@ void bodyparse(struct tlv_stuct tlv){
                                KEY_LOG_MESSAGE);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_SESSION_FAILED,
                                  VALUE_SESSION_FAILED_CAUSE_REDIRECT,
                                  param[0],
@@ -61,11 +63,13 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_CAUSE,
                                KEY_LOG_MESSAGE);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_SESSION_FAILED,
                                  VALUE_SESSION_FAILED_CAUSE_AUTH,
                                  param[0]);
@@ -77,11 +81,13 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_CAUSE,
                                KEY_LOG_MESSAGE);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_SESSION_FAILED,
                                  VALUE_SESSION_FAILED_CAUSE_INTERNAL_SERVER_ERR,
                                  param[0]);
@@ -93,11 +99,13 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_CAUSE,
                                KEY_LOG_MESSAGE);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_SESSION_FAILED,
                                  VALUE_SESSION_FAILED_CAUSE_AUTH,
                                  param[0]);
@@ -109,6 +117,7 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_CAUSE,
                                KEY_REQUESTED_VERSION,
@@ -118,6 +127,7 @@ void bodyparse(struct tlv_stuct tlv){
                                KEY_UPDATE_LINK);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_SESSION_FAILED,
                                  VALUE_SESSION_FAILED_CAUSE_AUTH,
                                  param[0],
@@ -133,10 +143,12 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_LOG_MESSAGE);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_DISCONNECT_BY_ANOTHER_CONN,
                                  param[0]);
             break;
@@ -147,10 +159,12 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_SEND_DATETIME);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_SENDING_SUCCESS,
                                  param[0]);
             break;
@@ -161,10 +175,12 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_SEND_DATETIME);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_SENDING_FAILED,
                                  param[0]);
             break;
@@ -175,6 +191,7 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_ADDRESS,
                                KEY_SEND_DATETIME,
@@ -182,6 +199,7 @@ void bodyparse(struct tlv_stuct tlv){
                                KEY_MESSAGE_JSON);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_NEW_MSG_ARRIVAL,
                                  param[0],
                                  param[1],
@@ -204,10 +222,12 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_MSG_CNT);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_MISSING_NOTI,
                                  param[0]);
             break;
@@ -218,6 +238,7 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_ADDRESS,
                                KEY_SEND_DATETIME,
@@ -225,6 +246,7 @@ void bodyparse(struct tlv_stuct tlv){
                                KEY_MESSAGE_JSON);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_MISSING_MSG,
                                  param[0],
                                  param[1],
@@ -238,11 +260,13 @@ void bodyparse(struct tlv_stuct tlv){
                 goto errorBreak;
             }
             keys = buildKVList(kvlen,
+                               KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
                                KEY_ADDRESS,
                                KEY_LAST_CHECK);
             
             values = buildKVList(kvlen,
+                                 headnum,
                                  VALUE_MSG_TYPE_READ_CHECK,
                                  param[0],
                                  param[1]);

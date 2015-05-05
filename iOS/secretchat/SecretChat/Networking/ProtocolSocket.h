@@ -17,6 +17,17 @@
 
 #include "BodyInterpreter.h"
 
+#define NOTIFICATION_NAME_OPENED @"SOCKET_OPENED"
+#define NOTIFICATION_NAME_CLOSED @"SOCKET_CLOSED"
+#define NOTIFICATION_NAME_NEWMSG @"SOCKET_NEWMSG"
+#define NOTIFICATION_NAME_PINGTO @"SOCKET_PINGTO"
 
+enum socket_status{
+    CONNECTED,
+    DISCONNECTED,
+    cWAITING
+};
+
+enum socket_status status;
 void socket_init();
-void sendMessage(int header, CFStringRef body);
+void sendMessage(int header, uint8_t * body);
