@@ -11,17 +11,17 @@ var	fs   = require("fs"),
 var PROFILE_FOLDER = "./profileImages/";
 	
 exports.join = function(res, contents) {
-	contents.chatLevel     = 0;
-    contents.gentle        = 0;
-    contents.cool          = 0;
-    contents.pervert       = 0;
-    contents.common        = 0;
-    contents.joinDate      = new Date();
-    contents.accessToken   = _getAccessToken();       // accessToken 생성
-	contents.imageUrl      = _getImageUrl(contents);
+	contents.chatLevel    = 0;
+    contents.gentle       = 0;
+    contents.cool         = 0;
+    contents.pervert      = 0;
+    contents.common       = 0;
+    contents.joinDate     = new Date();
+    contents.accessToken  = _getAccessToken();       // accessToken 생성
+	contents.imageUrl     = _getImageUrl(contents);
 	
 	_insertUserProfile(contents, function(err, userInfo) {
-    	if (err) msgHandler.sendError("insert user info error!");
+    	if (err) msgHandler.sendError(res);
     	
     	cipherHandler.encryptToken(contents.accessToken, function(token) {
     		msgHandler.sendString(res, token);
@@ -31,7 +31,7 @@ exports.join = function(res, contents) {
 
 exports.read = function(res, contents) {
 	_findUserProfile(contents.accessToken, function(err, userInfo) {
-		if (err) msgHandler.sendError(res, "find user info error!");
+		if (err) msgHandler.sendError(res);
 		
 		msgHandler.sendJSON(res, userInfo);
 	});
@@ -39,7 +39,7 @@ exports.read = function(res, contents) {
 
 exports.update = function(res, contents) {
 	_updateUserProfile(contents.accessToken, contents, function(err) {
-		if (err) msgHandler.sendError(res, "update user info error!");
+		if (err) msgHandler.sendError(res);
 		
 		exports.read(res, contents);
 	});
@@ -47,7 +47,7 @@ exports.update = function(res, contents) {
 
 exports.remove = function(res, contents) {
 	_removeUserProfile(contents.accessToken, function(err) {
-		if (err) msgHandler.sendError(res, "delete user info error!");
+		if (err) msgHandler.sendError(res);
 		
 		var message = "deleted!";
     	msgHandler.sendString(res, message);

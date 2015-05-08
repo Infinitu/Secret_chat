@@ -24,9 +24,9 @@ exports.sendFile = function(res, file, filePath) {
 	res.end();
 };
 
-exports.sendError = function(res, errorMsg) {	
+exports.sendError = function(res) {	
 	console.log("send error");
 	res.writeHead(404, { "content-type" : "text/plain" });
-	res.write(errorMsg);
+	res.write("error");
 	res.end();
 };
