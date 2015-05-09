@@ -1,8 +1,16 @@
 /* server.js */
 
-var http       = require("http"),
+var fs         = require("fs"),
+	https      = require("https"),
 	formidable = require("formidable"),
 	dataParser = require("./incomingDataParser");
+
+var HTTPS_PORT = 8080;
+
+var httpsOptions = {
+	key  : fs.readFileSync("./key/key.pem"),
+	cert : fs.readFileSync("./key/cert.pem")
+};
 
 function onRequest(req, res) {
 	var form = new formidable.IncomingForm();
@@ -13,7 +21,7 @@ function onRequest(req, res) {
 	dataParser.dataParse(req, res, form);
 }
 
-var server = http.createServer(onRequest);
-server.listen(8080);
+var server = https.createServer(httpsOptions, onRequest);
+server.listen(HTTPS_PORT);
 
 console.log("Server Start!");

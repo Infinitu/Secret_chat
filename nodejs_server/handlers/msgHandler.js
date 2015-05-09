@@ -12,7 +12,6 @@ exports.sendString = function(res, msg) {
 exports.sendJSON = function(res, JSONmsg) {
 	console.log("send JSON");
 	res.writeHead(200, { "Content-type" : "application/json" });
-	console.log(JSON.stringify(JSONmsg));
 	res.write(JSON.stringify(JSONmsg));
 	res.end();
 };
