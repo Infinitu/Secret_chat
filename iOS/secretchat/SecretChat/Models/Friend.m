@@ -30,9 +30,13 @@
 
 NSString *apppath = nil;
 +(NSString*)chatRealmPath:(NSString*)address{
-    if (apppath == nil)
-        apppath = [[NSBundle mainBundle] resourcePath];
-    return [NSString stringWithFormat:@"%@/Library/Caches/%@",apppath,address];
+    if (apppath == nil){
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        apppath = [NSString stringWithFormat:@"%@/ChatDB",[paths objectAtIndex:0]];
+        if(![[NSFileManager defaultManager] fileExistsAtPath:apppath isDirectory:nil])
+            [[NSFileManager defaultManager] createDirectoryAtPath:apppath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    return [NSString stringWithFormat:@"%@/%@.realm",apppath,address];
 }
 -(NSString*)chatRealmPath{
    return [Friend chatRealmPath:self.address];

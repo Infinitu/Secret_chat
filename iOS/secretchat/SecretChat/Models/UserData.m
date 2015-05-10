@@ -9,8 +9,6 @@
 #import "UserData.h"
 #define key_accessToken  @"accessToken"
 #define key_deviceId     @"deviceId"
-#define key_sysVersion   @"sysVersion"
-#define key_devModel     @"devModel"
 #define key_profile      @"profile"
 
 
@@ -25,16 +23,12 @@
     if(ud.accessToken == nil)
         return nil;
     ud.deviceId     = [userDefault stringForKey:key_deviceId];
-    ud.sysVersion   = [userDefault stringForKey:key_sysVersion];
-    ud.devModel     = [userDefault stringForKey:key_devModel];
     ud.profile      = [Friend friendWithDictionary:[userDefault dictionaryForKey:key_profile]];
     return ud;
 }
 -(void)saveToUserDefault:(NSUserDefaults*)userDefault{
     [userDefault setValue:self.accessToken  forKey:key_accessToken];
     [userDefault setValue:self.deviceId     forKey:key_deviceId];
-    [userDefault setValue:self.sysVersion   forKey:key_sysVersion];
-    [userDefault setValue:self.devModel     forKey:key_devModel];
     [userDefault setValue:self.profile      forKey:key_profile];
 }
 

@@ -13,8 +13,6 @@
 
 @property NSString* accessToken;
 @property NSString* deviceId;
-@property NSString* sysVersion;
-@property NSString* devModel;
 @property Friend*   profile;
 
 +(UserData*)userDataFromUserDefault:(NSUserDefaults*)userDefault;
