@@ -110,9 +110,7 @@ void sendMessage(int header, uint8_t * body){
         (cnt&0x000000ff)};
     long res;
     res = CFWriteStreamWrite(write_stream, headerAndLength, 6);
-    printf("%ld\n",res);
     res = CFWriteStreamWrite(write_stream, body,cnt);
-    printf("%ld\n",res);
     
 }
 
