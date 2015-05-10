@@ -28,8 +28,8 @@ trait TLVInterpreter {this: ReceivePipeline =>
     case Received(data) if data.length < 6=>
       smallFragment = Some(data)
     case Received(data) =>
-      val header = (data(0) << 8) | data(1)
-      val length = (data(2) << 24) | (data(3) << 16) | (data(4) << 8) | data(5)
+      val header = ((data(0)&0xff) << 8) | (data(1)&0xff)
+      val length = ((data(2)&0xff) << 24) | ((data(3)&0xff) << 16) | ((data(4)&0xff) << 8) | (data(5)&0xff)
       val body = data.drop(6)
       newCommand(Command(header,length,body))(inner)
     case unknown=>
