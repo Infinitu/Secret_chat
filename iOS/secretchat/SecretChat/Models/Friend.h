@@ -16,6 +16,13 @@
 @property int   age;
 @property int   sex;
 @property NSString* level;
+@property NSString* encKey;
+
++(NSString*)chatRealmPath:(NSString*)address;
+-(NSString*)chatRealmPath;
+
++(Friend*)friendWithDictionary:(NSDictionary*)dictionary;
+-(NSDictionary*)toDictionary;
 
 @end
 
