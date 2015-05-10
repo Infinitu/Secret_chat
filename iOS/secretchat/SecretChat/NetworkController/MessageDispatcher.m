@@ -12,9 +12,9 @@
 #define RLM_CACHE_CNT 10;
 
 @interface MessageDispatcher ()
-@property RLMRealm *realm;
 @property NSMutableArray *pendingQueue;
 @property NSMutableArray *chatRealCache;
+@property NSNotificationCenter *notiCenter;
 @end
 
 @implementation MessageDispatcher
@@ -32,8 +32,8 @@ int lastDTCnt=0;
 -(instancetype)init{
     self = [super init];
     if(self != nil){
-        _realm = [RLMRealm defaultRealm];
         _pendingQueue = [NSMutableArray array];
+        self.notiCenter = [NSNotificationCenter defaultCenter];
     }
     return self;
 }
@@ -47,28 +47,35 @@ int lastDTCnt=0;
         lastDTCnt = 0;
         lastDT = datetime;
     }
-    
-    [self.realm beginWriteTransaction];
+    RLMRealm *realm = [self chatRealmWithAddress:msg.roomAddress];
+    [realm beginWriteTransaction];
     msg.datetime = datetime;
     msg.idx = lastDTCnt;
-    [self.realm commitWriteTransaction];
+    [realm commitWriteTransaction];
+    [self.notiCenter postNotificationName:msg.roomAddress object:self userInfo:@{@"msg":msg}];
 }
 
 -(void)newChatMessage:(NSDictionary*)dictionary{
+    NSLog(@"%@",dictionary);
     NSDictionary *msgJson = [CKJsonParser parseJson:[dictionary objectForKey:(NSString*)KEY_MESSAGE_JSON]];
     Message *msg =[[Message alloc]init];
-    msg.text        = [msgJson objectForKey:@"message"];
+    msg.text        = [msgJson objectForKey:@"text"];
     msg.url         = [msgJson objectForKey:@"url"];
     msg.type        = [msgJson objectForKey:@"type"];
-    msg.datetime    = [[dictionary objectForKey:(NSString*)KEY_SEND_DATETIME] longValue];
+    msg.datetime    = [[dictionary objectForKey:(NSString*)KEY_SEND_DATETIME] longLongValue];
     msg.idx         = [[dictionary objectForKey:(NSString*)KEY_INDEX] intValue];
     msg.roomAddress = [dictionary objectForKey:(NSString*)KEY_ADDRESS];
     msg.mine        = false;
-    
-    [Message createInDefaultRealmWithObject:msg];
+
+    RLMRealm *realm = [self chatRealmWithAddress:msg.roomAddress];
+    Message *result;
+    [realm beginWriteTransaction];
+    result = [Message createInRealm:realm withObject:msg];
+    [realm commitWriteTransaction];
+    [self.notiCenter postNotificationName:msg.roomAddress object:self userInfo:@{@"msg":result}];
     receiveSuccessfully(msg.roomAddress, msg.datetime, msg.idx);
 }
--(void)sendMessage:(Message*)msg{
+-(Message*)sendMessage:(Message*)msg{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:msg.type forKey:@"type"];
@@ -77,47 +84,54 @@ int lastDTCnt=0;
     if(msg.url)
         [dic setObject:msg.url forKey:@"url"];
 
-    
-    [Message createInDefaultRealmWithObject:msg];
-    [self.pendingQueue addObject:msg];
+    RLMRealm *realm = [self chatRealmWithAddress:msg.roomAddress];
+    Message *result;
+    [realm beginWriteTransaction];
+    result = [Message createInRealm:realm withObject:msg];
+    [realm commitWriteTransaction];
+    [self.pendingQueue addObject:result];
     sendMsg(msg.roomAddress, [CKJsonParser serializeObject:dic]);
+    return result;
 }
--(void)sendMessageType:(NSString*)type
-           withMessage:(NSString*)text
-               withUrl:(NSString*)url
-             toAddress:(NSString*)address{
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:type forKey:@"type"];
-    if(text)
-        [dic setObject:text forKey:@"text"];
-    if(url)
-        [dic setObject:url forKey:@"url"];
-    
-    Message *msg =[[Message alloc]init];
-    msg.text        = text;
-    msg.url         = url;
-    msg.type        = type;
-    msg.datetime    = -1;
-    msg.idx         = -1;
-    msg.roomAddress = address;
-    msg.mine        = true;
-    
-    [Message createInDefaultRealmWithObject:msg];
-    [self.pendingQueue addObject:msg];
-    
-    sendMsg(address, [CKJsonParser serializeObject:dic]);
-}
+//-(void)sendMessageType:(NSString*)type
+//           withMessage:(NSString*)text
+//               withUrl:(NSString*)url
+//             toAddress:(NSString*)address{
+//
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setObject:type forKey:@"type"];
+//    if(text)
+//        [dic setObject:text forKey:@"text"];
+//    if(url)
+//        [dic setObject:url forKey:@"url"];
+//
+//    Message *msg =[[Message alloc]init];
+//    msg.text        = text;
+//    msg.url         = url;
+//    msg.type        = type;
+//    msg.datetime    = -1;
+//    msg.idx         = -1;
+//    msg.roomAddress = address;
+//    msg.mine        = true;
+//    RLMRealm *realm = [self chatRealmWithAddress:msg.roomAddress];
+//    [realm beginWriteTransaction];
+//    [Message createInRealm:realm withObject:msg];
+//    [realm commitWriteTransaction];
+//    [self.notiCenter postNotificationName:msg.roomAddress object:self userInfo:@{@"msg":msg}];
+//    [self.pendingQueue addObject:msg];
+//
+//    sendMsg(address, [CKJsonParser serializeObject:dic]);
+//}
+//
+//-(Message*)sendMesssageURL:(NSString*)url toFriend:(Friend*)friend{
+//    return [self sendMessageType:@"url" withMessage:nil withUrl:url toAddress:friend.address];
+//}
+//
+//-(Message*)sendMesssageText:(NSString*)message toFriend:(Friend*)friend{
+//    return [self sendMessageType:@"text" withMessage:message withUrl:nil toAddress:friend.address];
+//}
 
--(void)sendMesssageURL:(NSString*)url toFriend:(Friend*)friend{
-    [self sendMessageType:@"url" withMessage:nil withUrl:url toAddress:friend.address];
-}
-
--(void)sendMesssageText:(NSString*)message toFriend:(Friend*)friend{
-    [self sendMessageType:@"text" withMessage:message withUrl:nil toAddress:friend.address];
-}
-
--(RLMRealm*)ChatRealmWithAddress:(NSString*)address{
+-(RLMRealm*)chatRealmWithAddress:(NSString*)address{
     NSString *path =[Friend chatRealmPath:address];
     for(RLMRealm *realm in self.chatRealCache)
         if([realm.path isEqualToString:path])
@@ -127,9 +141,9 @@ int lastDTCnt=0;
        [self.chatRealCache removeObjectAtIndex:0];
 
     Friend *friend = [Friend objectForPrimaryKey:address];
-    
-    
-    RLMRealm *realm = [RLMRealm realmWithPath:path encryptionKey:[[NSData alloc] initWithBase64EncodedString:friend.encKey options:0] readOnly:NO error:NULL];
+    NSData *key = [[NSData alloc] initWithBase64EncodedString:friend.encKey options:0];
+
+    RLMRealm *realm = [RLMRealm realmWithPath:path encryptionKey:key readOnly:NO error:NULL];
     
     [self.chatRealCache addObject:realm];
     return realm;

@@ -14,8 +14,9 @@
 +(MessageDispatcher*)getInstance;
 -(void)sendSuccess:(long)datetime;
 -(void)newChatMessage:(NSDictionary*)dictionary;
--(void)sendMesssageText:(NSString*)message toFriend:(Friend*)friend;
--(void)sendMessage:(Message*)msg;
+//-(Message*)sendMesssageText:(NSString*)message toFriend:(Friend*)friend;
+-(Message*)sendMessage:(Message*)msg;
+-(RLMRealm*)chatRealmWithAddress:(NSString*)address;
 void sendMsg(NSString* address, NSString* msg);
 void receiveSuccessfully(NSString* sender, long datetime, int idx);
 @end
