@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserData.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property UserData *userData;
 
 
 @end
