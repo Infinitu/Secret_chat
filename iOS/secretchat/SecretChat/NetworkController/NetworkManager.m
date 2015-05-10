@@ -20,7 +20,7 @@ enum socket_status status=DISCONNECTED;
 +(void)initializeWithUserData:(UserData*)userData withHost:(NSString*)serverhost withPort:(NSInteger)port{
     socket_init(serverhost,port);
     myself = userData;
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 }
 
 void messageComplete(int header, CFDictionaryRef cfDictionary){
@@ -133,13 +133,14 @@ void sendPong(){
 }
 
 void sendAuth(){
+    UIDevice* device = [UIDevice currentDevice];
     sendMessage(0x1001,(uint8_t*)([[NSString stringWithFormat:@"%@|%@|%@|%@|%@|%@|",
                                     PROTOCOL_VERSION,
                                     myself.deviceId,
                                     myself.accessToken,
-                                    myself.sysVersion,
+                                    device.systemVersion,
                                     APP_VERSION,
-                                    myself.devModel]
+                                    device.model]
                                    cStringUsingEncoding:NSUTF8StringEncoding]));
 
 }
