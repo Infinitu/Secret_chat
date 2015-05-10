@@ -145,9 +145,6 @@ asdfsdfasdfsdfs</string>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="messageLeft" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="yourlog" rowHeight="76" id="hAY-1Y-Zkn" customClass="ChatLogCell">
                                         <rect key="frame" x="0.0" y="98" width="375" height="76"/>
@@ -177,9 +174,6 @@ asdfsdfasdfsdfs</string>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="messageLeft" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

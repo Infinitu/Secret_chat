@@ -28,6 +28,7 @@
 }
 
 -(NSIndexPath*)last{
+    if(self.objects.count+self.pendingObjects.count<=0) return nil;
     return [NSIndexPath indexPathForItem:self.objects.count + self.pendingObjects.count-1 inSection:0];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

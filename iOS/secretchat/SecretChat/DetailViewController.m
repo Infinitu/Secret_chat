@@ -32,25 +32,24 @@
 }
 
 - (void)configureView{
-//    if (self.friend) {
-//        self.title = self.friend.nickname;
-//        if(self.realm==nil || ![self.realm.path isEqualToString:[self.friend chatRealmPath]]){
-//            self.realm = [RLMRealm realmWithPath:[self.friend chatRealmPath]
-//                                   encryptionKey:[[NSData alloc] initWithBase64EncodedString:self.friend.encKey options:0]
-//                                        readOnly:YES
-//                                           error:NULL];
-//            
-//            [self.realm addNotificationBlock:^(NSString *notification, RLMRealm *realm) {
-//                [self refreshChat];
-//            }];
+    if (self.friend) {
+        self.title = self.friend.nickname;
+        if(self.realm==nil || ![self.realm.path isEqualToString:[self.friend chatRealmPath]]){
+            self.realm = [[MessageDispatcher getInstance] chatRealmWithAddress:self.friend.address];
+            [[NSNotificationCenter defaultCenter]removeObserver:self];
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshChat:) name:self.friend.address object:[MessageDispatcher getInstance]];
             self.ChatLogs = [[ChatLogTableDataController alloc] initWithRealm:self.realm];
-    
-    [self.ChatScroll setContentInset:UIEdgeInsetsMake(72, 0, 0, 0)];
-    self.ChatScroll.dataSource = self.ChatLogs;
-    self.ChatScroll.delegate = self.ChatLogs;
-    self.ChatScroll.allowsSelection = false;
-//        }
-//    }
+            RLMResults *result = [[Message allObjectsInRealm:self.realm] sortedResultsUsingProperty:@"datetime" ascending:YES];
+            for(Message *msg in result){
+                if(msg.datetime<0)
+                    [self.ChatLogs.pendingObjects addObject:msg];
+                else
+                    [self.ChatLogs.objects addObject:msg];
+                NSLog(@"%ld:%d  %@  ::%@",msg.datetime,msg.idx,msg.mine?@"mine":@"notmine",msg.text);
+            }
+
+        }
+    }
 }
 
 #pragma mark - lifecycle
@@ -62,24 +61,14 @@
     if(self.ChatInputDump == nil)
         self.ChatInputDump = [self.ChatInputDump copy];
     
+    [self.ChatScroll setContentInset:UIEdgeInsetsMake(72, 0, 0, 0)];
+    self.ChatScroll.dataSource = self.ChatLogs;
+    self.ChatScroll.delegate = self.ChatLogs;
+    self.ChatScroll.allowsSelection = false;
+    if([self.ChatLogs last])
+        [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
     [self registerNotification];
-    Message *msg = [[Message alloc]init];
-    msg.text = @"hello";
-    msg.datetime = [NSDate date].timeIntervalSince1970*1000;
-    msg.mine = true;
-    
-    Message *msg2 = [[Message alloc]init];
-    msg2.text = @"hello\n\n\n\bye";
-    msg2.datetime = [NSDate date].timeIntervalSince1970*1000;
-    msg2.mine = false;
-    
-    Message *msg3 = [[Message alloc]init];
-    msg3.text = @"helloasdfasdfasldkfjalskdjfa;lksdjf;alskdjf;aslkdjfa;slkdjfa;slkdfja;slkdfjalskjdhflaskjdhflaskjdhflaskjdhflsakjdfhalskdjfh";
-    msg3.datetime = [NSDate date].timeIntervalSince1970*1000;
-    msg3.mine = true;
-    [self.ChatLogs.objects addObject:msg];
-    [self.ChatLogs.objects addObject:msg2];
-    [self.ChatLogs.objects addObject:msg3];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -178,16 +167,13 @@ long lastStr;
     //    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-
--(void)refreshChat{
-    for(Message* msg in self.ChatLogs.pendingObjects){
-//        NSPredicate *pred = [NSPredicate predicateWithFormat:@"roomAddress = %@ AND datetime = %ld AND idx = %d",msg.roomAddress,msg.datetime,msg.idx];
-        
-        if(msg.datetime>0){
-            [self.ChatLogs.objects addObject:msg];
-            [self.ChatLogs.pendingObjects removeObject:msg];
-        }
-    }
+-(void)refreshChat:(NSNotification*)noti{
+    Message *msg = noti.userInfo[@"msg"];
+    if(!msg) return;
+    [self.ChatLogs.pendingObjects removeObject:msg];
+    [self.ChatLogs.objects addObject:msg];
+    [self.ChatScroll reloadData];
+    [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 //
@@ -222,11 +208,12 @@ long lastStr;
     
     self.ChatInput.text = nil;
     [self textViewDidChange:self.ChatInput];
-    [self.ChatLogs.pendingObjects addObject:msg];
     [self.ChatScroll reloadData];
     [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    
-    [[MessageDispatcher getInstance] sendMessage:msg]
+
+
+    [self.ChatLogs.pendingObjects addObject:[[MessageDispatcher getInstance] sendMessage:msg]];
+    [self.ChatScroll reloadData];
 }
 
          
