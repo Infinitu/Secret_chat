@@ -20,22 +20,22 @@ void bodyparse(struct tlv_stuct tlv){
     CFNumberRef headnum = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &tlv.header);
     switch (tlv.header) {
         case 0x0001: // ping
-            kvlen = 1;
+            kvlen = 2;
             keys = buildKVList(kvlen,KEY_MSG_HEADER,KEY_MSG_TYPE);
             values = buildKVList(kvlen,headnum,VALUE_MSG_TYPE_PING);
             break;
         case 0x0002: // pong
-            kvlen = 1;
+            kvlen = 2;
             keys = buildKVList(kvlen,KEY_MSG_HEADER,KEY_MSG_TYPE);
             values = buildKVList(kvlen,headnum,VALUE_MSG_TYPE_PONG);
             break;
         case 0x1002: // session okay
-            kvlen = 1;
+            kvlen = 2;
             keys = buildKVList(kvlen,KEY_MSG_HEADER,KEY_MSG_TYPE);
             values = buildKVList(kvlen,headnum,VALUE_MSG_TYPE_SEESION_OK);
             break;
         case 0x1003: // redirect server
-            kvlen = 5;
+            kvlen = 6;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 3){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -57,7 +57,7 @@ void bodyparse(struct tlv_stuct tlv){
                                  param[2]);
             break;
         case 0x1004: // auth failed
-            kvlen = 3;
+            kvlen = 4;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -75,7 +75,7 @@ void bodyparse(struct tlv_stuct tlv){
                                  param[0]);
             break;
         case 0x1005: // internal server err
-            kvlen = 3;
+            kvlen = 4;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -93,7 +93,7 @@ void bodyparse(struct tlv_stuct tlv){
                                  param[0]);
             break;
         case 0x1006: // banned user.
-            kvlen = 3;
+            kvlen = 4;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -111,7 +111,7 @@ void bodyparse(struct tlv_stuct tlv){
                                  param[0]);
             break;
         case 0x1007: // client version is not permited.
-            kvlen = 7;
+            kvlen = 8;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 5){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -137,7 +137,7 @@ void bodyparse(struct tlv_stuct tlv){
                                  param[4]);
             break;
         case 0x1101: // disconnected by another connection.
-            kvlen = 2;
+            kvlen = 3;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -153,7 +153,7 @@ void bodyparse(struct tlv_stuct tlv){
                                  param[0]);
             break;
         case 0x2012: // seding message successful.
-            kvlen = 2;
+            kvlen = 3;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -187,7 +187,7 @@ void bodyparse(struct tlv_stuct tlv){
                                  param[0]);
             break;
         case 0x2101: // new message arrival
-            kvlen = 5;
+            kvlen = 6;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 4){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -199,7 +199,7 @@ void bodyparse(struct tlv_stuct tlv){
                                KEY_SEND_DATETIME,
                                KEY_INDEX,
                                KEY_MESSAGE_JSON);
-            
+
             values = buildKVList(kvlen,
                                  headnum,
                                  VALUE_MSG_TYPE_NEW_MSG_ARRIVAL,
@@ -218,7 +218,7 @@ void bodyparse(struct tlv_stuct tlv){
             //todo
             break;
         case 0x3001: // missing message notification.
-            kvlen = 5;
+            kvlen = 3;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 4){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -234,7 +234,7 @@ void bodyparse(struct tlv_stuct tlv){
                                  param[0]);
             break;
         case 0x3003: // missing message
-            kvlen = 5;
+            kvlen = 6;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 4){
                 parseError(tlv.header);
                 goto errorBreak;
@@ -256,7 +256,7 @@ void bodyparse(struct tlv_stuct tlv){
                                  param[3]);
             break;
         case 0x3102: // message read check.
-            kvlen = 3;
+            kvlen = 6;
             if(splitWithPipe(&param,tlv.body, tlv.length) < 2){
                 parseError(tlv.header);
                 goto errorBreak;
