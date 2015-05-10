@@ -9,8 +9,6 @@ db.open();
 
 exports.insertDb = function (contents, callback) {
     collection.insert(contents, function(err) {
-        if (err) throw err;
-        
         console.log("insert Data: ", JSON.stringify(contents));
         callback(err);
     });
@@ -18,8 +16,6 @@ exports.insertDb = function (contents, callback) {
 	
 exports.findDb = function (where, options, callback) {
 	collection.find(where, options).toArray(function(err, data) {
-        if (err) throw err;
-            
         console.log("find data:", JSON.stringify(data[0]));
         callback(err, data[0]);
     });
@@ -27,8 +23,6 @@ exports.findDb = function (where, options, callback) {
 
 exports.updateDb = function (where, operator, callback) {
     collection.update(where, operator, function(err, data) {
-        if (err) throw err;
-        
         console.log("update Data: ", data.result);
         callback(err);
     });
@@ -36,8 +30,6 @@ exports.updateDb = function (where, operator, callback) {
 
 exports.removeDb = function (where, callback) {
     collection.remove(where, function (err, data) {
-        if (err) throw err;
-        
         console.log("remove Data: ", data.result);
         callback(err);
     });

@@ -21,7 +21,6 @@ exports.decryptToken = function (accessToken, callback) {
 	callback(token);
 }
 
-
 exports.encryptData = function (data, accessToken, callback) {
 	_findUserId(accessToken, function(err, info) {
 		var key = "";

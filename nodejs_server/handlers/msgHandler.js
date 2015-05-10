@@ -3,6 +3,7 @@
 var mime = require("mime");
 
 exports.sendString = function(res, msg) {
+	console.log("send string");
 	res.writeHead(200, { "Content-type" : "text/plain" });
 	res.write(msg);
 	res.end();
@@ -15,16 +16,16 @@ exports.sendJSON = function(res, JSONmsg) {
 	res.end();
 };
 
-exports.sendFile = function(res, filePath, file) {
+exports.sendFile = function(res, file, filePath) {
 	console.log("send file");
-	console.log("file : ", file);
-	res.writeHead(200, { "Content-type" : mime.lookup(file.Path) });
+	res.writeHead(200, { "Content-type" : mime.lookup(filePath) });
 	res.write(file);
 	res.end();
 };
 
-exports.sendError = function(res, errorMsg) {
+exports.sendError = function(res) {	
+	console.log("send error");
 	res.writeHead(404, { "content-type" : "text/plain" });
-	res.write(errorMsg);
+	res.write("error");
 	res.end();
 };

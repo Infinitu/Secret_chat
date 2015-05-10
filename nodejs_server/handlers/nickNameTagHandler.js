@@ -1,74 +1,46 @@
 /* nickNameTagHandler.js */
 
-var randomkey  = require("random-key"),
-	scheduler  = require("node-schedule"),
-	dbHandler  = require("./dbHandler"),
-	msgHandler = require("./msgHandler");
+var randomkey    = require("random-key"),
+	dbHandler    = require("./dbHandler"),
+	msgHandler   = require("./msgHandler"),
+	redisHandler = require("./redisDbHandler");
 
 var RAMDOMDIGITS = 5;
 
 exports.getNickNameTag = function(res, contents) {
-	console.log("start get nickNameTag!");
-	var nickNameTag = contents.nickName + randomkey.generateDigits(RAMDOMDIGITS);
-	
-	_isOverlapped(nickNameTag, function(err, isOverlapped) {
-		if (err) console.log("find nickNameTag Error!");
+	_getIdAndNickName(contents.accessToken, function(err, userInfo) {
+		if (err) msgHandler.sendError(res);
 		
-		if (isOverlapped) {
-			exports.getNickNameTag(res, contents);
-			return ;
-		}
+		var nickNameTag = userInfo.nickName + randomkey.generateDigits(RAMDOMDIGITS);
 		
-		var where    = { "accessToken" : contents.accessToken };
-		var operator = { $set : { "nickNameTag" : nickNameTag } };
-		
-		dbHandler.updateDb(where, operator, function(err) {
-			if (err) console.log("insert nickNameTag Error!");
+		_isExistingNickNameTag(nickNameTag, function(err, isExisting) {
+			if (err) msgHandler.sendError(res);
 			
-			_deleteNickNameTagAfterHour(contents.accessToken, nickNameTag);
-			msgHandler.sendJSON(res, nickNameTag);
+			if (isExisting) {
+				exports.getNickNameTag(res, contents);
+				return ;
+			}
+			
+			_setNickNameTagInRedis(nickNameTag, userInfo._id, function(err) {
+				if (err) msgHandler.sendError(res);
+				
+				msgHandler.sendJSON(res, nickNameTag);
+			});
 		});
 	});
 };
 
-function _isOverlapped(nickNameTag, callback) {
-	var where   = { "nickNameTag" : nickNameTag };
-    var options = { "nickNameTag" : 1 };
-    
-	dbHandler.findDb(where, options, function(err, data) {
-		var isOverlapped = false;
-		
-		if (data)
-			isOverlapped = true;
-		
-		callback(err, isOverlapped);
-	});
+function _getIdAndNickName(accessToken, callback) {
+	var where   = { "accessToken" : accessToken };
+	var options = { "_id" : 1, "nickName" : 1 };
+	
+	dbHandler.findDb(where, options, callback);
 }
 
-function _deleteNickNameTagAfterHour(accessToken, nickNameTag) {
-	var date = new Date();
-	date.setHours(date.getHours() + 1);
-	
-	var _accessToken = accessToken;
-	var _nickNameTag = nickNameTag;
-	
-	var remove = scheduler.scheduleJob(date, function(){
-		var where   = { "nickNameTag" : _nickNameTag };
-	    var options = { "accessToken": 1, "nickNameTag" : 1 };
-	    
-		dbHandler.findDb(where, options, function(err, data) {
-			if (err) console.log("err delete nickNameTag Error!");
-			
-			if (_accessToken != data.accessToken) return ;
-			
-			if (data) {
-				var _where    = { "accessToken" : data.accessToken };
-				var _operator = { $unset : { "nickNameTag" : nickNameTag } };
-				
-				dbHandler.updateDb(_where, _operator, function(err) {
-					if (err) console.log("delete nickNameTag Error!");
-				});
-			}
-		}.bind(_nickNameTag).bind(_accessToken));
-	});
+function _isExistingNickNameTag(nickNameTag, callback) {
+	redisHandler.isExistingNickNameTag(nickNameTag, callback);
+}
+
+function _setNickNameTagInRedis(nickNameTag, id, callback) {
+	redisHandler.setNickNameTag(nickNameTag, id, callback);
 }
