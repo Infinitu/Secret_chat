@@ -37,7 +37,8 @@ class UserService extends Actor{
     case LoginReqest(devid,token)=>
       val msg =
         coll.findOne(MongoDBObject(col_deviceId->devid,col_accessToken->token))
-          .map(user=>UserData(devid,token,user.get("_id").asInstanceOf[ObjectId].toHexString,user.get(col_encryptToken).asInstanceOf[String]))
+          .map{user=>
+          UserData(devid,token,user.get("_id").asInstanceOf[ObjectId].toHexString,user.get(col_encryptToken).asInstanceOf[String])}
           .map(LoginOkay)
       sender ! msg.getOrElse(LoginFailed)
     case _=>

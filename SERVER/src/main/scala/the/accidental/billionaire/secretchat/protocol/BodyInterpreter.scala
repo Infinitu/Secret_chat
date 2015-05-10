@@ -22,13 +22,15 @@ trait BodyInterpreter {this: ReceivePipeline =>
       inner(new SessionLoginRequest(body))
     case Command(0x2001,length,body)=>
       val msg = new SendChatMessagePlain(body)
-      msg.address match {
-        case systemChatPattern(_,addr)=>
-          new SendSystemChatMessage(addr,msg.messageJsonStr)
-        case randomChatPattern(_,addr)=>
-          new SendRandomChatMessage(addr,msg.messageJsonStr)
-        case _=>
-          new SendChatMessage(msg)
+      inner apply {
+        msg.address match {
+          case systemChatPattern(_, addr) =>
+            new SendSystemChatMessage(addr, msg.messageJsonStr)
+          case randomChatPattern(_, addr) =>
+            new SendRandomChatMessage(addr, msg.messageJsonStr)
+          case _ =>
+            new SendChatMessage(msg)
+        }
       }
     case Command(0x2111,length,body)=>
       inner(new ReceivingMessageSuccessful(body))

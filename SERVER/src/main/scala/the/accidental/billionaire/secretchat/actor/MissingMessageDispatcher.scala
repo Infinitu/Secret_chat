@@ -9,5 +9,7 @@ object MissingMessageDispatcher{
   val actorPath = "missing"
 }
 class MissingMessageDispatcher extends Actor{
-  override def receive: Receive = ???
+  override def receive: Receive ={
+    case _=>
+  }
 }

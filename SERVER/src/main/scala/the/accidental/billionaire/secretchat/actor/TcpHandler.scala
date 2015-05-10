@@ -25,7 +25,7 @@ class TcpHandler(override val connection:ActorRef) extends Actor
   var pendingQueue:List[ReceiveMessageArrivalPlain] = Nil
 
   def unauthorized:Receive = {
-    case req @ SessionLoginRequest(version,id,token,os,device)=>
+    case req @ SessionLoginRequest(version,id,token,os,appversion,device)=>
       log.info("loginRequested : {}", req)
       //todo check version,os,device
       val userService = context.system.actorSelection("/user/"+UserService.actorPath)
@@ -37,9 +37,11 @@ class TcpHandler(override val connection:ActorRef) extends Actor
       context become authorized
       writeToConnection( SessionLoginOkay() )
     case UserService.LoginFailed=>
-      writeToConnection( AuthFailed("LoginFailed") )
+      writeToConnection( AuthFailed("LoginFailed"))
       closeSession()
-    case _=>
+
+    case x=>
+      println(x)
   }
 
   def authorized():Receive = {
@@ -47,15 +49,18 @@ class TcpHandler(override val connection:ActorRef) extends Actor
       try{
         val timestamp = System.currentTimeMillis()
         msgDispatcher ! SendMessage(msg.address,userData.get.userAddress,timestamp,msg.messageJsonStr)
-        connection ! SendingMessageSuccessful(timestamp)
+        writeToConnection(SendingMessageSuccessful(timestamp))
       }
       catch{case e:Exception=>
           log.error(e,"error in receive Sending Message from connection")
-          connection ! SendingMessageFailed(0,"error")
+        writeToConnection(SendingMessageFailed(0,"error"))
       }
     case SendMessage(_,sender,timestamp,msg)=>
+      receiveMessage(sender,timestamp,msg.asInstanceOf[String])
     case ReceivingMessageSuccessful(senderAddr,time,idx)=>
+      receiveMessageSuccessful(senderAddr,time,idx)
     case ReceivingMessageFailed(senderAddr,time,idx)=>
+      receiveMessageFailed(senderAddr,time,idx)
 
 
     case _=>
