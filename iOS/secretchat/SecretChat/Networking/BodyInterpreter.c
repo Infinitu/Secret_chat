@@ -161,12 +161,14 @@ void bodyparse(struct tlv_stuct tlv){
             keys = buildKVList(kvlen,
                                KEY_MSG_HEADER,
                                KEY_MSG_TYPE,
-                               KEY_SEND_DATETIME);
+                               KEY_SEND_DATETIME,
+                               KEY_INDEX);
             
             values = buildKVList(kvlen,
                                  headnum,
                                  VALUE_MSG_TYPE_SENDING_SUCCESS,
-                                 param[0]);
+                                 param[0],
+                                 param[1]);
             break;
         case 0x2013: // seding message failed.
             kvlen = 2;
@@ -295,7 +297,7 @@ void bodyparse(struct tlv_stuct tlv){
     }
     
     CFDictionaryRef dict = CFDictionaryCreate(kCFAllocatorDefault,(const void**)keys,(const void**)values, kvlen, NULL,NULL);
-    messageComplete(dict);
+    messageComplete(tlv.header, dict);
 errorBreak:
     if(keys!=nil)
         free((void*)keys);

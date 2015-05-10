@@ -23,11 +23,13 @@
 #define NOTIFICATION_NAME_PINGTO @"SOCKET_PINGTO"
 
 enum socket_status{
-    CONNECTED,
     DISCONNECTED,
-    cWAITING
+    CONNECTED,
+    AUTHORIZED
 };
 
-enum socket_status status;
 void socket_init();
 void sendMessage(int header, uint8_t * body);
+void socketOpened();
+void socketClosed();
+void socketError();

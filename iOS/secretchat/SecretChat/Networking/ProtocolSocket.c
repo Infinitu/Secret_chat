@@ -11,8 +11,6 @@
 bool writable = false;
 bool readable = false;
 
-enum socket_status status = DISCONNECTED;
-
 CFReadStreamRef read_stream = NULL;
 CFWriteStreamRef write_stream = NULL;
 
@@ -25,11 +23,10 @@ void receiveData();
 
 CFNotificationCenterRef notiCenter;
 
-void socket_init(){
-    
+void socket_init(CFStringRef host, int port){
     notiCenter = CFNotificationCenterGetLocalCenter();
     
-    CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, CFSTR("localhost"), 9000    , &read_stream, &write_stream);
+    CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, host, port , &read_stream, &write_stream);
 
     CFStreamClientContext readContext={0,NULL,NULL,NULL,NULL};
     CFReadStreamSetClient(read_stream, kCFStreamEventOpenCompleted|kCFStreamEventHasBytesAvailable|kCFStreamEventErrorOccurred|kCFStreamEventEndEncountered,
@@ -47,6 +44,9 @@ void socket_init(){
     CFWriteStreamOpen(write_stream);
 }
 
+void socket_finalize(){
+    //todo
+}
 
 void readCallback( CFReadStreamRef stream, CFStreamEventType eventType, void *clientCallBackInfo ){
     switch (eventType) {
@@ -76,27 +76,22 @@ void writeCallback ( CFWriteStreamRef stream, CFStreamEventType eventType, void 
         case kCFStreamEventCanAcceptBytes:
             printf("can writes!\n");
             if(!writable)
-                sendOpenedNotification();
+                socketOpened();
             writable = true;
+            break;
+        case kCFStreamEventErrorOccurred:
+            break;
+        case kCFStreamEventEndEncountered:
             break;
         default:
             break;
 
     }
 }
-
-void sendOpenedNotification(){
-    CFNotificationCenterPostNotification(notiCenter, CFSTR("opened"), NULL, NULL, false);
-}
-
 void tlvComplete(struct tlv_stuct tlvdata){
     bodyparse(tlvdata);
     if(tlvdata.body!=nil)
         free(tlvdata.body);
-}
-
-void messageComplete(CFDictionaryRef dictionary){
-    CFNotificationCenterPostNotification(notiCenter, CFSTR("newmsg"), NULL, dictionary, true);
 }
 void parseError(uint16_t header){
      printf("err\n");

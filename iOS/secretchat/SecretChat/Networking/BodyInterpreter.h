@@ -72,5 +72,5 @@
 
 
 void bodyparse(struct tlv_stuct tlv);
-void messageComplete(CFDictionaryRef dictionary);
+void messageComplete(int header, CFDictionaryRef dictionary);
 void parseError(uint16_t header);
