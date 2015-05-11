@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "crypto": "0.0.3",
-    "date-utils": "^1.2.16",
     "express": "^4.12.3",
     "formidable": "^1.0.17",
     "hat": "0.0.3",
