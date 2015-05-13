@@ -1,7 +1,7 @@
 /* server.js */
 
 var fs         = require("fs"),
-	https      = require("https"),
+	https      = require("http"),
 	formidable = require("formidable"),
 	dataParser = require("./incomingDataParser");
 
@@ -13,15 +13,15 @@ var httpsOptions = {
 };
 
 function onRequest(req, res) {
-	var form = new formidable.IncomingForm();
-	form.uploadDir = "./profileImages";
-	form.keepExtensions = true;
-	form.maxFieldsSize  = 10 * 1024 * 1024;  // 최대 보낼 수 있는 파일 용량 10 mb
+	var incomingData = new formidable.IncomingForm();
+	incomingData.uploadDir = "./profileImages";
+	incomingData.keepExtensions = true;
+	incomingData.maxFieldsSize  = 5 * 1024 * 1024;  // 최대 보낼 수 있는 파일 용량 5 mb
 
-	dataParser.dataParse(req, res, form);
+	dataParser.dataParser(req, res, incomingData);
 }
 
-var server = https.createServer(httpsOptions, onRequest);
+var server = https.createServer(onRequest);
 server.listen(HTTPS_PORT);
 
 console.log("Server Start!");

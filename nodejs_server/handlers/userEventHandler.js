@@ -23,9 +23,7 @@ exports.join = function(res, contents) {
 	_insertUserProfile(contents, function(err, userInfo) {
     	if (err) msgHandler.sendError(res);
     	
-    	cipherHandler.encryptToken(contents.accessToken, function(token) {
-    		msgHandler.sendString(res, token);
-    	});
+    	msgHandler.sendString(res, contents.accessToken);
 	});
 };
 

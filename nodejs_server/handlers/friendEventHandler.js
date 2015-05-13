@@ -7,7 +7,7 @@ var ObjectID      = require("mongodb").ObjectID,
 	redisHandler  = require("./redisDbHandler"),
 	cipherHandler = require("./cipherHandler");
 
-var IP_ADDRESS = "http://192.168.1.108:8080";
+var IP_ADDRESS = "http://125.209.195.139:8080";
 
 exports.find = function(res, contents) {
 	_findFriendId(contents.nickNameTag, function(err, friendId) {
