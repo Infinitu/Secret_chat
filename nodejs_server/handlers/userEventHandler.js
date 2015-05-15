@@ -2,7 +2,7 @@
 
 var	fs   = require("fs"),
 	path = require("path"),
-	hat  = require("hat"),   // accessToken 생성 module
+	hat  = require("hat"),   // accessToken 생성 module -> 사용방법 : hat.rack(); = 중복없는 token 생성
 	rack = hat.rack(),       // accessToken 생성 변수 -> 사용방법 : rack(); = 중복없는 token 생성
 	msgHandler    = require("./msgHandler"),
 	dbHandler     = require("./dbHandler"),
@@ -11,14 +11,15 @@ var	fs   = require("fs"),
 var PROFILE_FOLDER = "./profileImages/";
 	
 exports.join = function(res, contents) {
-	contents.chatLevel    = 0;
-    contents.gentle       = 0;
-    contents.cool         = 0;
-    contents.pervert      = 0;
-    contents.common       = 0;
-    contents.joinDate     = new Date();
-    contents.accessToken  = _getAccessToken();       // accessToken 생성
-	contents.imageUrl     = _getImageUrl(contents);
+	contents.chatLevel   = 0;
+    contents.gentle      = 0;
+    contents.cool        = 0;
+    contents.pervert     = 0;
+    contents.common      = 0;
+    contents.joinDate    = new Date();
+    contents.accessToken = _getAccessToken();       // accessToken 생성
+	contents.encryptKey  = _getEncryptKey();   
+	contents.imageUrl    = _getImageUrl(contents);
 	
 	_insertUserProfile(contents, function(err, userInfo) {
     	if (err) msgHandler.sendError(res);
@@ -66,6 +67,18 @@ function _getImageUrl(contents) {
 	fs.rename(contents.imageUrl, newImageUrl);
 	
 	return newImageUrl;
+}
+
+function _getEncryptKey() {
+	var RAMDOMBYTES = 16;
+	
+	cipherHandler.getRandomByte(RAMDOMBYTES, function(err, key) {
+		if (err) console.log("Getting random data error!");
+		
+		var base64ConvertedKey = key.toString("base64");
+		
+		return base64ConvertedKey;
+	});
 }
 
 function _insertUserProfile(contents, callback) {
