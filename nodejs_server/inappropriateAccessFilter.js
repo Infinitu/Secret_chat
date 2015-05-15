@@ -16,6 +16,9 @@ exports.dataFilter = (function() {
 function _JSONDataFileter(incomingData) {
 	var contents = {};
 	
+	if (incomingData.deviceId)
+		contents.deviceId = incomingData.deviceId;
+	
 	if (incomingData.accessToken)
 		contents.accessToken = incomingData.accessToken;
 	
