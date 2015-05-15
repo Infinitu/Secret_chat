@@ -18,6 +18,7 @@ exports.join = function(res, contents) {
     contents.common       = 0;
     contents.joinDate     = new Date();
     contents.accessToken  = _getAccessToken();       // accessToken 생성
+	contents.encryptKey  = _getAccessToken();       // encrptKey 생성 todo refactor.
 	contents.imageUrl     = _getImageUrl(contents);
 	
 	_insertUserProfile(contents, function(err, userInfo) {
