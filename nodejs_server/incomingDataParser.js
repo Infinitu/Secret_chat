@@ -1,22 +1,16 @@
 /* incomingDataParser.js */
 
-var	url    = require("url"),	
-	router = require("./router"),
-	cipherHandler = require("./handlers/cipherHandler");
+var	url        = require("url"),
+	dataFilter = require("./inappropriateAccessFilter");
+	
 
-exports.dataParse = (function() {
-	function dataParse(req, res, form) {
-		form.parse(req, function(err, inputContents, file) {
+exports.dataParser = (function() {
+	function dataParser(req, res, form) {
+		form.parse(req, function(err, incomingContents, file) {
 			if (err) console.log("data parsing error");
 			
-			if (inputContents.accessToken) {
-				cipherHandler.decryptToken(inputContents.accessToken, function(token) {
-					inputContents.accessToken = token;
-				});
-			}
-			
 			if (file.image)
-				inputContents.imageUrl = file.image.path;
+				incomingContents.imageUrl = file.image.path;
 			
 			var method = req.method.toUpperCase();
 			var pathname = url.parse(req.url).pathname;
@@ -25,13 +19,13 @@ exports.dataParse = (function() {
 				var path = [];
 				path = pathname.split("/");
 				pathname = "/" + path[1];
-				inputContents.imageName = path[2];
+				incomingContents.imageName = path[2];
 			}
 			
-			router.route(res, pathname, method, inputContents);
+			dataFilter.dataFilter(res, pathname, method, incomingContents);
 		});
 
 	}
 	
-	return dataParse;
+	return dataParser;
 })();
