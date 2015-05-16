@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property UserData *userData;
 
+-(void)initializeWithUserData:(UserData*)ud;
 
 @end
 

@@ -10,6 +10,7 @@
 #import "DetailViewController.h"
 #import "NetworkManager.h"
 #import "Version.h"
+#import "AppDelegate.h"
 
 @interface MasterViewController ()
 
@@ -25,7 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    UserData *ud = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).userData;
+    NSLog(@"%@", [ud.profile toDictionary]);
     RLMResults *result = [Friend allObjects];
     self.objects =[NSMutableArray arrayWithCapacity:result.count];
     NSLog(@"%@",[RLMRealm defaultRealmPath]);

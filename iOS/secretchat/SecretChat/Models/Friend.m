@@ -53,29 +53,33 @@ const NSString* key_encKey = @"encKey";
 
 +(Friend*)friendWithDictionary:(NSDictionary*)dictionary{
     Friend *res = [[Friend alloc]init];
-    res.address = [dictionary objectForKey:key_address];
+    res.address = dictionary[key_address];
     if (res.address == nil) {
         return nil;
     }
-    res.nickname = [dictionary objectForKey:key_nickname];
-    res.profileImg = [dictionary objectForKey:key_profileImg];
-    res.bloodType = [dictionary objectForKey:key_bloodType];
-    res.age     = [((NSNumber*)[dictionary objectForKey:key_age]) intValue];
-    res.sex     = [((NSNumber*)[dictionary objectForKey:key_sex]) intValue];
-    res.level = [dictionary objectForKey:key_level];
+    res.nickname    = dictionary[key_nickname];
+    res.profileImg  = dictionary[key_profileImg];
+    res.bloodType   = dictionary[key_bloodType];
+    res.age         = [((NSNumber*) dictionary[key_age]) intValue];
+    res.sex         = [((NSNumber*) dictionary[key_sex]) intValue];
+    res.level       = dictionary[key_level];
     return res;
 }
 
 -(NSDictionary*)toDictionary{
+    if(!self.profileImg) self.profileImg = @"";
+    if(!self.level) self.level = @"";
+    if(!self.encKey) self.encKey = @"";
+
     return @{
              key_address    : self.address,
              key_nickname   : self.nickname,
              key_profileImg : self.profileImg,
              key_bloodType  : self.bloodType,
-             key_age        : [NSNumber numberWithInt:self.age],
-             key_sex        : [NSNumber numberWithInt:self.sex],
+             key_age        : @(self.age),
+             key_sex        : @(self.sex),
              key_level      : self.level,
-             key_encKey     : self.encKey,
+             key_encKey     : self.encKey
              };
 }
 

@@ -29,7 +29,8 @@
 -(void)saveToUserDefault:(NSUserDefaults*)userDefault{
     [userDefault setValue:self.accessToken  forKey:key_accessToken];
     [userDefault setValue:self.deviceId     forKey:key_deviceId];
-    [userDefault setValue:self.profile      forKey:key_profile];
+    [userDefault setValue:[self.profile toDictionary]      forKey:key_profile];
+    [userDefault synchronize];
 }
 
 @end

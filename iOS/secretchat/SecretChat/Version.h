@@ -19,3 +19,6 @@
 
 #define DEFAULT_HOST @"localhost"
 #define DEFAULT_PORT 9000
+#define DEFAULT_API_SCHEME @"https"
+#define DEFAULT_API_HOST @"localhost"
+#define DEFAULT_API_PORT 7000

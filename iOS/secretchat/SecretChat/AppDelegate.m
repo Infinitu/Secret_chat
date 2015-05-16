@@ -19,48 +19,24 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    sleep(1);
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.userData = [UserData userDataFromUserDefault:defaults];
     if(self.userData == nil){
-        //todo go regirataion storyboard.
-        self.userData = [[UserData alloc]init];
-        UIDevice* device = [UIDevice currentDevice];
-        self.userData.accessToken = @"abcdefg";
-        self.userData.deviceId = [[device identifierForVendor] UUIDString];
-        self.userData.profile = [Friend objectForPrimaryKey:@"554f5491fc3ab59ae969050e"];
-        
-        if(self.userData.profile == nil){
-            Friend *fr = [[Friend alloc]init];
-            fr.address = @"554f5491fc3ab59ae969050e";
-            fr.nickname = @"ECHO";
-            fr.profileImg = @"http://graph.facebook.com/glenn.c.kim/picture";
-            fr.age = 22;
-            fr.sex = 1;
-            fr.bloodType = @"A";
-            fr.level = @"silver-2";
-            fr.encKey = @"YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ==";
-            
-            RLMRealm *realm = [RLMRealm defaultRealm];
-            [realm beginWriteTransaction];
-            [Friend createInDefaultRealmWithObject:fr];
-            [realm commitWriteTransaction];
-            self.userData.profile = fr;
-        }
-//        [self.userData saveToUserDefault:defaults];
+        UIStoryboard *regiBoard = [UIStoryboard storyboardWithName:@"Registration" bundle:nil];
+        self.window.rootViewController = [regiBoard instantiateInitialViewController];
+        [self.window makeKeyAndVisible];
+        return YES;
     }
-    
-    
-    [[NSBundle mainBundle] resourcePath];
-//    NSSearchPathForDirectoriesInDomains(NSCachesDirectory, <#NSSearchPathDomainMask domainMask#>, <#BOOL expandTilde#>
-//    
-//    NSFileManager *fm = [NSFileManager defaultManager];
-//    NSString *path = [NSString stringWithFormat:@"%@/Library/Caches/ChatDB",[[ mainBundle]  ofType:@"realm"]];
-//    if(![fm fileExistsAtPath:path isDirectory:nil])
-//        [fm createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
-    
-    [NetworkManager initializeWithUserData:self.userData withHost:DEFAULT_HOST withPort:DEFAULT_PORT];
-
+    [self initializeWithUserData:self.userData];
     return YES;
+}
+
+-(void)initializeWithUserData:(UserData*)ud{
+    self.userData=ud;
+    [NetworkManager initializeWithUserData:ud withHost:DEFAULT_HOST withPort:DEFAULT_PORT];
+    UIStoryboard *regiBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.window.rootViewController = [regiBoard instantiateInitialViewController];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
