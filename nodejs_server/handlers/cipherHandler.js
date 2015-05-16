@@ -35,6 +35,12 @@ exports.decryptData = function (encryptedData, accessToken, callback) {
 	});
 };
 
+exports.getRandomByte = function (byteSize, callback) {
+	crypto.randomBytes(byteSize, function(err, key) {
+		callback(err, key);
+	});
+}
+
 function _findUserId(accessToken, callback) {
 	var where   = { "accessToken" : accessToken };
 	var options = { "_id" : 1 };
