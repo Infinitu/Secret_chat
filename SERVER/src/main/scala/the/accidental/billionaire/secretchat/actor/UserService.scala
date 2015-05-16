@@ -18,7 +18,7 @@ object UserService{
   val mongo_port = config.getInt("port")
   val mongo_dbname = config.getString("dbname")
 
-  val collectionName = "user"
+  val collectionName = "members"
   val col_deviceId = "deviceId"
   val col_accessToken = "accessToken"
   val col_encryptToken = "encryptToken"

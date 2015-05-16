@@ -80,7 +80,7 @@ class UserServiceTest(_system:ActorSystem) extends TestKit(_system) with WordSpe
       val actor:TcpHandler = actorRef.underlyingActor
 
 
-       actorRef ! Received(SessionLoginRequest(" ",devid,accToken," "," ").serialize)
+       actorRef ! Received(SessionLoginRequest(" ",devid,accToken," "," "," ").serialize)
       expectMsg(Write(SessionLoginOkay().serialize))
       actor.userData should be (Some(UserData(devid,accToken,uid,encToken)))
 
@@ -89,7 +89,7 @@ class UserServiceTest(_system:ActorSystem) extends TestKit(_system) with WordSpe
 
     "works well with TCP Handler in incorrect Condition" in {
       val actor = TestActorRef(Props(new TcpHandler(self)))
-      actor ! Received(SessionLoginRequest(" ","will","works"," "," ").serialize)
+      actor ! Received(SessionLoginRequest(" ","will","works"," "," "," ").serialize)
       expectMsg(Write(AuthFailed("LoginFailed").serialize))
       expectMsg(Close)
       actor.stop()
