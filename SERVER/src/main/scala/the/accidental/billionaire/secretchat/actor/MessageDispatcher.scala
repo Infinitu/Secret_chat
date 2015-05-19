@@ -1,5 +1,7 @@
 package the.accidental.billionaire.secretchat.actor
 
+import java.awt.event.InputEvent
+
 import akka.actor.{Actor, ActorPath}
 import com.redis.RedisClientPool
 import com.typesafe.config.{Config, ConfigFactory}
@@ -7,20 +9,13 @@ import com.typesafe.config.{Config, ConfigFactory}
 import scala.collection.mutable
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import the.accidental.billionaire.secretchat.utils.RedisStore._
 
 /**
  * Created by infinitu on 2015. 4. 17..
  */
 object MessageDispatcher{
   val actorPath = "MessageDispatcher"
-
-  val config:Config = ConfigFactory.load().getConfig("redis")
-
-  val redis_host = config.getString("host")
-  val redis_port = config.getInt("port")
-  val presence_collection_name = config.getString("presence_name")
-
-  val redisPool = new RedisClientPool(redis_host,redis_port)
 
   case class RegisterClientConnection(address:String)
   case class UnregisterClientConnection(address:String)
@@ -44,6 +39,7 @@ class MessageDispatcher(missingPath:String) extends Actor{
     case UnregisterClientConnection(address)=>
       localConnectionMap -= address
       unregisterOnRedis(address)
+
     case m @ SendMessage(address,sender,_,_)=>
       withActorPath(address){pathOpt=>
         val dest = pathOpt.map{path=>

@@ -7,6 +7,7 @@ import akka.actor.Actor
  */
 object MissingMessageDispatcher{
   val actorPath = "missing"
+
 }
 class MissingMessageDispatcher extends Actor{
   override def receive: Receive ={

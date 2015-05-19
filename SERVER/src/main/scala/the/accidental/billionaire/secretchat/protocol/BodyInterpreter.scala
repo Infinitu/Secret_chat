@@ -24,10 +24,10 @@ trait BodyInterpreter {this: ReceivePipeline =>
       val msg = new SendChatMessagePlain(body)
       inner apply {
         msg.address match {
-          case systemChatPattern(_, addr) =>
-            new SendSystemChatMessage(addr, msg.messageJsonStr)
-          case randomChatPattern(_, addr) =>
-            new SendRandomChatMessage(addr, msg.messageJsonStr)
+          case systemChatPattern(_,addr) =>
+            new SendSystemChatMessage(addr, msg.messageBody.writeToString)
+          case randomChatPattern(_,addr) =>
+            new SendRandomChatMessage(addr, msg.messageBody.writeToString)
           case _ =>
             new SendChatMessage(msg)
         }

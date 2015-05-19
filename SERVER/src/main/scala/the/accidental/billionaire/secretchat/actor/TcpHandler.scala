@@ -3,6 +3,7 @@ package the.accidental.billionaire.secretchat.actor
 import akka.actor.{Actor, ActorRef}
 import akka.event.Logging
 import akka.io.Tcp.Close
+import the.accidental.billionaire.secretchat.actor.virtualuser.Matchmaker
 import the.accidental.billionaire.secretchat.protocol._
 import the.accidental.billionaire.secretchat.utils.ReceivePipeline
 
@@ -21,6 +22,8 @@ class TcpHandler(override val connection:ActorRef) extends Actor
   override def receive = unauthorized
   val log = Logging(this)
   val msgDispatcher = context.system.actorSelection("/user/"+MessageDispatcher.actorPath)
+  val matchmaker = context.system.actorSelection("/user/"+Matchmaker.actorPath)
+  val randomExchanger = context.system.actorSelection("/user/"+RandomMessageExchanger.actorPath)
   val missingMsgDispatcher = context.system.actorSelection("/user/"+MissingMessageDispatcher.actorPath)
   var pendingQueue:List[ReceiveMessageArrivalPlain] = Nil
 
@@ -45,22 +48,31 @@ class TcpHandler(override val connection:ActorRef) extends Actor
   }
 
   def authorized():Receive = {
-    case msg:SendChatMessagePlain=>
+    case msg:SendChatMessage=>
       try{
         val timestamp = System.currentTimeMillis()
-        msgDispatcher ! SendMessage(msg.address,userData.get.userAddress,timestamp,msg.messageJsonStr)
+        msgDispatcher ! SendMessage(msg.address,userData.get.userAddress,timestamp,msg.messageBody)
         writeToConnection(SendingMessageSuccessful(timestamp))
       }
       catch{case e:Exception=>
           log.error(e,"error in receive Sending Message from connection")
         writeToConnection(SendingMessageFailed(0,"error"))
       }
+    case SendSystemChatMessage(address,jsonStr)=>
+    case msg:SendRandomChatMessage=>
+
     case SendMessage(_,sender,timestamp,msg)=>
       receiveMessage(sender,timestamp,msg.asInstanceOf[String])
     case ReceivingMessageSuccessful(senderAddr,time,idx)=>
       receiveMessageSuccessful(senderAddr,time,idx)
     case ReceivingMessageFailed(senderAddr,time,idx)=>
       receiveMessageFailed(senderAddr,time,idx)
+    case FriendsRequest(address,msg)=>
+      matchmaker ! Matchmaker.FriendRequest(userData.get.userAddress, address,msg)
+      writeToConnection(FriendsRequestSendSuccessfully)
+    case FriendsResponse(address, status)=>
+      matchmaker ! Matchmaker.FriendRequest(userData.get.userAddress, address,status)
+      writeToConnection(FriendsRequestSendSuccessfully)
 
 
     case _=>
