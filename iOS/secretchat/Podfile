@@ -1,5 +1,4 @@
 platform :ios, '8.0'
-use_frameworks!
 
 target 'SecretChat' do
   pod 'Realm', '~> 0.92.3'

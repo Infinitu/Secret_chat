@@ -104,7 +104,6 @@
     
     
     CGFloat sendBtnWid = self.ChatSend.frame.size.width;
-    CGRect  inputRect = self.ChatInput.frame;
     
     
     CGFloat newWidth = screen.width-sendBtnWid-30;
@@ -134,7 +133,6 @@ long lastStr;
     CGFloat width = self.ChatScroll.frame.size.width;
     
     CGFloat sendBtnWid = self.ChatSend.frame.size.width;
-    CGRect  inputRect = self.ChatInput.frame;
     
     
     CGFloat newWidth = width-sendBtnWid-30;

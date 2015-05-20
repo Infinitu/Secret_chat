@@ -3,55 +3,22 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "GLOBAL">
-         <PersistentStrings>
-            <PersistentString
-               value = "textView.text">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[DetailViewController sendDialog:]:DetailViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[ChatLogCell prepareLayout:mine:]:ChatLogCell.m">
-      </ContextState>
-      <ContextState
          contextName = "-[DetailViewController newmsg:]:DetailViewController.m">
          <PersistentStrings>
+            <PersistentString
+               value = "self.detailItem.UTF8String">
+            </PersistentString>
             <PersistentString
                value = "[self.detailItem cStringUsingEncoding:NSUTF8StringEncoding]">
             </PersistentString>
             <PersistentString
                value = "(__NSCFString *)address">
             </PersistentString>
-            <PersistentString
-               value = "self.detailItem.UTF8String">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[DetailViewController textViewDidChange:]:DetailViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "lastStr">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[ChatLogCell guessTextSize:]:ChatLogCell.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.frame.size">
-            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "sendMessage:ProtocolSocket.c">
          <PersistentStrings>
-            <PersistentString
-               value = "CFStringGetCStringPtr(bodyRef, kCFStringEncodingUTF8)">
-            </PersistentString>
             <PersistentString
                value = "(header&amp;0xff00)&gt;&gt;8">
             </PersistentString>
