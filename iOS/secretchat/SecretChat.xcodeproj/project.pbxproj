@@ -1,0 +1,618 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D01ADE21B09B57100B361B8 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADDD1B09B57100B361B8 /* Friend.m */; };
+		1D01ADE31B09B57100B361B8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADDF1B09B57100B361B8 /* Message.m */; };
+		1D01ADE41B09B57100B361B8 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADE11B09B57100B361B8 /* UserData.m */; };
+		1D01ADE91B09B5B800B361B8 /* ChatLogTableDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADE61B09B5B800B361B8 /* ChatLogTableDataController.m */; };
+		1D01ADEA1B09B5B800B361B8 /* FriendsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADE81B09B5B800B361B8 /* FriendsCollectionViewCell.m */; };
+		1D01ADFF1B09B5D900B361B8 /* MessageDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADED1B09B5D900B361B8 /* MessageDispatcher.m */; };
+		1D01AE001B09B5D900B361B8 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADEF1B09B5D900B361B8 /* NetworkManager.m */; };
+		1D01AE011B09B5D900B361B8 /* BodyInterpreter.c in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADF11B09B5D900B361B8 /* BodyInterpreter.c */; };
+		1D01AE021B09B5D900B361B8 /* ProtocolSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADF31B09B5D900B361B8 /* ProtocolSocket.c */; };
+		1D01AE031B09B5D900B361B8 /* TLVParsor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADF51B09B5D900B361B8 /* TLVParsor.c */; };
+		1D01AE041B09B5D900B361B8 /* add_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADF81B09B5D900B361B8 /* add_icon.png */; };
+		1D01AE051B09B5D900B361B8 /* ChatLogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D01ADFA1B09B5D900B361B8 /* ChatLogCell.m */; };
+		1D01AE061B09B5D900B361B8 /* cloud_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFB1B09B5D900B361B8 /* cloud_icon.png */; };
+		1D01AE071B09B5D900B361B8 /* man_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFC1B09B5D900B361B8 /* man_icon.png */; };
+		1D01AE081B09B5D900B361B8 /* raw_backgoundimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFD1B09B5D900B361B8 /* raw_backgoundimage.jpg */; };
+		1D01AE091B09B5D900B361B8 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFE1B09B5D900B361B8 /* Registration.storyboard */; };
+		1D64F9BA1AEFB6B40069FA34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9B91AEFB6B40069FA34 /* main.m */; };
+		1D64F9BD1AEFB6B40069FA34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9BC1AEFB6B40069FA34 /* AppDelegate.m */; };
+		1D64F9C01AEFB6B40069FA34 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9BF1AEFB6B40069FA34 /* MasterViewController.m */; };
+		1D64F9C31AEFB6B40069FA34 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9C21AEFB6B40069FA34 /* DetailViewController.m */; };
+		1D64F9C61AEFB6B40069FA34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D64F9C41AEFB6B40069FA34 /* Main.storyboard */; };
+		1D64F9C81AEFB6B40069FA34 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D64F9C71AEFB6B40069FA34 /* Images.xcassets */; };
+		1D64F9D71AEFB6B40069FA34 /* SecretChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9D61AEFB6B40069FA34 /* SecretChatTests.m */; };
+		1D7856A21B09B662004FF0A7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D7856A11B09B662004FF0A7 /* Default-568h@2x.png */; };
+		1DD4F1851AEFEE770067D05B /* CKJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD4F1841AEFEE770067D05B /* CKJsonParser.m */; };
+		E86CA93F011DB985E5000879 /* libPods-SecretChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FDD60473941C0CC86A77276 /* libPods-SecretChat.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1D64F9D11AEFB6B40069FA34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D64F9AC1AEFB6B40069FA34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D64F9B31AEFB6B40069FA34;
+			remoteInfo = SecretChat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D01ADDC1B09B57100B361B8 /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		1D01ADDD1B09B57100B361B8 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		1D01ADDE1B09B57100B361B8 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		1D01ADDF1B09B57100B361B8 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		1D01ADE01B09B57100B361B8 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		1D01ADE11B09B57100B361B8 /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
+		1D01ADE51B09B5B800B361B8 /* ChatLogTableDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatLogTableDataController.h; sourceTree = "<group>"; };
+		1D01ADE61B09B5B800B361B8 /* ChatLogTableDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLogTableDataController.m; sourceTree = "<group>"; };
+		1D01ADE71B09B5B800B361B8 /* FriendsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsCollectionViewCell.h; sourceTree = "<group>"; };
+		1D01ADE81B09B5B800B361B8 /* FriendsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsCollectionViewCell.m; sourceTree = "<group>"; };
+		1D01ADEC1B09B5D900B361B8 /* MessageDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDispatcher.h; sourceTree = "<group>"; };
+		1D01ADED1B09B5D900B361B8 /* MessageDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDispatcher.m; sourceTree = "<group>"; };
+		1D01ADEE1B09B5D900B361B8 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
+		1D01ADEF1B09B5D900B361B8 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
+		1D01ADF11B09B5D900B361B8 /* BodyInterpreter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BodyInterpreter.c; sourceTree = "<group>"; };
+		1D01ADF21B09B5D900B361B8 /* BodyInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyInterpreter.h; sourceTree = "<group>"; };
+		1D01ADF31B09B5D900B361B8 /* ProtocolSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ProtocolSocket.c; sourceTree = "<group>"; };
+		1D01ADF41B09B5D900B361B8 /* ProtocolSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolSocket.h; sourceTree = "<group>"; };
+		1D01ADF51B09B5D900B361B8 /* TLVParsor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TLVParsor.c; sourceTree = "<group>"; };
+		1D01ADF61B09B5D900B361B8 /* TLVParsor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLVParsor.h; sourceTree = "<group>"; };
+		1D01ADF81B09B5D900B361B8 /* add_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_icon.png; sourceTree = "<group>"; };
+		1D01ADF91B09B5D900B361B8 /* ChatLogCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatLogCell.h; sourceTree = "<group>"; };
+		1D01ADFA1B09B5D900B361B8 /* ChatLogCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLogCell.m; sourceTree = "<group>"; };
+		1D01ADFB1B09B5D900B361B8 /* cloud_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_icon.png; sourceTree = "<group>"; };
+		1D01ADFC1B09B5D900B361B8 /* man_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man_icon.png; sourceTree = "<group>"; };
+		1D01ADFD1B09B5D900B361B8 /* raw_backgoundimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = raw_backgoundimage.jpg; sourceTree = "<group>"; };
+		1D01ADFE1B09B5D900B361B8 /* Registration.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Registration.storyboard; sourceTree = "<group>"; };
+		1D64F9B41AEFB6B40069FA34 /* SecretChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D64F9B81AEFB6B40069FA34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D64F9B91AEFB6B40069FA34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1D64F9BB1AEFB6B40069FA34 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1D64F9BC1AEFB6B40069FA34 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1D64F9BE1AEFB6B40069FA34 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		1D64F9BF1AEFB6B40069FA34 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		1D64F9C11AEFB6B40069FA34 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		1D64F9C21AEFB6B40069FA34 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		1D64F9C51AEFB6B40069FA34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1D64F9C71AEFB6B40069FA34 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1D64F9D01AEFB6B40069FA34 /* SecretChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D64F9D51AEFB6B40069FA34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D64F9D61AEFB6B40069FA34 /* SecretChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecretChatTests.m; sourceTree = "<group>"; };
+		1D64F9EB1AEFBB1C0069FA34 /* Version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Version.h; sourceTree = "<group>"; };
+		1D7856A11B09B662004FF0A7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		1DD4F1831AEFEE770067D05B /* CKJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKJsonParser.h; sourceTree = "<group>"; };
+		1DD4F1841AEFEE770067D05B /* CKJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKJsonParser.m; sourceTree = "<group>"; };
+		7EE6B0D670F0189914835A6E /* Pods-SecretChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-SecretChat/Pods-SecretChat.release.xcconfig"; sourceTree = "<group>"; };
+		8F099F772B526852B3A96576 /* Pods-SecretChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SecretChat/Pods-SecretChat.debug.xcconfig"; sourceTree = "<group>"; };
+		8FDD60473941C0CC86A77276 /* libPods-SecretChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SecretChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D64F9B11AEFB6B40069FA34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E86CA93F011DB985E5000879 /* libPods-SecretChat.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D64F9CD1AEFB6B40069FA34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1D01ADDB1B09B57100B361B8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1D01ADDC1B09B57100B361B8 /* Friend.h */,
+				1D01ADDD1B09B57100B361B8 /* Friend.m */,
+				1D01ADDE1B09B57100B361B8 /* Message.h */,
+				1D01ADDF1B09B57100B361B8 /* Message.m */,
+				1D01ADE01B09B57100B361B8 /* UserData.h */,
+				1D01ADE11B09B57100B361B8 /* UserData.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1D01ADEB1B09B5D900B361B8 /* NetworkController */ = {
+			isa = PBXGroup;
+			children = (
+				1D01ADEC1B09B5D900B361B8 /* MessageDispatcher.h */,
+				1D01ADED1B09B5D900B361B8 /* MessageDispatcher.m */,
+				1D01ADEE1B09B5D900B361B8 /* NetworkManager.h */,
+				1D01ADEF1B09B5D900B361B8 /* NetworkManager.m */,
+			);
+			path = NetworkController;
+			sourceTree = "<group>";
+		};
+		1D01ADF01B09B5D900B361B8 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1D01ADF11B09B5D900B361B8 /* BodyInterpreter.c */,
+				1D01ADF21B09B5D900B361B8 /* BodyInterpreter.h */,
+				1D01ADF31B09B5D900B361B8 /* ProtocolSocket.c */,
+				1D01ADF41B09B5D900B361B8 /* ProtocolSocket.h */,
+				1D01ADF51B09B5D900B361B8 /* TLVParsor.c */,
+				1D01ADF61B09B5D900B361B8 /* TLVParsor.h */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		1D01ADF71B09B5D900B361B8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1D01ADF81B09B5D900B361B8 /* add_icon.png */,
+				1D01ADF91B09B5D900B361B8 /* ChatLogCell.h */,
+				1D01ADFA1B09B5D900B361B8 /* ChatLogCell.m */,
+				1D01ADFB1B09B5D900B361B8 /* cloud_icon.png */,
+				1D01ADFC1B09B5D900B361B8 /* man_icon.png */,
+				1D01ADFD1B09B5D900B361B8 /* raw_backgoundimage.jpg */,
+				1D01ADFE1B09B5D900B361B8 /* Registration.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1D64F9AB1AEFB6B40069FA34 = {
+			isa = PBXGroup;
+			children = (
+				1D7856A11B09B662004FF0A7 /* Default-568h@2x.png */,
+				1D64F9B61AEFB6B40069FA34 /* SecretChat */,
+				1D64F9D31AEFB6B40069FA34 /* SecretChatTests */,
+				1D64F9B51AEFB6B40069FA34 /* Products */,
+				597F190ADACD3B4F083BBAF9 /* Pods */,
+				D71C67B09468BAF6CA95AF85 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1D64F9B51AEFB6B40069FA34 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D64F9B41AEFB6B40069FA34 /* SecretChat.app */,
+				1D64F9D01AEFB6B40069FA34 /* SecretChatTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D64F9B61AEFB6B40069FA34 /* SecretChat */ = {
+			isa = PBXGroup;
+			children = (
+				1D01ADEB1B09B5D900B361B8 /* NetworkController */,
+				1D01ADF01B09B5D900B361B8 /* Networking */,
+				1D01ADF71B09B5D900B361B8 /* Views */,
+				1D01ADDB1B09B57100B361B8 /* Models */,
+				1DD4F1831AEFEE770067D05B /* CKJsonParser.h */,
+				1DD4F1841AEFEE770067D05B /* CKJsonParser.m */,
+				1D64F9BB1AEFB6B40069FA34 /* AppDelegate.h */,
+				1D64F9BC1AEFB6B40069FA34 /* AppDelegate.m */,
+				1D64F9BE1AEFB6B40069FA34 /* MasterViewController.h */,
+				1D01ADE51B09B5B800B361B8 /* ChatLogTableDataController.h */,
+				1D01ADE61B09B5B800B361B8 /* ChatLogTableDataController.m */,
+				1D01ADE71B09B5B800B361B8 /* FriendsCollectionViewCell.h */,
+				1D01ADE81B09B5B800B361B8 /* FriendsCollectionViewCell.m */,
+				1D64F9BF1AEFB6B40069FA34 /* MasterViewController.m */,
+				1D64F9C11AEFB6B40069FA34 /* DetailViewController.h */,
+				1D64F9C21AEFB6B40069FA34 /* DetailViewController.m */,
+				1D64F9C41AEFB6B40069FA34 /* Main.storyboard */,
+				1D64F9C71AEFB6B40069FA34 /* Images.xcassets */,
+				1D64F9B71AEFB6B40069FA34 /* Supporting Files */,
+				1D64F9EB1AEFBB1C0069FA34 /* Version.h */,
+			);
+			path = SecretChat;
+			sourceTree = "<group>";
+		};
+		1D64F9B71AEFB6B40069FA34 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1D64F9B81AEFB6B40069FA34 /* Info.plist */,
+				1D64F9B91AEFB6B40069FA34 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1D64F9D31AEFB6B40069FA34 /* SecretChatTests */ = {
+			isa = PBXGroup;
+			children = (
+				1D64F9D61AEFB6B40069FA34 /* SecretChatTests.m */,
+				1D64F9D41AEFB6B40069FA34 /* Supporting Files */,
+			);
+			path = SecretChatTests;
+			sourceTree = "<group>";
+		};
+		1D64F9D41AEFB6B40069FA34 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1D64F9D51AEFB6B40069FA34 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		597F190ADACD3B4F083BBAF9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8F099F772B526852B3A96576 /* Pods-SecretChat.debug.xcconfig */,
+				7EE6B0D670F0189914835A6E /* Pods-SecretChat.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D71C67B09468BAF6CA95AF85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8FDD60473941C0CC86A77276 /* libPods-SecretChat.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D64F9B31AEFB6B40069FA34 /* SecretChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D64F9DA1AEFB6B40069FA34 /* Build configuration list for PBXNativeTarget "SecretChat" */;
+			buildPhases = (
+				34A604E52E4BA55A6D2CA80D /* Check Pods Manifest.lock */,
+				1D64F9B01AEFB6B40069FA34 /* Sources */,
+				1D64F9B11AEFB6B40069FA34 /* Frameworks */,
+				1D64F9B21AEFB6B40069FA34 /* Resources */,
+				4E9623EB70591046E5113FCA /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SecretChat;
+			productName = SecretChat;
+			productReference = 1D64F9B41AEFB6B40069FA34 /* SecretChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1D64F9CF1AEFB6B40069FA34 /* SecretChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D64F9DD1AEFB6B40069FA34 /* Build configuration list for PBXNativeTarget "SecretChatTests" */;
+			buildPhases = (
+				1D64F9CC1AEFB6B40069FA34 /* Sources */,
+				1D64F9CD1AEFB6B40069FA34 /* Frameworks */,
+				1D64F9CE1AEFB6B40069FA34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1D64F9D21AEFB6B40069FA34 /* PBXTargetDependency */,
+			);
+			name = SecretChatTests;
+			productName = SecretChatTests;
+			productReference = 1D64F9D01AEFB6B40069FA34 /* SecretChatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1D64F9AC1AEFB6B40069FA34 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = the.accidental.billionaire;
+				TargetAttributes = {
+					1D64F9B31AEFB6B40069FA34 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					1D64F9CF1AEFB6B40069FA34 = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = 1D64F9B31AEFB6B40069FA34;
+					};
+				};
+			};
+			buildConfigurationList = 1D64F9AF1AEFB6B40069FA34 /* Build configuration list for PBXProject "SecretChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1D64F9AB1AEFB6B40069FA34;
+			productRefGroup = 1D64F9B51AEFB6B40069FA34 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D64F9B31AEFB6B40069FA34 /* SecretChat */,
+				1D64F9CF1AEFB6B40069FA34 /* SecretChatTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D64F9B21AEFB6B40069FA34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D01AE061B09B5D900B361B8 /* cloud_icon.png in Resources */,
+				1D01AE071B09B5D900B361B8 /* man_icon.png in Resources */,
+				1D64F9C61AEFB6B40069FA34 /* Main.storyboard in Resources */,
+				1D01AE091B09B5D900B361B8 /* Registration.storyboard in Resources */,
+				1D64F9C81AEFB6B40069FA34 /* Images.xcassets in Resources */,
+				1D7856A21B09B662004FF0A7 /* Default-568h@2x.png in Resources */,
+				1D01AE041B09B5D900B361B8 /* add_icon.png in Resources */,
+				1D01AE081B09B5D900B361B8 /* raw_backgoundimage.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D64F9CE1AEFB6B40069FA34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		34A604E52E4BA55A6D2CA80D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4E9623EB70591046E5113FCA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SecretChat/Pods-SecretChat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D64F9B01AEFB6B40069FA34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D64F9BD1AEFB6B40069FA34 /* AppDelegate.m in Sources */,
+				1D01ADFF1B09B5D900B361B8 /* MessageDispatcher.m in Sources */,
+				1D01ADE91B09B5B800B361B8 /* ChatLogTableDataController.m in Sources */,
+				1D64F9C01AEFB6B40069FA34 /* MasterViewController.m in Sources */,
+				1D01AE001B09B5D900B361B8 /* NetworkManager.m in Sources */,
+				1D64F9BA1AEFB6B40069FA34 /* main.m in Sources */,
+				1D01ADEA1B09B5B800B361B8 /* FriendsCollectionViewCell.m in Sources */,
+				1D01ADE31B09B57100B361B8 /* Message.m in Sources */,
+				1D01ADE21B09B57100B361B8 /* Friend.m in Sources */,
+				1D01AE031B09B5D900B361B8 /* TLVParsor.c in Sources */,
+				1D01AE051B09B5D900B361B8 /* ChatLogCell.m in Sources */,
+				1D01AE011B09B5D900B361B8 /* BodyInterpreter.c in Sources */,
+				1DD4F1851AEFEE770067D05B /* CKJsonParser.m in Sources */,
+				1D01ADE41B09B57100B361B8 /* UserData.m in Sources */,
+				1D01AE021B09B5D900B361B8 /* ProtocolSocket.c in Sources */,
+				1D64F9C31AEFB6B40069FA34 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D64F9CC1AEFB6B40069FA34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D64F9D71AEFB6B40069FA34 /* SecretChatTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1D64F9D21AEFB6B40069FA34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D64F9B31AEFB6B40069FA34 /* SecretChat */;
+			targetProxy = 1D64F9D11AEFB6B40069FA34 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1D64F9C41AEFB6B40069FA34 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1D64F9C51AEFB6B40069FA34 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1D64F9D81AEFB6B40069FA34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1D64F9D91AEFB6B40069FA34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1D64F9DB1AEFB6B40069FA34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F099F772B526852B3A96576 /* Pods-SecretChat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SecretChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1D64F9DC1AEFB6B40069FA34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7EE6B0D670F0189914835A6E /* Pods-SecretChat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SecretChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1D64F9DE1AEFB6B40069FA34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SecretChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SecretChat.app/SecretChat";
+			};
+			name = Debug;
+		};
+		1D64F9DF1AEFB6B40069FA34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SecretChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SecretChat.app/SecretChat";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D64F9AF1AEFB6B40069FA34 /* Build configuration list for PBXProject "SecretChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D64F9D81AEFB6B40069FA34 /* Debug */,
+				1D64F9D91AEFB6B40069FA34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1D64F9DA1AEFB6B40069FA34 /* Build configuration list for PBXNativeTarget "SecretChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D64F9DB1AEFB6B40069FA34 /* Debug */,
+				1D64F9DC1AEFB6B40069FA34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1D64F9DD1AEFB6B40069FA34 /* Build configuration list for PBXNativeTarget "SecretChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D64F9DE1AEFB6B40069FA34 /* Debug */,
+				1D64F9DF1AEFB6B40069FA34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1D64F9AC1AEFB6B40069FA34 /* Project object */;
+}
