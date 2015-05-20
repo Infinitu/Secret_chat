@@ -7,6 +7,7 @@ import com.typesafe.config.{ConfigFactory, Config}
 import the.accidental.billionaire.secretchat.actor.RandomMessageExchanger.SendRandomMessage
 import the.accidental.billionaire.secretchat.actor.virtualuser.Matchmaker
 import the.accidental.billionaire.secretchat.actor.virtualuser.Matchmaker.{FriendRequest, FriendsEstablishedFromRandomRoom}
+import the.accidental.billionaire.secretchat.protocol.BodyWritable
 import the.accidental.billionaire.secretchat.utils.RedisStore._
 
 /**
@@ -14,7 +15,7 @@ import the.accidental.billionaire.secretchat.utils.RedisStore._
  */
 object RandomMessageExchanger{
   val actorPath = "RandomMessageExchanger"
-  case class SendRandomMessage(address:String,sender:String,timestamp:Long,msg:Any)
+  case class SendRandomMessage(address:String,sender:String,timestamp:Long,msg:BodyWritable)
 }
 
 class RandomMessageExchanger(dispatcherPath:String) extends Actor{

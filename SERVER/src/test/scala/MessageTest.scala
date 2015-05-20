@@ -7,6 +7,7 @@ import org.scalatest._
 import redis.embedded.RedisServer
 import the.accidental.billionaire.secretchat.actor.MessageDispatcher
 import the.accidental.billionaire.secretchat.security.UserData
+import the.accidental.billionaire.secretchat.protocol.{StringBodyWritable, String2BodyWritable}
 
 /**
  * Created by infinitu on 2015. 4. 17..
@@ -29,6 +30,7 @@ class MessageTest(_system:ActorSystem) extends TestKit(_system) with WordSpecLik
 
   val actor = TestActorRef(Props(new MessageDispatcher(self.path.toString)))
 
+
   "MessageDispatcher" should {
 
     val redisClient = new RedisClient("localhost",port)
@@ -46,7 +48,7 @@ class MessageTest(_system:ActorSystem) extends TestKit(_system) with WordSpecLik
     "send message to Missing if address is not logined" in {
       val address = "missingAddr"
       val myAddr = "myAddr"
-      val message = MessageDispatcher.SendMessage(address,myAddr,0,"")
+      val message = MessageDispatcher.SendMessage(address,myAddr,0,StringBodyWritable(""))
       actor ! message
       expectMsg(message)
     }

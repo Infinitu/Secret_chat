@@ -12,6 +12,7 @@ import the.accidental.billionaire.secretchat.actor.RandomMessageExchanger.SendRa
 import the.accidental.billionaire.secretchat.actor.{RandomMessageExchanger, MessageDispatcher, UserService}
 import the.accidental.billionaire.secretchat.actor.UserService._
 import the.accidental.billionaire.secretchat.security.UserData
+import the.accidental.billionaire.secretchat.protocol.{StringBodyWritable, String2BodyWritable}
 
 /**
  * Created by infinitu on 2015. 5. 20..
@@ -54,12 +55,12 @@ class RandomExchangerTest(_system:ActorSystem) extends TestKit(_system) with Wor
       exchanger ! SendRandomMessage(randomroom, user1, 1, "hello user2")
       expectMsg(
         MsgTag(dispatcher.path.toString,"user2",
-          MessageDispatcher.SendMessage(user2,randomroom,1,"hello user2")))
+          MessageDispatcher.SendMessage(user2,randomroom,1,StringBodyWritable("hello user2"))))
 
       exchanger ! SendRandomMessage(randomroom, user2, 2, "nice to meet you user1!")
       expectMsg(
         MsgTag(dispatcher.path.toString,"user1",
-          MessageDispatcher.SendMessage(user1,randomroom,2,"nice to meet you user1!")))
+          MessageDispatcher.SendMessage(user1,randomroom,2,StringBodyWritable("nice to meet you user1!"))))
     }
   }
 }

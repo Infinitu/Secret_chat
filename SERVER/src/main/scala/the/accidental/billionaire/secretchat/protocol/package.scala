@@ -2,6 +2,7 @@ package the.accidental.billionaire.secretchat
 
 import akka.io.Tcp.Write
 import akka.util.ByteString
+import play.api.libs.json.{JsString, JsValue}
 import the.accidental.billionaire.secretchat.security._
 
 /**
@@ -49,8 +50,22 @@ package object protocol {
     def writeToString(implicit userData: Option[UserData]):String
   }
 
-  implicit def String2BodyWritable(str:String):BodyWritable=new BodyWritable {
-    override def writeToString(implicit userData: Option[UserData])=str
+  trait JsonWrites[T]{
+    def toJson(obj:T):JsValue
+    def fromJson(json:JsValue):T
+  }
+
+  case class StringBodyWritable(str:String) extends BodyWritable {
+    override def writeToString(implicit userData: Option[UserData]): String = str
+  }
+  
+  implicit def String2BodyWritable(str:String):BodyWritable =StringBodyWritable(str)
+
+
+
+  implicit val stringJsonWrites = new JsonWrites[StringBodyWritable] {
+    override def toJson(obj: StringBodyWritable): JsValue = JsString(obj.str)
+    override def fromJson(json: JsValue): StringBodyWritable = StringBodyWritable(json.as[String])
   }
 
   /**

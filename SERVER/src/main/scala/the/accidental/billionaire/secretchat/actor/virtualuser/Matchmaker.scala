@@ -7,7 +7,7 @@ import play.api.libs.json._
 import the.accidental.billionaire.secretchat.actor.{RandomMessageExchanger, MessageDispatcher}
 import the.accidental.billionaire.secretchat.actor.MessageDispatcher.SendMessage
 import the.accidental.billionaire.secretchat.actor.virtualuser.Matchmaker.{FriendsEstablished, FriendsEstablishedFromRandomRoom, FriendRequestAnswer, FriendRequest}
-import the.accidental.billionaire.secretchat.protocol.BodyWritable
+import the.accidental.billionaire.secretchat.protocol.{JsonWrites, BodyWritable}
 import the.accidental.billionaire.secretchat.security.{AddressEncryptor, UserData}
 import the.accidental.billionaire.secretchat.utils.RedisStore._
 
@@ -20,8 +20,7 @@ object  Matchmaker{
   val systemUserName = "system_matchmaker"
 
   case class FriendRequest(senderAddress:String, address:String,message:String) extends BodyWritable{
-
-    override def writeToString(implicit userData: Option[UserData])={
+    override def writeToString(implicit userData: Option[UserData]): String = {
       Json.obj(
         "type"->"friends_requested",
         "message"->Json.obj(
@@ -31,9 +30,24 @@ object  Matchmaker{
       ).toString()
     }
   }
+  implicit val friendsReqestWrites = new JsonWrites[FriendRequest] {
+
+    override def toJson(obj: FriendRequest): JsValue = {
+      Json.obj(
+        "sender"->obj.senderAddress,
+        "address"->obj.address,
+        "message"->obj.message
+      )
+    }
+
+    override def fromJson(json: JsValue): FriendRequest = {
+      FriendRequest((json\"sender").as[String],(json\"address").as[String],(json\"message").as[String])
+    }
+  }
+
   case class FriendRequestAnswer(senderAddress:String, address:String, status:String)
   case class FriendsEstablished(address:String, encKey:String) extends BodyWritable{
-    override def writeToString(implicit userData: Option[UserData])={
+    override def writeToString(implicit userData: Option[UserData]): String = {
       Json.obj(
         "type"->"established",
         "message"->Json.obj(
@@ -43,8 +57,24 @@ object  Matchmaker{
       ).toString()
     }
   }
+
+  implicit val friendsEstablishedWrites = new JsonWrites[FriendsEstablished] {
+
+
+    override def toJson(obj: FriendsEstablished): JsValue = {
+      Json.obj(
+        "address"->obj.address,
+        "encKey"->obj.encKey
+      )
+    }
+
+    override def fromJson(json: JsValue): FriendsEstablished = {
+      FriendsEstablished((json\"address").as[String],(json\"encKey").as[String])
+    }
+  }
+
   case class FriendsEstablishedFromRandomRoom(randomroonNumber:String, address:String, encKey:String) extends BodyWritable{
-    override def writeToString(implicit userData: Option[UserData])={
+    override def writeToString(implicit userData: Option[UserData]): String = {
       Json.obj(
         "type"->"established_from_randomroom",
         "message"->Json.obj(
@@ -53,6 +83,19 @@ object  Matchmaker{
           "encKey"->encKey
         )
       ).toString()
+    }
+  }
+  implicit val friendsEstablishedFromRandomRoomWrites = new JsonWrites[FriendsEstablishedFromRandomRoom] {
+    override def toJson(obj: FriendsEstablishedFromRandomRoom): JsValue = {
+      Json.obj(
+        "roomnum"->obj.randomroonNumber,
+        "address"->obj.address,
+        "encKey"->obj.encKey
+      )
+    }
+
+    override def fromJson(json: JsValue): FriendsEstablishedFromRandomRoom = {
+      FriendsEstablishedFromRandomRoom((json\"roomnum").as[String],(json\"address").as[String],(json\"encKey").as[String])
     }
   }
 }
