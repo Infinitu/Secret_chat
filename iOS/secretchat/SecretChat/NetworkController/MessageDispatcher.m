@@ -9,7 +9,7 @@
 #import "MessageDispatcher.h"
 #import "BodyInterpreter.h"
 #import "CKJsonParser.h"
-#define RLM_CACHE_CNT 10;
+
 
 @interface MessageDispatcher ()
 @property NSMutableArray *pendingQueue;

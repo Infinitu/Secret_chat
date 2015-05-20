@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MasterViewController : UICollectionViewController<UICollectionViewDelegateFlowLayout>
+@interface MasterViewController : UITabBarController
 
 
 @end
