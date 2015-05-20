@@ -82,7 +82,7 @@
     NSDictionary *form = @{
             @"deviceId":uuid,
             @"nickName":name,
-            @"age":@(2015-birth+1),
+            @"age": [@(2015-birth+1) stringValue],
             @"bloodType":blood,
             @"gender":sex
     };
@@ -95,8 +95,38 @@
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:joinURL];
 
     req.HTTPMethod = @"POST";
-    req.HTTPBody = [[CKJsonParser serializeObject:form] dataUsingEncoding:NSUTF8StringEncoding];
-    [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+    NSMutableData *body = [NSMutableData data];
+    UIImage *imageToUpload = self.ProfileView.image;
+    CGFloat scale = 120.0f/imageToUpload.size.width;
+    if(scale<1)
+        imageToUpload = [self compressForUpload:imageToUpload scale:scale];
+
+    NSString *boundary = @"SecretChat";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/mixed; boundary=%@", boundary];
+    [req addValue:contentType forHTTPHeaderField:@"Content-Type"];
+
+
+    for(NSString *key in form.allKeys){
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n%@",key,form[key]] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+
+
+
+
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"image\"; filename=\"image.png\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+
+    [body appendData:UIImagePNGRepresentation(imageToUpload)];
+
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    [req setHTTPBody:body];
+
+
+
     [NSURLRequest setAllowsAnyHTTPSCertificate:YES forHost:DEFAULT_API_HOST];
     [NSURLConnection sendAsynchronousRequest:req
                                        queue:[NSOperationQueue mainQueue]
@@ -110,6 +140,21 @@
                                NSString *token = [NSString stringWithUTF8String:mdata.bytes];
                               [self succeedToRegisterWithForm:form withAccessToken:token];
                            }];
+}
+
+- (UIImage *)compressForUpload:(UIImage *)original scale:(CGFloat)scale
+{
+    // Calculate new size given scale factor.
+    CGSize originalSize = original.size;
+    CGSize newSize = CGSizeMake(originalSize.width * scale, originalSize.height * scale);
+
+    // Scale the original image to match the new size.
+    UIGraphicsBeginImageContext(newSize);
+    [original drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage* compressedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return compressedImage;
 }
 
 -(void)failedToRegister{

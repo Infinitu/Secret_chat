@@ -29,10 +29,11 @@
 		1DC3BED81B0C7B940004F47F /* FriendsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BED71B0C7B940004F47F /* FriendsCollectionViewCell.m */; };
 		1DC3BEE31B0C7B9E0004F47F /* ChatLogTableDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDA1B0C7B9E0004F47F /* ChatLogTableDataController.m */; };
 		1DC3BEE41B0C7B9E0004F47F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDC1B0C7B9E0004F47F /* DetailViewController.m */; };
-		1DC3BEE51B0C7B9E0004F47F /* FriensCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDE1B0C7B9E0004F47F /* FriensCollectionViewController.m */; };
+		1DC3BEE51B0C7B9E0004F47F /* FriendsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDE1B0C7B9E0004F47F /* FriendsCollectionViewController.m */; };
 		1DC3BEE61B0C7B9E0004F47F /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEE01B0C7B9E0004F47F /* MasterViewController.m */; };
 		1DC3BEE71B0C7B9E0004F47F /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEE21B0C7B9E0004F47F /* RegisterViewController.m */; };
 		1DD4F1851AEFEE770067D05B /* CKJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD4F1841AEFEE770067D05B /* CKJsonParser.m */; };
+		A526A509B05995C09D1A0D1F /* FriendsSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A526A9D7213F00A2923CD4C8 /* FriendsSearchController.m */; };
 		E86CA93F011DB985E5000879 /* libPods-SecretChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FDD60473941C0CC86A77276 /* libPods-SecretChat.a */; };
 /* End PBXBuildFile section */
 
@@ -87,8 +88,8 @@
 		1DC3BEDA1B0C7B9E0004F47F /* ChatLogTableDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatLogTableDataController.m; path = SecretChat/Controllers/ChatLogTableDataController.m; sourceTree = SOURCE_ROOT; };
 		1DC3BEDB1B0C7B9E0004F47F /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = SecretChat/Controllers/DetailViewController.h; sourceTree = SOURCE_ROOT; };
 		1DC3BEDC1B0C7B9E0004F47F /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = SecretChat/Controllers/DetailViewController.m; sourceTree = SOURCE_ROOT; };
-		1DC3BEDD1B0C7B9E0004F47F /* FriensCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriensCollectionViewController.h; path = SecretChat/Controllers/FriensCollectionViewController.h; sourceTree = SOURCE_ROOT; };
-		1DC3BEDE1B0C7B9E0004F47F /* FriensCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriensCollectionViewController.m; path = SecretChat/Controllers/FriensCollectionViewController.m; sourceTree = SOURCE_ROOT; };
+		1DC3BEDD1B0C7B9E0004F47F /* FriendsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsCollectionViewController.h; path = SecretChat/Controllers/FriendsCollectionViewController.h; sourceTree = SOURCE_ROOT; };
+		1DC3BEDE1B0C7B9E0004F47F /* FriendsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsCollectionViewController.m; path = SecretChat/Controllers/FriendsCollectionViewController.m; sourceTree = SOURCE_ROOT; };
 		1DC3BEDF1B0C7B9E0004F47F /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MasterViewController.h; path = SecretChat/Controllers/MasterViewController.h; sourceTree = SOURCE_ROOT; };
 		1DC3BEE01B0C7B9E0004F47F /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MasterViewController.m; path = SecretChat/Controllers/MasterViewController.m; sourceTree = SOURCE_ROOT; };
 		1DC3BEE11B0C7B9E0004F47F /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = SecretChat/Controllers/RegisterViewController.h; sourceTree = SOURCE_ROOT; };
@@ -98,6 +99,8 @@
 		7EE6B0D670F0189914835A6E /* Pods-SecretChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-SecretChat/Pods-SecretChat.release.xcconfig"; sourceTree = "<group>"; };
 		8F099F772B526852B3A96576 /* Pods-SecretChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SecretChat/Pods-SecretChat.debug.xcconfig"; sourceTree = "<group>"; };
 		8FDD60473941C0CC86A77276 /* libPods-SecretChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SecretChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A526A9D7213F00A2923CD4C8 /* FriendsSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsSearchController.m; path = SecretChat/Controllers/FriendsSearchController.m; sourceTree = SOURCE_ROOT; };
+		A526AD087CFEAC60F55DFF99 /* FriendsSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsSearchController.h; path = SecretChat/Controllers/FriendsSearchController.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,12 +248,14 @@
 				1DC3BEDA1B0C7B9E0004F47F /* ChatLogTableDataController.m */,
 				1DC3BEDB1B0C7B9E0004F47F /* DetailViewController.h */,
 				1DC3BEDC1B0C7B9E0004F47F /* DetailViewController.m */,
-				1DC3BEDD1B0C7B9E0004F47F /* FriensCollectionViewController.h */,
-				1DC3BEDE1B0C7B9E0004F47F /* FriensCollectionViewController.m */,
+				1DC3BEDD1B0C7B9E0004F47F /* FriendsCollectionViewController.h */,
+				1DC3BEDE1B0C7B9E0004F47F /* FriendsCollectionViewController.m */,
 				1DC3BEDF1B0C7B9E0004F47F /* MasterViewController.h */,
 				1DC3BEE01B0C7B9E0004F47F /* MasterViewController.m */,
 				1DC3BEE11B0C7B9E0004F47F /* RegisterViewController.h */,
 				1DC3BEE21B0C7B9E0004F47F /* RegisterViewController.m */,
+				A526A9D7213F00A2923CD4C8 /* FriendsSearchController.m */,
+				A526AD087CFEAC60F55DFF99 /* FriendsSearchController.h */,
 			);
 			name = Controllers;
 			path = Models;
@@ -423,13 +428,14 @@
 				1D01ADE21B09B57100B361B8 /* Friend.m in Sources */,
 				1D01AE031B09B5D900B361B8 /* TLVParsor.c in Sources */,
 				1D01AE051B09B5D900B361B8 /* ChatLogCell.m in Sources */,
-				1DC3BEE51B0C7B9E0004F47F /* FriensCollectionViewController.m in Sources */,
+				1DC3BEE51B0C7B9E0004F47F /* FriendsCollectionViewController.m in Sources */,
 				1D01AE011B09B5D900B361B8 /* BodyInterpreter.c in Sources */,
 				1DC3BEE71B0C7B9E0004F47F /* RegisterViewController.m in Sources */,
 				1DD4F1851AEFEE770067D05B /* CKJsonParser.m in Sources */,
 				1DC3BEE31B0C7B9E0004F47F /* ChatLogTableDataController.m in Sources */,
 				1D01ADE41B09B57100B361B8 /* UserData.m in Sources */,
 				1D01AE021B09B5D900B361B8 /* ProtocolSocket.c in Sources */,
+				A526A509B05995C09D1A0D1F /* FriendsSearchController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,9 +555,11 @@
 			baseConfigurationReference = 8F099F772B526852B3A96576 /* Pods-SecretChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SecretChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -560,9 +568,11 @@
 			baseConfigurationReference = 7EE6B0D670F0189914835A6E /* Pods-SecretChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SecretChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

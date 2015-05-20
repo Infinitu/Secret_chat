@@ -76,7 +76,7 @@ New Account</string>
                                         </button>
                                     </subviews>
                                 </view>
-                                <blurEffect style="extraLight"/>
+                                <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -14,7 +14,6 @@
 
 #define APP_VERSION @"0.0.1"
 #define PROTOCOL_VERSION @"1.0"
-#define ACCESSTOKEN_HARDCODING @"abcdefg"
 #define PING_TIMEOUT_IN_SEC 3 
 
 #define DEFAULT_HOST @"localhost"
