@@ -18,13 +18,18 @@ exports.join = function(res, contents) {
     contents.common      = 0;
     contents.joinDate    = new Date();
     contents.accessToken = _getAccessToken();       // accessToken 생성
-	contents.encryptKey  = _getEncryptKey();   
 	contents.imageUrl    = _getImageUrl(contents);
 	
-	_insertUserProfile(contents, function(err, userInfo) {
-    	if (err) msgHandler.sendError(res);
-    	
-    	msgHandler.sendString(res, contents.accessToken);
+	_getEncryptKey(function(err, encryptKey) {
+		if(err) console.log("genarating encryptkey error!");
+		
+		contents.encryptKey = encryptKey;
+		console.log(encryptKey);
+		_insertUserProfile(contents, function(err, userInfo) {
+	    	if (err) msgHandler.sendError(res);
+	    	
+	    	msgHandler.sendString(res, contents.accessToken);
+		});
 	});
 };
 
@@ -60,6 +65,7 @@ function _getAccessToken() {
 }
 
 function _getImageUrl(contents) {
+	console.log(contents.imageUrl);
 	if (!contents.imageUrl)
 		return null;
 	
@@ -69,7 +75,7 @@ function _getImageUrl(contents) {
 	return newImageUrl;
 }
 
-function _getEncryptKey() {
+function _getEncryptKey(callback) {
 	var RAMDOMBYTES = 16;
 	
 	cipherHandler.getRandomByte(RAMDOMBYTES, function(err, key) {
@@ -77,7 +83,7 @@ function _getEncryptKey() {
 		
 		var base64ConvertedKey = key.toString("base64");
 		
-		return base64ConvertedKey;
+		callback(err, key);
 	});
 }
 

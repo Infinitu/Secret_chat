@@ -40,5 +40,11 @@ function _JSONDataFileter(incomingData) {
 	if (incomingData.nickNameTag)
 		contents.nickNameTag = incomingData.nickNameTag;
 	
+	if (incomingData.imageUrl)
+		contents.imageUrl = incomingData.imageUrl;
+	
+	if (incomingData.imageName)
+		contents.imageName = incomingData.imageName;
+	
 	return contents;
 }

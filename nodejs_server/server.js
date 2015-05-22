@@ -1,7 +1,7 @@
 /* server.js */
 
 var fs         = require("fs"),
-	https      = require("https"),
+	https      = require("http"),
 	formidable = require("formidable"),
 	dataParser = require("./incomingDataParser");
 
@@ -21,7 +21,7 @@ function onRequest(req, res) {
 	dataParser.dataParser(req, res, incomingData);
 }
 
-var server = https.createServer(httpsOptions, onRequest);
+var server = https.createServer(onRequest);
 server.listen(HTTPS_PORT);
 
 console.log("Server Start!");
