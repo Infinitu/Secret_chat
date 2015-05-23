@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class UserData;
+
 @interface MasterViewController : UITabBarController
 
-
+@property(nonatomic, strong) UserData *userData;
 @end
 

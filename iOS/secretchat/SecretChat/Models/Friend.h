@@ -17,8 +17,9 @@
 @property int   sex;
 @property NSString* level;
 @property NSString* encKey;
+@property NSString* msgEncKey;
 
-+(NSString*)chatRealmPath:(NSString*)address;
++(NSString*)chatRealmPathWithName:(NSString*)dbname;
 -(NSString*)chatRealmPath;
 
 +(Friend*)friendWithDictionary:(NSDictionary*)dictionary;

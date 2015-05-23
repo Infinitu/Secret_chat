@@ -8,12 +8,11 @@
 
 #import "MasterViewController.h"
 #import "AppDelegate.h"
+#import "UserData.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 
 @interface MasterViewController ()
-
-@property NSMutableArray *objects;
 @end
 
 @implementation MasterViewController
@@ -25,8 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    UserData *ud = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).userData;
-    NSLog(@"%@", [ud.profile toDictionary]);
+    self.userData = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).userData;
 }
 
 

@@ -1,12 +1,12 @@
 //
-//  FriensCollectionViewController.m
+//  FriendsCollectionViewController.m
 //  SecretChat
 //
 //  Created by 김창규 on 2015. 5. 20..
 //  Copyright (c) 2015년 the.accidental.billionaire. All rights reserved.
 //
 
-#import "FriensCollectionViewController.h"
+#import "FriendsCollectionViewController.h"
 #import "DetailViewController.h"
 #import "NetworkManager.h"
 #import "Version.h"
@@ -14,22 +14,26 @@
 #import "FriendsCollectionViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface FriensCollectionViewController ()
+@interface FriendsCollectionViewController ()
 
 @property NSMutableArray *objects;
 
 @end
 
-@implementation FriensCollectionViewController
+@implementation FriendsCollectionViewController
 
 -(void)viewDidLoad{
+    [self refreshFriendsList];
+    [self.collectionView setContentInset:UIEdgeInsetsMake(20, 20, 20, 20)];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriendsList) name:@"FriendListChanged" object:nil];
+}
+
+-(void)refreshFriendsList{
     RLMResults *result = [Friend allObjects];
     self.objects =[NSMutableArray arrayWithCapacity:result.count];
     NSLog(@"%@",[RLMRealm defaultRealmPath]);
     for(Friend *fr in result)
         [self.objects addObject:fr];
-    
-    [self.collectionView setContentInset:UIEdgeInsetsMake(20, 20, 20, 20)];
 }
 
 #pragma mark - Segues

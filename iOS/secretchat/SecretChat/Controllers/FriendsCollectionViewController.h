@@ -1,5 +1,5 @@
 //
-//  FriensCollectionViewController.h
+//  FriendsCollectionViewController.h
 //  SecretChat
 //
 //  Created by 김창규 on 2015. 5. 20..
@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FriensCollectionViewController : UICollectionViewController<UICollectionViewDelegateFlowLayout>
+@interface FriendsCollectionViewController : UICollectionViewController<UICollectionViewDelegateFlowLayout>
 @end

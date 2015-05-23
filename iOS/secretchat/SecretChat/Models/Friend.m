@@ -29,18 +29,21 @@
 }
 
 NSString *apppath = nil;
-+(NSString*)chatRealmPath:(NSString*)address{
++(NSString*)chatRealmPathWithName:(NSString*)dbname {
     if (apppath == nil){
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        apppath = [NSString stringWithFormat:@"%@/ChatDB",[paths objectAtIndex:0]];
+        apppath = [NSString stringWithFormat:@"%@/ChatDB", paths[0]];
         if(![[NSFileManager defaultManager] fileExistsAtPath:apppath isDirectory:nil])
             [[NSFileManager defaultManager] createDirectoryAtPath:apppath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    return [NSString stringWithFormat:@"%@/%@.realm",apppath,address];
+    return [NSString stringWithFormat:@"%@/%@.realm", apppath, dbname];
 }
 -(NSString*)chatRealmPath{
-   return [Friend chatRealmPath:self.address];
+   return [Friend chatRealmPathWithName:self.address];
 }
+
+
+
 const NSString* key_address = @"address";
 const NSString* key_nickname = @"nickname";
 const NSString* key_profileImg =  @"profileImg";

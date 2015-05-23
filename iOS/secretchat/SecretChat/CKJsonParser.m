@@ -109,7 +109,7 @@
     
     int started = *idx;
     
-    while(str[*idx] >= '0'){
+    while(str[*idx] >= '0' && str[*idx]<='9'){
         if(str[*idx] == '\0')
             return nil; //err
         *idx = *idx+1;

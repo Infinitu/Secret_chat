@@ -253,16 +253,7 @@
         }
         self.ProfileView.image = imageToUse;
     }
-    
-    // Handle a movied picked from a photo album
-    if (CFStringCompare ((CFStringRef) mediaType, kUTTypeMovie, 0)
-        == kCFCompareEqualTo) {
-        
-        NSString *moviePath = [info[UIImagePickerControllerMediaURL] path];
-        
-        // Do something with the picked movie available at moviePath
-    }
-    
+
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -291,6 +291,16 @@ void bodyparse(struct tlv_stuct tlv){
         case 0x4302: // friends request in random room.
             //todo
             break;
+        case 0x5101: // friends req/res successful
+            kvlen = 2;
+            keys = buildKVList(kvlen,
+                    KEY_MSG_HEADER,
+                    KEY_MSG_TYPE);
+
+            values = buildKVList(kvlen,
+                    headnum,
+                    VALUE_MSG_TYPE_SENDING_SUCCESS);
+            break;
         default:
             parseError(tlv.header);
             break;
