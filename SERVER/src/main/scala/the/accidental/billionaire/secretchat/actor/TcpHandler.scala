@@ -62,7 +62,7 @@ class TcpHandler(override val connection:ActorRef) extends Actor
     case msg:SendRandomChatMessage=>
 
     case SendMessage(_,sender,timestamp,msg)=>
-      receiveMessage(sender,timestamp,msg.asInstanceOf[String])
+      receiveMessage(sender,timestamp,msg.writeToString)
     case ReceivingMessageSuccessful(senderAddr,time,idx)=>
       receiveMessageSuccessful(senderAddr,time,idx)
     case ReceivingMessageFailed(senderAddr,time,idx)=>
@@ -71,7 +71,7 @@ class TcpHandler(override val connection:ActorRef) extends Actor
       matchmaker ! Matchmaker.FriendRequest(userData.get.userAddress, address,msg)
       writeToConnection(FriendsRequestSendSuccessfully)
     case FriendsResponse(address, status)=>
-      matchmaker ! Matchmaker.FriendRequest(userData.get.userAddress, address,status)
+      matchmaker ! Matchmaker.FriendRequestAnswer(userData.get.userAddress, address,status)
       writeToConnection(FriendsRequestSendSuccessfully)
 
 

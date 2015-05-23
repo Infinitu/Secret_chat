@@ -40,6 +40,10 @@ trait BodyInterpreter {this: ReceivePipeline =>
       inner(new CheckMessageRead(body))
     case Command(0x4301,length,body)=>
       inner(new RandomChatExit(body))
+    case Command(0x5001,length,body)=>
+      inner(new FriendsRequest(body))
+    case Command(0x5002,length,body)=>
+      inner(new FriendsResponse(body))
     case notDefined=>
       inner(notDefined)
   }

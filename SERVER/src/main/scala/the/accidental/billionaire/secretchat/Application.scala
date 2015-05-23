@@ -3,6 +3,7 @@ package the.accidental.billionaire.secretchat
 import akka.actor.{Props, ActorSystem}
 import com.typesafe.config.{ConfigFactory, Config}
 import the.accidental.billionaire.secretchat.actor.Server.Start
+import the.accidental.billionaire.secretchat.actor.virtualuser.Matchmaker
 import the.accidental.billionaire.secretchat.actor.{MissingMessageDispatcher, MessageDispatcher, Server, UserService}
 
 /**
@@ -18,6 +19,7 @@ object Application {
     system.actorOf(Props[MessageDispatcher],MessageDispatcher.actorPath)
     system.actorOf(Props[UserService],UserService.actorPath)
     system.actorOf(Props[MissingMessageDispatcher],MissingMessageDispatcher.actorPath)
+    system.actorOf(Props[Matchmaker],Matchmaker.actorPath)
     val server = system.actorOf(Props[Server],"server")
     server ! Start(port)
   }
