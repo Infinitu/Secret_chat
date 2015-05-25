@@ -21,3 +21,7 @@
 #define DEFAULT_API_SCHEME @"https"
 #define DEFAULT_API_HOST @"localhost"
 #define DEFAULT_API_PORT 7000
+@interface NSURLRequest (DummyInterface)
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString*)host;
++ (void)setAllowsAnyHTTPSCertificate:(BOOL)allow forHost:(NSString*)host;
+@end

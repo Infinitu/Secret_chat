@@ -26,6 +26,9 @@
 		1D64F9C61AEFB6B40069FA34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D64F9C41AEFB6B40069FA34 /* Main.storyboard */; };
 		1D64F9C81AEFB6B40069FA34 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D64F9C71AEFB6B40069FA34 /* Images.xcassets */; };
 		1D64F9D71AEFB6B40069FA34 /* SecretChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9D61AEFB6B40069FA34 /* SecretChatTests.m */; };
+		1D791BFD1B0EF5B300589A51 /* FriendRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D791BFC1B0EF5B300589A51 /* FriendRequest.m */; };
+		1D791C001B0F031500589A51 /* FriendRequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D791BFF1B0F031500589A51 /* FriendRequestTableViewCell.m */; };
+		1D791C031B0F712900589A51 /* FriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D791C021B0F712900589A51 /* FriendManager.m */; };
 		1DC3BED81B0C7B940004F47F /* FriendsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BED71B0C7B940004F47F /* FriendsCollectionViewCell.m */; };
 		1DC3BEE31B0C7B9E0004F47F /* ChatLogTableDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDA1B0C7B9E0004F47F /* ChatLogTableDataController.m */; };
 		1DC3BEE41B0C7B9E0004F47F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDC1B0C7B9E0004F47F /* DetailViewController.m */; };
@@ -82,6 +85,12 @@
 		1D64F9D51AEFB6B40069FA34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D64F9D61AEFB6B40069FA34 /* SecretChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecretChatTests.m; sourceTree = "<group>"; };
 		1D64F9EB1AEFBB1C0069FA34 /* Version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Version.h; sourceTree = "<group>"; };
+		1D791BFB1B0EF5B300589A51 /* FriendRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendRequest.h; sourceTree = "<group>"; };
+		1D791BFC1B0EF5B300589A51 /* FriendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendRequest.m; sourceTree = "<group>"; };
+		1D791BFE1B0F031500589A51 /* FriendRequestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendRequestTableViewCell.h; sourceTree = "<group>"; };
+		1D791BFF1B0F031500589A51 /* FriendRequestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendRequestTableViewCell.m; sourceTree = "<group>"; };
+		1D791C011B0F712900589A51 /* FriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendManager.h; sourceTree = "<group>"; };
+		1D791C021B0F712900589A51 /* FriendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendManager.m; sourceTree = "<group>"; };
 		1DC3BED61B0C7B940004F47F /* FriendsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsCollectionViewCell.h; sourceTree = "<group>"; };
 		1DC3BED71B0C7B940004F47F /* FriendsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsCollectionViewCell.m; sourceTree = "<group>"; };
 		1DC3BED91B0C7B9E0004F47F /* ChatLogTableDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatLogTableDataController.h; path = SecretChat/Controllers/ChatLogTableDataController.h; sourceTree = SOURCE_ROOT; };
@@ -125,6 +134,8 @@
 		1D01ADDB1B09B57100B361B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1D791BFB1B0EF5B300589A51 /* FriendRequest.h */,
+				1D791BFC1B0EF5B300589A51 /* FriendRequest.m */,
 				1D01ADDC1B09B57100B361B8 /* Friend.h */,
 				1D01ADDD1B09B57100B361B8 /* Friend.m */,
 				1D01ADDE1B09B57100B361B8 /* Message.h */,
@@ -142,6 +153,8 @@
 				1D01ADED1B09B5D900B361B8 /* MessageDispatcher.m */,
 				1D01ADEE1B09B5D900B361B8 /* NetworkManager.h */,
 				1D01ADEF1B09B5D900B361B8 /* NetworkManager.m */,
+				1D791C011B0F712900589A51 /* FriendManager.h */,
+				1D791C021B0F712900589A51 /* FriendManager.m */,
 			);
 			path = NetworkController;
 			sourceTree = "<group>";
@@ -172,6 +185,8 @@
 				1D01ADFC1B09B5D900B361B8 /* man_icon.png */,
 				1D01ADFD1B09B5D900B361B8 /* raw_backgoundimage.jpg */,
 				1D01ADFE1B09B5D900B361B8 /* Registration.storyboard */,
+				1D791BFE1B0F031500589A51 /* FriendRequestTableViewCell.h */,
+				1D791BFF1B0F031500589A51 /* FriendRequestTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -420,6 +435,7 @@
 				1D64F9BD1AEFB6B40069FA34 /* AppDelegate.m in Sources */,
 				1D01ADFF1B09B5D900B361B8 /* MessageDispatcher.m in Sources */,
 				1D01AE001B09B5D900B361B8 /* NetworkManager.m in Sources */,
+				1D791BFD1B0EF5B300589A51 /* FriendRequest.m in Sources */,
 				1D64F9BA1AEFB6B40069FA34 /* main.m in Sources */,
 				1D01ADE31B09B57100B361B8 /* Message.m in Sources */,
 				1DC3BEE61B0C7B9E0004F47F /* MasterViewController.m in Sources */,
@@ -432,8 +448,10 @@
 				1D01AE011B09B5D900B361B8 /* BodyInterpreter.c in Sources */,
 				1DC3BEE71B0C7B9E0004F47F /* RegisterViewController.m in Sources */,
 				1DD4F1851AEFEE770067D05B /* CKJsonParser.m in Sources */,
+				1D791C001B0F031500589A51 /* FriendRequestTableViewCell.m in Sources */,
 				1DC3BEE31B0C7B9E0004F47F /* ChatLogTableDataController.m in Sources */,
 				1D01ADE41B09B57100B361B8 /* UserData.m in Sources */,
+				1D791C031B0F712900589A51 /* FriendManager.m in Sources */,
 				1D01AE021B09B5D900B361B8 /* ProtocolSocket.c in Sources */,
 				A526A509B05995C09D1A0D1F /* FriendsSearchController.m in Sources */,
 			);

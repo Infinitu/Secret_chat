@@ -29,6 +29,7 @@ enum socket_status{
 };
 
 void socket_init();
+void socket_finalize();
 void sendMessage(int header, uint8_t * body);
 void socketOpened();
 void socketClosed();

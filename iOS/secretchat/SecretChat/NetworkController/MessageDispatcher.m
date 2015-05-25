@@ -57,7 +57,7 @@ int lastDTCnt=0;
 }
 
 -(void)newChatMessage:(NSDictionary*)dictionary{
-    NSLog(@"%@",dictionary);
+    NSLog(@"Chat Message Arrived ::\n%@",dictionary);
     NSString *address = dictionary[(__bridge NSString *) KEY_ADDRESS];
     if([address containsString:@"system_"])
         return [self newSystemMessage:address withData:dictionary];

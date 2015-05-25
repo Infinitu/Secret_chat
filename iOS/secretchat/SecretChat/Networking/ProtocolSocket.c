@@ -45,7 +45,8 @@ void socket_init(CFStringRef host, int port){
 }
 
 void socket_finalize(){
-    //todo
+    CFReadStreamClose(read_stream);
+    CFWriteStreamClose(write_stream);
 }
 
 void readCallback( CFReadStreamRef stream, CFStreamEventType eventType, void *clientCallBackInfo ){

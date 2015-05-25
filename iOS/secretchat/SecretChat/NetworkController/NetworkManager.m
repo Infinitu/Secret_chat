@@ -11,6 +11,8 @@
 #import "MessageDispatcher.h"
 #import "Version.h"
 
+void sendMissingMessageRequest();
+
 @implementation NetworkManager
 
 UserData *myself = nil;
@@ -21,6 +23,11 @@ enum socket_status status=DISCONNECTED;
     socket_init(serverhost,port);
     myself = userData;
 //    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+}
+
+void setStatus(enum socket_status newStatus){
+    status = newStatus;
+    statusChanged(newStatus);
 }
 
 void messageComplete(int header, CFDictionaryRef cfDictionary){
@@ -34,7 +41,7 @@ void messageComplete(int header, CFDictionaryRef cfDictionary){
             waiting_pong = false;
             break;
         case 0x1002: // session okay
-            status = AUTHORIZED;
+            setStatus(AUTHORIZED);
             break;
         case 0x1003: // redirect server
             //todo redirect
@@ -50,8 +57,8 @@ void messageComplete(int header, CFDictionaryRef cfDictionary){
         case 0x1101: // disconnected by another connection.
             break;
         case 0x2012: // seding message successful.
-            datetime = ((NSString*)[dictionary objectForKey:(NSString*)KEY_SEND_DATETIME]).longLongValue;
-            [[MessageDispatcher getInstance] sendSuccess:datetime];
+            datetime = ((NSString*) dictionary[(__bridge NSString *) KEY_SEND_DATETIME]).longLongValue;
+            [[MessageDispatcher getInstance] sendSuccess:(long) datetime];
             break;
         case 0x2013: // seding message failed.
             //todo Error Handling
@@ -60,7 +67,7 @@ void messageComplete(int header, CFDictionaryRef cfDictionary){
             [[MessageDispatcher getInstance] newChatMessage:dictionary];
             break;
         case 0x2102: // new chunked message arrival begin
-            //todo
+            //tod
             break;
         case 0x2103: // new chunked message arrival continue
             //todo
@@ -69,10 +76,15 @@ void messageComplete(int header, CFDictionaryRef cfDictionary){
             //todo
             break;
         case 0x3001: // missing message notification.
-            //todo
+            [[NSNotificationCenter defaultCenter]
+                    postNotificationName:@"MissedMessageNotification"
+                                  object:nil
+                                userInfo:@{ @"count":
+                                        @([(NSString*)dictionary[(__bridge NSString *)KEY_MSG_CNT] integerValue])}];
+            sendMissingMessageRequest();
             break;
         case 0x3003: // missing message
-            //todo
+            [[MessageDispatcher getInstance] newChatMessage:dictionary];
             break;
         case 0x3102: // message read check.
             //todo
@@ -99,7 +111,7 @@ void messageComplete(int header, CFDictionaryRef cfDictionary){
 }
 
 void socketOpened(){
-    status = CONNECTED;
+    setStatus(CONNECTED);
     sendAuth();
 }
 void socketClosed(){
@@ -111,6 +123,15 @@ void socketError(){
 
 void pingTimeout(){
     //todo disconnect and reconnect
+}
+
+void statusChanged(enum socket_status status){
+    switch (status){
+        case AUTHORIZED:
+            break;
+        default :
+            break;
+    }
 }
 
 void sendPing(){
@@ -156,4 +177,11 @@ void sendMsg(NSString* address, NSString* msg){
                                     cStringUsingEncoding:NSUTF8StringEncoding]));
 }
 
+
+void sendMissingMessageRequest() {
+    uint8_t nullstr = '\0';
+    sendMessage(0x3002,&nullstr);
+}
+
 @end
+

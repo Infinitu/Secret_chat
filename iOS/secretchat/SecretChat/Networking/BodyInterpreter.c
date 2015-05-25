@@ -219,7 +219,7 @@ void bodyparse(struct tlv_stuct tlv){
             break;
         case 0x3001: // missing message notification.
             kvlen = 3;
-            if(splitWithPipe(&param,tlv.body, tlv.length) < 4){
+            if(splitWithPipe(&param,tlv.body, tlv.length) < 1){
                 parseError(tlv.header);
                 goto errorBreak;
             }
