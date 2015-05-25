@@ -36,6 +36,8 @@ trait BodyInterpreter {this: ReceivePipeline =>
       inner(new ReceivingMessageSuccessful(body))
     case Command(0x2112,length,body)=>
       inner(new ReceivingMessageFailed(body))
+    case Command(0x3002,length,body)=>
+      inner(GetMissingMessageRequest)
     case Command(0x3101,length,body)=>
       inner(new CheckMessageRead(body))
     case Command(0x4301,length,body)=>

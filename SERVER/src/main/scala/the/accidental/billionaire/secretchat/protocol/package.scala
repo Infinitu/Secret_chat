@@ -285,7 +285,7 @@ package object protocol {
   /**
    * 0x3002
    */
-  case class GetMissingMessageRequest() extends  CommandCase{
+  case object GetMissingMessageRequest extends  CommandCase{
     override val header: Int = 0x3002
     def body(implicit userData: Option[UserData]) = ByteString()
   }
@@ -293,10 +293,8 @@ package object protocol {
   /**
    * 0x3003
    */
-  case class MissingMessage(senderAddress:String, sendDateTime:Long, idx:Int, messageJson:String) extends  CommandCase{
+  case class MissingMessage(msg:ReceiveMessageArrivalPlain) extends  ReceiveMessageArrivalPlain(msg.senderAddress,msg.sendDateTime,msg.idx,msg.message){
     override val header: Int = 0x3003
-    import AddressEncryptor._
-    def body(implicit userData: Option[UserData]) = ByteString("%s|%d|%d|%s|".format(addressEncrypt(senderAddress),sendDateTime,idx,messageJson))
   }
 
   /**

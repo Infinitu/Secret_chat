@@ -1,13 +1,14 @@
-import akka.actor.{Props, ActorSystem}
-import akka.testkit.{TestActorRef, ImplicitSender, TestKit}
+import akka.actor.{ActorSystem, Props}
+import akka.testkit.{ImplicitSender, TestActorRef, TestKit}
 import com.redis.RedisClient
-import com.typesafe.config.{ConfigFactory, Config}
+import com.typesafe.config.{Config, ConfigFactory}
 import org.scalamock.scalatest.MockFactory
 import org.scalatest._
 import redis.embedded.RedisServer
-import the.accidental.billionaire.secretchat.actor.MessageDispatcher
+import the.accidental.billionaire.secretchat.actor.virtualuser.Matchmaker.{FriendsEstablished, FriendRequest}
+import the.accidental.billionaire.secretchat.actor.{MessageDispatcher, MissingMessageDispatcher}
+import the.accidental.billionaire.secretchat.protocol.StringBodyWritable
 import the.accidental.billionaire.secretchat.security.UserData
-import the.accidental.billionaire.secretchat.protocol.{StringBodyWritable, String2BodyWritable}
 
 /**
  * Created by infinitu on 2015. 4. 17..
@@ -28,11 +29,8 @@ class MessageTest(_system:ActorSystem) extends TestKit(_system) with WordSpecLik
     redis.stop()
   }
 
-  val actor = TestActorRef(Props(new MessageDispatcher(self.path.toString)))
-
-
   "MessageDispatcher" should {
-
+    val actor = TestActorRef(Props(new MessageDispatcher(self.path.toString)))
     val redisClient = new RedisClient("localhost",port)
     "register and unregister path to redis" in{
       val address = "address_test"
@@ -52,6 +50,23 @@ class MessageTest(_system:ActorSystem) extends TestKit(_system) with WordSpecLik
       actor ! message
       expectMsg(message)
     }
-
   }
+
+
+
+  "MissingMessageDispatcher" should {
+    val missingDispatcher = TestActorRef(Props(new MissingMessageDispatcher()))
+    val msgDispather = TestActorRef(Props(new MessageDispatcher(missingDispatcher.path.toString)))
+    "deliver MissedMessage when reconnected" in {
+      val address = "address"
+      val myAddr = "myaddr"
+      val ud = UserData("","",address,"")
+      val message = MessageDispatcher.SendMessage(address,myAddr,0,FriendsEstablished(myAddr,"hello"))
+      msgDispather ! message
+      Thread.sleep(500)
+      missingDispatcher ! MissingMessageDispatcher.GetMissingMessage(ud)
+      expectMsg(message)
+    }
+  }
+
 }

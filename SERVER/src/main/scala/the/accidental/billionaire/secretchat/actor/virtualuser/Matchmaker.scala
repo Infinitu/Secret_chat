@@ -30,7 +30,7 @@ object  Matchmaker{
       ).toString()
     }
   }
-  implicit val friendsReqestWrites = new JsonWrites[FriendRequest] {
+  implicit val friendsRequestWrites = new JsonWrites[FriendRequest] {
 
     override def toJson(obj: FriendRequest): JsValue = {
       Json.obj(
