@@ -16,6 +16,9 @@ exports.insertDb = function (contents, callback) {
 	
 exports.findDb = function (where, options, callback) {
 	collection.find(where, options).toArray(function(err, data) {
+		if (typeof data[0] == "undefined")
+			err = 1;
+		
         console.log("find data:", JSON.stringify(data[0]));
         callback(err, data[0]);
     });

@@ -26,7 +26,10 @@ exports.join = function(res, contents) {
 		contents.encryptKey = encryptKey;
 		console.log(encryptKey);
 		_insertUserProfile(contents, function(err, userInfo) {
-	    	if (err) msgHandler.sendError(res);
+	    	if (err) {
+	    		msgHandler.sendError(res);
+    			return ;
+	    	}
 	    	
 	    	msgHandler.sendString(res, contents.accessToken);
 		});
@@ -35,7 +38,10 @@ exports.join = function(res, contents) {
 
 exports.read = function(res, contents) {
 	_findUserProfile(contents.accessToken, function(err, userInfo) {
-		if (err) msgHandler.sendError(res);
+		if (err) {
+			msgHandler.sendError(res);
+			return ;
+		}
 		
 		msgHandler.sendJSON(res, userInfo);
 	});
@@ -43,7 +49,10 @@ exports.read = function(res, contents) {
 
 exports.update = function(res, contents) {
 	_updateUserProfile(contents.accessToken, contents, function(err) {
-		if (err) msgHandler.sendError(res);
+		if (err) {
+			msgHandler.sendError(res);
+			return ;
+		}
 		
 		exports.read(res, contents);
 	});
@@ -51,7 +60,10 @@ exports.update = function(res, contents) {
 
 exports.remove = function(res, contents) {
 	_removeUserProfile(contents.accessToken, function(err) {
-		if (err) msgHandler.sendError(res);
+		if (err) {
+			msgHandler.sendError(res);
+			return ;
+		}
 		
 		var message = "deleted!";
     	msgHandler.sendString(res, message);

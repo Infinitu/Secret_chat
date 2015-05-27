@@ -12,6 +12,10 @@ exports.setNickNameTag = function(nickNameTag, id, callback) {
 
 exports.getFriendId = function(nickNameTag, callback) {
 	client.get(nickNameTag, function(err, friendId) {
+		console.log("find redis data:", friendId);
+		if (friendId == null)
+			err = 1;
+		
 		callback(err, friendId);
 	});
 };
