@@ -7,7 +7,7 @@ var ObjectID      = require("mongodb").ObjectID,
 	redisHandler  = require("./redisDbHandler"),
 	cipherHandler = require("./cipherHandler");
 
-var IP_ADDRESS = "http://10.73.39.122:8080";
+var IP_ADDRESS = "http://125.209.195.139:80";
 
 exports.find = function(res, contents) {
 	_findFriendId(contents.nickNameTag, function(err, friendId) {
@@ -66,7 +66,7 @@ exports.read = function(res, contents) {
 };
 
 exports.showImage = function(res, contents) {
-	var filePath = "./profileImages" + "/" + contents.imageName;
+	var filePath = "./profileimages" + "/" + contents.imageName;
 	
 	fs.readFile(filePath, function(err, data) {
 		msgHandler.sendFile(res, data, filePath);

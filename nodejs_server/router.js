@@ -11,20 +11,20 @@ exports.route = (function() {
 					 "/addfriend"     : { POST : friendEventHandler.find },
 					 "/main"          : { POST : friendEventHandler.read },
 					 "/uninstall"     : { DELETE : userEventHandler.remove },
-					 "/profileImages" : { GET : friendEventHandler.showImage }
+					 "/profileimages" : { GET : friendEventHandler.showImage }
 	};
 	
 	function route(res, pathname, method, contents) {
-		try {
+//		try {
 			if (typeof handlers[pathname][method] === "function")
 				handlers[pathname][method](res, contents);
 			
 			else
 				console.log("router error");
-		} catch(e) {
-			console.log("catch error!");
-			console.log(e);
-		}
+//		} catch(e) {
+//			console.log("router catch error!");
+//			console.log(e);
+//		}
 	}
 	
 	return route;

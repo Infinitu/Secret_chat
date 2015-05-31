@@ -1,8 +1,7 @@
 /* incomingDataParser.js */
 
 var	url        = require("url"),
-	dataFilter = require("./inappropriateAccessFilter");
-	
+	dataFilter = require("./inappropriateAccessFilter");	
 
 exports.dataParser = (function() {
 	function dataParser(req, res, form) {
@@ -16,10 +15,12 @@ exports.dataParser = (function() {
 			var pathname = url.parse(req.url).pathname;
 			
 			if (method === "GET") {
+				console.log("pathname : ", pathname);
 				var path = [];
 				path = pathname.split("/");
 				pathname = "/" + path[1];
 				incomingContents.imageName = path[2];
+				console.log(path[1], path[2]);
 			}
 			
 			dataFilter.dataFilter(res, pathname, method, incomingContents);

@@ -14,16 +14,14 @@ var httpsOptions = {
 
 function onRequest(req, res) {
 	var incomingData = new formidable.IncomingForm();
-	incomingData.uploadDir = "./profileImages";
+	incomingData.uploadDir = "./profileimages";
 	incomingData.keepExtensions = true;
 	incomingData.maxFieldsSize  = 5 * 1024 * 1024;  // 최대 보낼 수 있는 파일 용량 5 mb
 
 	dataParser.dataParser(req, res, incomingData);
 }
 
-var server = https.createServer(onRequest);
+var server = https.createServer(onRequest); // var server = https.createServer(httpsOptions, onRequest);
 server.listen(HTTPS_PORT);
 
 console.log("Server Start!");
-
-
