@@ -10,7 +10,9 @@ import the.accidental.billionaire.secretchat.actor.virtualuser.Matchmaker.{Frien
 import the.accidental.billionaire.secretchat.protocol.{JsonWrites, BodyWritable}
 import the.accidental.billionaire.secretchat.security.{AddressEncryptor, UserData}
 import the.accidental.billionaire.secretchat.utils.RedisStore._
-
+import the.accidental.billionaire.secretchat.utils.crypto.KeyGenerator
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 /**
  * Created by infinitu on 2015. 5. 16..
  * 친구관계, 랜덤매칭을 관장하는 관계 관리 엑터.
@@ -114,16 +116,16 @@ class Matchmaker(dispatcherPath:String, exchangerPath:String) extends Actor{
       saveRequest(sender,address)
       msgDispatcher ! SendMessage(address, systemUserName, System.currentTimeMillis(), req)
     case FriendRequestAnswer(sender,address,"accept") if address.startsWith("random_")=>
-      if(verifyRequest(address, sender)){
+      verifyRequest(address, sender) onSuccess {case true=>
         randomExchanger ! FriendsEstablishedFromRandomRoom(address,sender, makeEncKey)
-      }
+      case _=>}
     case FriendRequestAnswer(sender,address,"accept") =>
-      if(verifyRequest(address, sender)){
+      verifyRequest(address, sender) onSuccess {case true=>
         val enckey = makeEncKey
         msgDispatcher ! SendMessage(sender,systemUserName,System.currentTimeMillis(),FriendsEstablished(address,enckey))
         msgDispatcher ! SendMessage(address,systemUserName,System.currentTimeMillis(),FriendsEstablished(sender,enckey))
         deleteRequest(address,sender)
-      }
+      case _=>}
     case FriendRequestAnswer(sender,address,"deny")=>
       deleteRequest(address,sender)
       //ignore
@@ -131,23 +133,23 @@ class Matchmaker(dispatcherPath:String, exchangerPath:String) extends Actor{
   }
 
   def makeEncKey:String={
-    "" //todo
+    KeyGenerator.genEncKeyInBase64(64)
   }
 
 
-  def verifyRequest(fromAddress:String, anserAddress:String):Boolean={
+  def verifyRequest(fromAddress:String, anserAddress:String):Future[Boolean]=Future{
     redisPool.withClient{client =>
       client.sismember(friendsRequest_collection_name+":"+fromAddress, anserAddress)
     }
   }
 
-  def deleteRequest(fromAddress:String, anserAddress:String): Unit ={
+  def deleteRequest(fromAddress:String, anserAddress:String): Future[Unit] =Future{
     redisPool.withClient{client =>
       client.srem(friendsRequest_collection_name+":"+fromAddress, anserAddress)
     }
   }
 
-  def saveRequest(from:String, to:String):Option[Long] ={
+  def saveRequest(from:String, to:String):Future[Option[Long]] =Future{
     redisPool.withClient{client =>
       client.sadd(friendsRequest_collection_name+":"+from, to)
     }

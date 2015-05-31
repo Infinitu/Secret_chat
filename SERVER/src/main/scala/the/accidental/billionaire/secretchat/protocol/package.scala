@@ -322,21 +322,21 @@ package object protocol {
    */
   case class RandomMatchingEnqueue() extends  CommandCase{
     override val header: Int = 0x4001
-    def body(implicit userData: Option[UserData]) = ???
+    def body(implicit userData: Option[UserData]) = ByteString()
   }
 
   /**
    * 0x4002
    */
-  case class RandomMatchingDequeue() extends  CommandCase{
+  case object RandomMatchingDequeue extends CommandCase{
     override val header: Int = 0x4002
-    def body(implicit userData: Option[UserData]) = ???
+    def body(implicit userData: Option[UserData]) = ByteString()
   }
 
   /**
    * 0x4101
    */
-  case class EnqueueSuccessful() extends  CommandCase{
+  case object EnqueueSuccessful extends  CommandCase{
     override val header: Int = 0x4101
     def body(implicit userData: Option[UserData]) = ???
   }

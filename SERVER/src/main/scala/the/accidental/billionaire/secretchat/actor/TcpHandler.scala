@@ -4,7 +4,7 @@ import akka.actor.{Actor, ActorRef}
 import akka.event.Logging
 import akka.io.Tcp.{PeerClosed, Close}
 import the.accidental.billionaire.secretchat.actor.MissingMessageDispatcher.GetMissingMessage
-import the.accidental.billionaire.secretchat.actor.virtualuser.Matchmaker
+import the.accidental.billionaire.secretchat.actor.virtualuser.{Butler, Matchmaker}
 import the.accidental.billionaire.secretchat.protocol._
 import the.accidental.billionaire.secretchat.utils.ReceivePipeline
 
@@ -25,6 +25,8 @@ class TcpHandler(override val connection:ActorRef) extends Actor
   val msgDispatcher = context.system.actorSelection("/user/"+MessageDispatcher.actorPath)
   val matchmaker = context.system.actorSelection("/user/"+Matchmaker.actorPath)
   val randomExchanger = context.system.actorSelection("/user/"+RandomMessageExchanger.actorPath)
+  val randomQueue = context.system.actorSelection("/user/"+RandomQueue.actorPath)
+  val butler = context.system.actorSelection("/user/"+Butler.actorPath)
   val missingMsgDispatcher = context.system.actorSelection("/user/"+MissingMessageDispatcher.actorPath)
   var pendingQueue:List[ReceiveMessageArrivalPlain] = Nil
 
@@ -88,6 +90,21 @@ class TcpHandler(override val connection:ActorRef) extends Actor
       writeToConnection(FriendsRequestSendSuccessfully)
 
     case msg:MessingMessageNotification=>
+      writeToConnection(msg)
+
+    case RandomMatchingEnqueue()=>
+      randomQueue ! RandomQueue.RandomEnQueue(userData.get,RandomQueue.MatchCondition(0))
+
+    case RandomMatchingDequeue=>
+      randomQueue ! RandomQueue.RandomDeQueue(userData.get)
+
+    case RandomChatExit(address)=>
+      butler ! Butler.BreakUp(userData.get.userAddress,address)
+      
+    case RandomQueue.Successfully=>
+      writeToConnection(EnqueueSuccessful)
+
+    case msg:MatchEstablished=>
       writeToConnection(msg)
 
     case PeerClosed=>

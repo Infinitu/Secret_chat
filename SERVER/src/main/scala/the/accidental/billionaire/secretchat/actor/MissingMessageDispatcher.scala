@@ -8,6 +8,9 @@ import the.accidental.billionaire.secretchat.actor.virtualuser.Matchmaker.{Frien
 import the.accidental.billionaire.secretchat.protocol.{FriendsRequest, MessingMessageNotification, StringBodyWritable, JsonWrites}
 import the.accidental.billionaire.secretchat.security.UserData
 
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+
 /**
  * Created by infinitu on 2015. 4. 17..
  */
@@ -40,11 +43,13 @@ class MissingMessageDispatcher extends Actor{
       storeMessage(dest,msg.asInstanceOf[SendMessage[Matchmaker.FriendsEstablishedFromRandomRoom]]);
 
     case GetMissingMessage(ud)=>
-      val msgs = getMessage(ud.userAddress)
-      remSet(ud.userAddress)
-      msgs.foreach(x=>x.foreach{ msg=>
-        sender() ! SendMessage.fromJson(Json.parse(msg).as[JsValue])
-      })
+      getMessage(ud.userAddress).foreach{msgs=>
+        remSet(ud.userAddress)
+
+        msgs.foreach(x=>x.foreach{ msg=>
+          sender() ! SendMessage.fromJson(Json.parse(msg).as[JsValue])
+        })
+      }
     case CheckMissingMessage(ud)=>
       didMissed(ud.userAddress).foreach{cnt=>
         if(cnt>0)
@@ -53,22 +58,22 @@ class MissingMessageDispatcher extends Actor{
     case _=>
   }
 
-  def storeMessage[T](destAddress:String,msg:T)(implicit writes:JsonWrites[T]): Unit ={
+  def storeMessage[T](destAddress:String,msg:T)(implicit writes:JsonWrites[T]): Unit = Future{
     redisPool.withClient{client=>
       client.sadd(missing_collection_name+destAddress, writes.toJson(msg).toString())
     }
   }
 
-  def getMessage(destAddress:String):Option[Set[String]] = {
+  def getMessage(destAddress:String):Future[Option[Set[String]]] = Future{
     redisPool.withClient { client =>
       client.smembers(missing_collection_name + destAddress)
     }.map(_.filter(_.isDefined).map(_.get))
   }
 
-  def remSet(destAddress:String): Unit ={
+  def remSet(destAddress:String): Unit = Future{
     redisPool.withClient(_.del(missing_collection_name+destAddress))
   }
-  def didMissed(destAddress:String): Option[Long] ={
-    redisPool.withClient(_.scard(missing_collection_name+destAddress))
+  def didMissed(destAddress:String):Future[Long] = Future{
+    redisPool.withClient(_.scard(missing_collection_name+destAddress)).getOrElse(0)
   }
 }
