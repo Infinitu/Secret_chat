@@ -49,9 +49,19 @@ CGSize windowSize;
 
 -(void)refreshObjects{
     _arrivedRequest = [NSMutableArray array];
-    for(FriendRequest *req in [FriendRequest allObjects])
+    RLMResults *result = [FriendRequest allObjects];
+    NSInteger cnt = [result count];
+    for(FriendRequest *req in result)
         [self.arrivedRequest addObject:req];
+
+    NSString *badge;
+    if(cnt>0)
+        badge= (cnt>99)?@"99+":[NSString stringWithFormat:@"%d",cnt];
+    else
+        badge = nil;
+    self.tabBarItem.badgeValue=badge;
     [self.tableView reloadData];
+
 }
 
 //Layout

@@ -12,6 +12,8 @@
 #import "Version.h"
 #import "CKJsonParser.h"
 #import "Friend.h"
+#import "AppDelegate.h"
+#import "NotificationManager.h"
 
 @interface FriendManager ()
 @property NSOperationQueue *queue;
@@ -76,6 +78,8 @@ NSString* createRandomInBase64(int byteCnt){
     }
     else if([type isEqualToString:@"established"]){
         [self establishedReceivedWithData:message[@"message"]];
+
+
     }
     else if([type isEqualToString:@"established_from_randomroom"]){
         [self establishedInRandomRoomReceivedWithData:message[@"message"]];
@@ -96,6 +100,12 @@ NSString* createRandomInBase64(int byteCnt){
         [FriendRequest createInDefaultRealmWithValue:request];
         [[RLMRealm defaultRealm] commitWriteTransaction];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FriendsRequestUpdated" object:self];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        if([appDelegate isInBackground]){
+            [[NotificationManager getInstance] pushNotification:[NSString stringWithFormat:@"%@님이 새로운 친구요청을 보내셨습니다.",request.nickname]
+                                                      withTitle:@"새 친구 요청" withAction:@"요청 보기"
+                                                   withUserInfo:@{@"msgType":@"friend_request"}];
+        }
     }];
 }
 
@@ -118,6 +128,12 @@ NSString* createRandomInBase64(int byteCnt){
         [Friend createInDefaultRealmWithValue:newFriend];
         [[RLMRealm defaultRealm] commitWriteTransaction];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FriendListChanged" object:self];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        if([appDelegate isInBackground]){
+            [[NotificationManager getInstance] pushNotification:[NSString stringWithFormat:@"%@님이 새로운 친구로 등록되었습니다.",newFriend.nickname]
+                                                      withTitle:@"Friends Established" withAction:@"메시지 보내기"
+                                                   withUserInfo:@{@"msgType":@"friend_established",@"data":newFriend.address}];
+        }
     }];
 }
 

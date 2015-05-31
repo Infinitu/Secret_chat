@@ -86,4 +86,9 @@ const NSString* key_encKey = @"encKey";
              };
 }
 
+- (BOOL)isRandom {
+    return [self.address hasPrefix:@"random_"];
+}
+
+
 @end

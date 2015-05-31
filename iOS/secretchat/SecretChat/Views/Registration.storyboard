@@ -13,7 +13,7 @@
                         <viewControllerLayoutGuide type="bottom" id="fgY-S0-fx5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3YI-te-yMN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="raw_backgoundimage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="YXg-T6-DCV">
@@ -81,7 +81,7 @@ New Account</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ycM-oK-CJT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -182,7 +182,7 @@ New Account</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z5F-fs-eV2">
-                                <rect key="frame" x="144" y="586" width="86" height="44"/>
+                                <rect key="frame" x="42" y="299" width="116" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <state key="normal" title="Finish">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -231,6 +231,7 @@ New Account</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="ProfileView" destination="SUF-Gw-aA3" id="ed6-gN-xdo"/>
                         <outlet property="birthYearField" destination="wqp-pS-txP" id="zB5-BO-Dxa"/>

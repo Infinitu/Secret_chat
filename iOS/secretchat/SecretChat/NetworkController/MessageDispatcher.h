@@ -15,8 +15,8 @@
 -(void)sendSuccess:(long)datetime;
 -(void)newChatMessage:(NSDictionary*)dictionary;
 //-(Message*)sendMesssageText:(NSString*)message toFriend:(Friend*)friend;
--(Message*)sendMessage:(Message*)msg;
--(RLMRealm*)chatRealmWithAddress:(NSString*)address;
+-(Message*)sendMessage:(Message*)msg toFriend:(Friend*)friend;
+-(RLMRealm*)chatRealmWithFriend:(Friend*)friend;
 void sendMsg(NSString* address, NSString* msg);
 void receiveSuccessfully(NSString* sender, long datetime, int idx);
 @end

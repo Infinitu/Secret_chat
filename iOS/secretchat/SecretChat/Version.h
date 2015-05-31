@@ -14,13 +14,16 @@
 
 #define APP_VERSION @"0.0.1"
 #define PROTOCOL_VERSION @"1.0"
-#define PING_TIMEOUT_IN_SEC 3 
+#define PING_TIMEOUT_IN_SEC 1
+#define PING_INTERVAL 2
 
-#define DEFAULT_HOST @"localhost"
+#define DEFAULT_HOST @"10.0.0.2"
 #define DEFAULT_PORT 9000
 #define DEFAULT_API_SCHEME @"https"
-#define DEFAULT_API_HOST @"localhost"
+
+#define DEFAULT_API_HOST @"10.0.0.2"
 #define DEFAULT_API_PORT 7000
+
 @interface NSURLRequest (DummyInterface)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString*)host;
 + (void)setAllowsAnyHTTPSCertificate:(BOOL)allow forHost:(NSString*)host;

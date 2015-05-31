@@ -12,7 +12,9 @@
 
 @interface ChatLogCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *contentsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contentsLabelWrap;
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *tail;
 
 -(void)prepareView:(Message*)msg;
 +(CGSize)guessTextSize:(NSString *)text withWidth:(CGFloat)width;

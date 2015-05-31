@@ -24,11 +24,13 @@
 
 enum socket_status{
     DISCONNECTED,
+    CONNECTING,
     CONNECTED,
-    AUTHORIZED
+    AUTHORIZED,
+    CLOSED,
 };
 
-void socket_init();
+void socket_init(CFStringRef host, UInt32 port);
 void socket_finalize();
 void sendMessage(int header, uint8_t * body);
 void socketOpened();

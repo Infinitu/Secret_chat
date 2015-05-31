@@ -14,9 +14,15 @@ NSDateFormatter *formatter;
 
 UIFont *_nibfont;
 - (void)awakeFromNib {
-    _contentsLabel = (UILabel*)[self viewWithTag:1];
+    _contentsLabelWrap = (UILabel*)[self viewWithTag:1];
+    _contentsLabel = (UILabel*) [_contentsLabelWrap subviews][0];
     _timestampLabel = (UILabel*)[self viewWithTag:2];
     _nibfont = _contentsLabel.font;
+    _tail = (UIImageView*)[self viewWithTag:4];
+    _tail.image = [_tail.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+
+    _contentsLabelWrap.layer.cornerRadius = 12;
+    _contentsLabelWrap.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -29,9 +35,9 @@ UIFont *_nibfont;
     if(_nibfont)
         font = _nibfont;
     else
-        font = [UIFont systemFontOfSize:13];
+        font = [UIFont systemFontOfSize:17];
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:font}];
-    CGRect rect = [attributedText boundingRectWithSize:(CGSize){width-90, CGFLOAT_MAX}
+    CGRect rect = [attributedText boundingRectWithSize:(CGSize){width-80, CGFLOAT_MAX}
                                                options:NSStringDrawingUsesLineFragmentOrigin
                                                context:nil];
     
@@ -58,17 +64,31 @@ UIFont *_nibfont;
 -(void)prepareLayout:(NSString*)str mine:(BOOL)isMine{
     
     CGSize size = [ChatLogCell guessTextSize:str withWidth:self.frame.size.width];
-    CGRect rect = (CGRect){CGPointMake((int)(isMine?self.frame.size.width-10-size.width:0), 10),CGSizeMake(ceil(size.width),ceil(size.height))};
-    
+    CGRect bound = (CGRect){CGPointMake(12, 7),CGSizeMake((CGFloat) ceil(size.width), (CGFloat) ceil(size.height))};
+    CGPoint labelPoint = CGPointMake((int)(isMine?self.frame.size.width-10/*tail to wall*/-6/*label to tail*/-size.width-24/*width paddindg*/:16), 0);
+    CGSize labelSize = CGSizeMake(ceil(size.width+24),ceil(size.height+14));
+    CGRect rect = (CGRect){labelPoint,labelSize};
+
     self.contentsLabel.numberOfLines = NSIntegerMax;
-    [self.contentsLabel setFrame:rect];
-    
-    
+    [self.contentsLabelWrap setFrame:rect];
+    [self.contentsLabel setFrame:bound];
+
     CGSize stampSize = self.timestampLabel.frame.size;
-    CGRect stampRect = CGRectMake(isMine?rect.origin.x-70:rect.origin.x-5+rect.size.width+5,
-                                  rect.origin.y+rect.size.height - stampSize.height,
+    CGRect stampRect = CGRectMake(isMine?labelPoint.x-70:labelPoint.x-5+labelSize.width+5,
+                                  labelPoint.y+labelSize.height - stampSize.height,
                                   70,stampSize.height);
-    
+
+
+
+
+    if(self.tail){
+        CGSize  tailSize = self.tail.frame.size;
+        CGPoint tailPoint = CGPointMake(isMine?labelPoint.x+labelSize.width-tailSize.width+6/*tail to width*/:10, labelSize.height-tailSize.height);
+        [self.tail setFrame:(CGRect){tailPoint,tailSize}];
+    };
+
+
+
     [self.timestampLabel setFrame:stampRect];
     
 }

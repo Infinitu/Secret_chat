@@ -9,6 +9,7 @@
 #import "MasterViewController.h"
 #import "AppDelegate.h"
 #import "UserData.h"
+#import "FriendRequest.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 
@@ -26,7 +27,6 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.userData = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).userData;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

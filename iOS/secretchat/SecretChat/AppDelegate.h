@@ -10,11 +10,15 @@
 #import "UserData.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+@property(readonly) int status; //0 not logedin background 1 logedin background
+                                // 2 foreground notlogedin 3 logedin foreground
 
 @property (strong, nonatomic) UIWindow *window;
 @property UserData *userData;
 
 -(void)initializeWithUserData:(UserData*)ud;
+-(BOOL)isInBackground;
+- (void)pushNotification:(NSString*)body withTitle:(NSString*)title withAction:(NSString*)action withUserInfo:(NSDictionary*)info;
 
 @end
 

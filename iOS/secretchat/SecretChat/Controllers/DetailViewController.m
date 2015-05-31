@@ -35,7 +35,7 @@
     if (self.friend) {
         self.title = self.friend.nickname;
         if(self.realm==nil || ![self.realm.path isEqualToString:[self.friend chatRealmPath]]){
-            self.realm = [[MessageDispatcher getInstance] chatRealmWithAddress:self.friend.address];
+            self.realm = [[MessageDispatcher getInstance] chatRealmWithFriend:self.friend];
             [[NSNotificationCenter defaultCenter]removeObserver:self];
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshChat:) name:self.friend.address object:[MessageDispatcher getInstance]];
             self.ChatLogs = [[ChatLogTableDataController alloc] initWithRealm:self.realm];
@@ -67,7 +67,15 @@
     self.ChatScroll.allowsSelection = false;
     if([self.ChatLogs last])
         [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    
+
+
+    self.ChatInput.layer.cornerRadius = 6;
+    self.ChatInput.layer.masksToBounds = YES;
+    self.ChatInput.layer.borderColor = [[UIColor colorWithRed:((CGFloat)0xC7)/0xFF
+                                                        green:((CGFloat)0xC7)/0xFF
+                                                         blue:((CGFloat)0xCB)/0xFF alpha:1] CGColor];
+    self.ChatInput.layer.borderWidth = 0.5;
+
     [self registerNotification];
 }
 
@@ -103,25 +111,27 @@
     CGFloat height = screen.height-keyboard.size.height;
     
     
-    CGFloat sendBtnWid = self.ChatSend.frame.size.width;
-    
+    CGFloat sendBtnWid = 49;
+    CGFloat sendBtnHei = self.ChatSend.frame.size.height;
+
     
     CGFloat newWidth = screen.width-sendBtnWid-30;
     self.ChatInputDump.text = self.ChatInput.text;
     CGSize newSize = [self.ChatInputDump sizeThatFits:CGSizeMake(newWidth, MAXFLOAT)];
     CGFloat newheight = newSize.height;
     
-    newheight = newheight>70?70:newheight;
-    newheight = newheight<30?30:newheight;
+    newheight = newheight>101?101:newheight;
+    newheight = newheight<28?28:newheight;
     NSLog(@"%f  \t%f\t%f",(int)newheight - self.ChatInput.frame.size.height,self.ChatInput.frame.size.height, newSize.height);
 
     
-    CGRect newContainerFrame = CGRectMake(0, height-newheight-10, screen.width, newheight+10);
-    CGRect newInputFrame = CGRectMake(10, 5, screen.width-sendBtnWid-30, newheight);
-    CGRect newSendBtnFrame = CGRectMake(screen.width-sendBtnWid-10, 5 , sendBtnWid, newheight);
-    CGRect newScrollFrame = CGRectMake(0, 0, screen.width, height-newContainerFrame.size.height);
-    
-    
+    CGRect newContainerFrame = CGRectMake(0, height-newheight-16, screen.width, newheight+16);
+    CGRect newInputFrame = CGRectMake(8, 8, screen.width-49-8, newheight);
+    CGRect newSendBtnFrame = CGRectMake(screen.width-sendBtnWid,newheight+16-12-sendBtnHei  , 49, sendBtnHei);
+    CGRect newScrollFrame = CGRectMake(0, 0, screen.width, height);
+
+
+    [self.ChatScroll setContentInset:UIEdgeInsetsMake(64, 0, newheight+16, 0)];
     [self.ChatContainer setFrame:newContainerFrame];
     [self.ChatScroll setFrame:newScrollFrame];//  fromView:self.ChatContainer];
     [self.ChatInput setFrame:newInputFrame];//   fromView:self.ChatContainer];
@@ -129,10 +139,11 @@
 }
 long lastStr;
 - (void)textViewDidChange:(UITextView *)textView{
-    CGFloat height = self.ChatScroll.frame.size.height+self.ChatContainer.frame.size.height;
+    CGFloat height = self.ChatScroll.frame.size.height;
     CGFloat width = self.ChatScroll.frame.size.width;
     
     CGFloat sendBtnWid = self.ChatSend.frame.size.width;
+    CGFloat sendBtnHei = self.ChatSend.frame.size.height;
     
     
     CGFloat newWidth = width-sendBtnWid-30;
@@ -141,19 +152,17 @@ long lastStr;
     CGSize newSize = [self.ChatInputDump sizeThatFits:CGSizeMake(newWidth, MAXFLOAT)];
     CGFloat newheight = newSize.height;
     
-    newheight = newheight>70?70:newheight;
-    newheight = newheight<30?30:newheight;
+    newheight = newheight>101?101:newheight;
+    newheight = newheight<28?28:newheight;
     NSLog(@"%f  \t%f\t%f",(int)newheight - self.ChatInput.frame.size.height,self.ChatInput.frame.size.height, newSize.height);
     
     
-    CGRect newContainerFrame = CGRectMake(0, height-newheight-10, width, newheight+10);
-    CGRect newInputFrame = CGRectMake(10, 5, width-sendBtnWid-30, newheight);
-    CGRect newSendBtnFrame = CGRectMake(width-sendBtnWid-10, 5 , sendBtnWid, newheight);
-    CGRect newScrollFrame = CGRectMake(0, 0, width, height-newContainerFrame.size.height);
+    CGRect newContainerFrame = CGRectMake(0, height-newheight-16, width, newheight+16);
+    CGRect newInputFrame = CGRectMake(8, 8, width-49-8, newheight);
+    CGRect newSendBtnFrame = CGRectMake(width-49, newheight+16-12-sendBtnHei , 49, sendBtnHei);
     
-    
+    [self.ChatScroll setContentInset:UIEdgeInsetsMake(64, 0, newheight+16, 0)];
     [self.ChatContainer setFrame:newContainerFrame];
-    [self.ChatScroll setFrame:newScrollFrame];
     [self.ChatInput setFrame:newInputFrame];
     [self.ChatSend  setFrame:newSendBtnFrame];
 }
@@ -210,7 +219,7 @@ long lastStr;
     [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 
 
-    [self.ChatLogs.pendingObjects addObject:[[MessageDispatcher getInstance] sendMessage:msg]];
+    [self.ChatLogs.pendingObjects addObject:[[MessageDispatcher getInstance] sendMessage:msg toFriend:self.friend]];
     [self.ChatScroll reloadData];
 }
 

@@ -20,33 +20,43 @@ void writeCallback ( CFWriteStreamRef stream, CFStreamEventType eventType, void 
 void sendOpenedNotification();
 void receiveData();
 
-
-CFNotificationCenterRef notiCenter;
-
-void socket_init(CFStringRef host, int port){
-    notiCenter = CFNotificationCenterGetLocalCenter();
+void socket_init(CFStringRef host, UInt32 port){
     
-    CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, host, port , &read_stream, &write_stream);
+    CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, host, port, &read_stream, &write_stream);
 
     CFStreamClientContext readContext={0,NULL,NULL,NULL,NULL};
-    CFReadStreamSetClient(read_stream, kCFStreamEventOpenCompleted|kCFStreamEventHasBytesAvailable|kCFStreamEventErrorOccurred|kCFStreamEventEndEncountered,
-                          readCallback, &readContext);
+    CFReadStreamSetClient(read_stream,
+            kCFStreamEventOpenCompleted|
+                    kCFStreamEventHasBytesAvailable|
+                    kCFStreamEventErrorOccurred|
+                    kCFStreamEventEndEncountered,
+            readCallback,
+            &readContext);
     
     CFStreamClientContext writesContext={0,NULL,NULL,NULL,NULL};
-    CFWriteStreamSetClient(write_stream, kCFStreamEventOpenCompleted|kCFStreamEventCanAcceptBytes|kCFStreamEventErrorOccurred|kCFStreamEventEndEncountered,
-                           writeCallback, &writesContext);
+    CFWriteStreamSetClient(write_stream,
+            kCFStreamEventOpenCompleted|
+                    kCFStreamEventCanAcceptBytes|
+                    kCFStreamEventErrorOccurred|
+                    kCFStreamEventEndEncountered,
+            writeCallback,
+            &writesContext);
     
     
-    CFReadStreamScheduleWithRunLoop(read_stream, CFRunLoopGetMain(), kCFRunLoopDefaultMode);
-    CFWriteStreamScheduleWithRunLoop(write_stream, CFRunLoopGetMain(), kCFRunLoopDefaultMode);
+    CFReadStreamScheduleWithRunLoop(read_stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+    CFWriteStreamScheduleWithRunLoop(write_stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     
     CFReadStreamOpen(read_stream);
     CFWriteStreamOpen(write_stream);
 }
 
 void socket_finalize(){
-    CFReadStreamClose(read_stream);
-    CFWriteStreamClose(write_stream);
+    if(read_stream)
+        CFReadStreamClose(read_stream);
+    if(write_stream)
+        CFWriteStreamClose(write_stream);
+    read_stream=nil;
+    write_stream=nil;
 }
 
 void readCallback( CFReadStreamRef stream, CFStreamEventType eventType, void *clientCallBackInfo ){
@@ -59,9 +69,9 @@ void readCallback( CFReadStreamRef stream, CFStreamEventType eventType, void *cl
             printf("can reads!\n");
             break;
         case kCFStreamEventEndEncountered:
-            
             break;
         case kCFStreamEventErrorOccurred:
+            socketError();
             break;
         default:
             break;
@@ -80,9 +90,11 @@ void writeCallback ( CFWriteStreamRef stream, CFStreamEventType eventType, void 
                 socketOpened();
             writable = true;
             break;
-        case kCFStreamEventErrorOccurred:
-            break;
         case kCFStreamEventEndEncountered:
+            socketClosed();
+            break;
+        case kCFStreamEventErrorOccurred:
+            socketError();
             break;
         default:
             break;
@@ -103,12 +115,12 @@ void sendMessage(int header, uint8_t * body){
     long cnt = 0;
     while(body[cnt++]!='\0');
     uint8_t headerAndLength[6] =
-    {((header&0xff00)>>8),
-         (header&0xff),
-        ((cnt&0xff000000)>>24),
-        ((cnt&0x00ff0000)>>16),
-        ((cnt&0x0000ff00)>>8),
-        (cnt&0x000000ff)};
+    {(uint8_t) ((header&0xff00)>>8),
+            (uint8_t) (header&0xff),
+            (uint8_t) ((cnt&0xff000000)>>24),
+            (uint8_t) ((cnt&0x00ff0000)>>16),
+            (uint8_t) ((cnt&0x0000ff00)>>8),
+            (uint8_t) (cnt&0x000000ff)};
     long res;
     res = CFWriteStreamWrite(write_stream, headerAndLength, 6);
     res = CFWriteStreamWrite(write_stream, body,cnt);

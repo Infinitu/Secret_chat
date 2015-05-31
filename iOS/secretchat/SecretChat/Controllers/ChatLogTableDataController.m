@@ -31,6 +31,7 @@
     if(self.objects.count+self.pendingObjects.count<=0) return nil;
     return [NSIndexPath indexPathForItem:self.objects.count + self.pendingObjects.count-1 inSection:0];
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -42,16 +43,22 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     Message *object;
+    BOOL conti;
     if(indexPath.row<self.objects.count){
         object=[self.objects objectAtIndex:indexPath.row];
+        if(indexPath.row +1 == self.objects.count)
+            conti = NO;
+        else
+            conti = ((Message*)self.objects[(NSUInteger) indexPath.row+1]).mine == object.mine;
     }
     else{
         object = [self.pendingObjects objectAtIndex:indexPath.row - self.objects.count];
+        conti = YES;
     }
     
     ChatLogCell *cell;
     
-    cell = [tableView dequeueReusableCellWithIdentifier:object.mine?@"mylog":@"yourlog" forIndexPath:indexPath];
+    cell = [tableView dequeueReusableCellWithIdentifier:object.mine?conti?@"mylog_continue":@"mylog":conti?@"yourlog_continue":@"yourlog" forIndexPath:indexPath];
     [cell prepareView:object];
     return cell;
 }
@@ -69,13 +76,20 @@
 
 -(CGFloat)tableView:tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
     Message *object;
+    BOOL conti = NO;
     if(indexPath.row<self.objects.count){
-        object=[self.objects objectAtIndex:indexPath.row];
+        object= self.objects[(NSUInteger) indexPath.row];
+        if(indexPath.row +1 == self.objects.count)
+            conti = NO;
+        else
+            conti = ((Message*)self.objects[(NSUInteger) indexPath.row+1]).mine == object.mine;
+
     }
     else{
         object = [self.pendingObjects objectAtIndex:indexPath.row - self.objects.count];
+        conti = YES;
     }
-    return [ChatLogCell guessTextSize:object.text withWidth:((UITableView*)tableView).frame.size.width].height+20;
+    return [ChatLogCell guessTextSize:object.text withWidth:((UITableView*)tableView).frame.size.width].height+7+7+conti?2:8;
 }
 
 @end

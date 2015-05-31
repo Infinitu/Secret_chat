@@ -24,7 +24,7 @@
 
 +(Friend*)friendWithDictionary:(NSDictionary*)dictionary;
 -(NSDictionary*)toDictionary;
-
+-(BOOL)isRandom;
 @end
 
 // This protocol enables typed collections. i.e.:

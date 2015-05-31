@@ -21,14 +21,17 @@
 		1D01AE071B09B5D900B361B8 /* man_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFC1B09B5D900B361B8 /* man_icon.png */; };
 		1D01AE081B09B5D900B361B8 /* raw_backgoundimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFD1B09B5D900B361B8 /* raw_backgoundimage.jpg */; };
 		1D01AE091B09B5D900B361B8 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFE1B09B5D900B361B8 /* Registration.storyboard */; };
+		1D2580981B1B7D1B008F9FF0 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D2580971B1B7D1B008F9FF0 /* Launch Screen.xib */; };
 		1D64F9BA1AEFB6B40069FA34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9B91AEFB6B40069FA34 /* main.m */; };
 		1D64F9BD1AEFB6B40069FA34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9BC1AEFB6B40069FA34 /* AppDelegate.m */; };
 		1D64F9C61AEFB6B40069FA34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D64F9C41AEFB6B40069FA34 /* Main.storyboard */; };
 		1D64F9C81AEFB6B40069FA34 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D64F9C71AEFB6B40069FA34 /* Images.xcassets */; };
 		1D64F9D71AEFB6B40069FA34 /* SecretChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9D61AEFB6B40069FA34 /* SecretChatTests.m */; };
+		1D6869CF1B1AF78600D4049A /* icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D6869CE1B1AF78600D4049A /* icons.xcassets */; };
 		1D791BFD1B0EF5B300589A51 /* FriendRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D791BFC1B0EF5B300589A51 /* FriendRequest.m */; };
 		1D791C001B0F031500589A51 /* FriendRequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D791BFF1B0F031500589A51 /* FriendRequestTableViewCell.m */; };
 		1D791C031B0F712900589A51 /* FriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D791C021B0F712900589A51 /* FriendManager.m */; };
+		1D9C82BD1B1AA161002CF9F1 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9C82BC1B1AA161002CF9F1 /* NotificationManager.m */; };
 		1DC3BED81B0C7B940004F47F /* FriendsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BED71B0C7B940004F47F /* FriendsCollectionViewCell.m */; };
 		1DC3BEE31B0C7B9E0004F47F /* ChatLogTableDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDA1B0C7B9E0004F47F /* ChatLogTableDataController.m */; };
 		1DC3BEE41B0C7B9E0004F47F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDC1B0C7B9E0004F47F /* DetailViewController.m */; };
@@ -37,6 +40,9 @@
 		1DC3BEE71B0C7B9E0004F47F /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEE21B0C7B9E0004F47F /* RegisterViewController.m */; };
 		1DD4F1851AEFEE770067D05B /* CKJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD4F1841AEFEE770067D05B /* CKJsonParser.m */; };
 		A526A509B05995C09D1A0D1F /* FriendsSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A526A9D7213F00A2923CD4C8 /* FriendsSearchController.m */; };
+		A526AB0394B8B2251F8AEAD4 /* FriendsTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A526A225687A8B69F2D2307A /* FriendsTableCell.m */; };
+		A526AE04ADDCEB8D4844CBB6 /* RandomChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A526AA79ADB254CB1971C856 /* RandomChatManager.m */; };
+		A526AE7951E649FA1A359B0B /* FriendsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = A526AAAF5666B02CE4CF57A2 /* FriendsListController.m */; };
 		E86CA93F011DB985E5000879 /* libPods-SecretChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FDD60473941C0CC86A77276 /* libPods-SecretChat.a */; };
 /* End PBXBuildFile section */
 
@@ -74,23 +80,27 @@
 		1D01ADFC1B09B5D900B361B8 /* man_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man_icon.png; sourceTree = "<group>"; };
 		1D01ADFD1B09B5D900B361B8 /* raw_backgoundimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = raw_backgoundimage.jpg; sourceTree = "<group>"; };
 		1D01ADFE1B09B5D900B361B8 /* Registration.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Registration.storyboard; sourceTree = "<group>"; };
+		1D2580971B1B7D1B008F9FF0 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		1D64F9B41AEFB6B40069FA34 /* SecretChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D64F9B81AEFB6B40069FA34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D64F9B91AEFB6B40069FA34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1D64F9BB1AEFB6B40069FA34 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D64F9BC1AEFB6B40069FA34 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1D64F9C51AEFB6B40069FA34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1D64F9C71AEFB6B40069FA34 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1D64F9D01AEFB6B40069FA34 /* SecretChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D64F9D51AEFB6B40069FA34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D64F9D61AEFB6B40069FA34 /* SecretChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecretChatTests.m; sourceTree = "<group>"; };
 		1D64F9EB1AEFBB1C0069FA34 /* Version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Version.h; sourceTree = "<group>"; };
+		1D6869CE1B1AF78600D4049A /* icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icons.xcassets; sourceTree = "<group>"; };
+		1D6869D61B1B03BC00D4049A /* ko */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ko; path = ko.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1D791BFB1B0EF5B300589A51 /* FriendRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendRequest.h; sourceTree = "<group>"; };
 		1D791BFC1B0EF5B300589A51 /* FriendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendRequest.m; sourceTree = "<group>"; };
 		1D791BFE1B0F031500589A51 /* FriendRequestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendRequestTableViewCell.h; sourceTree = "<group>"; };
 		1D791BFF1B0F031500589A51 /* FriendRequestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendRequestTableViewCell.m; sourceTree = "<group>"; };
 		1D791C011B0F712900589A51 /* FriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendManager.h; sourceTree = "<group>"; };
 		1D791C021B0F712900589A51 /* FriendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendManager.m; sourceTree = "<group>"; };
+		1D9C82BB1B1AA161002CF9F1 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
+		1D9C82BC1B1AA161002CF9F1 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		1DC3BED61B0C7B940004F47F /* FriendsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsCollectionViewCell.h; sourceTree = "<group>"; };
 		1DC3BED71B0C7B940004F47F /* FriendsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsCollectionViewCell.m; sourceTree = "<group>"; };
 		1DC3BED91B0C7B9E0004F47F /* ChatLogTableDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatLogTableDataController.h; path = SecretChat/Controllers/ChatLogTableDataController.h; sourceTree = SOURCE_ROOT; };
@@ -108,7 +118,13 @@
 		7EE6B0D670F0189914835A6E /* Pods-SecretChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-SecretChat/Pods-SecretChat.release.xcconfig"; sourceTree = "<group>"; };
 		8F099F772B526852B3A96576 /* Pods-SecretChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SecretChat/Pods-SecretChat.debug.xcconfig"; sourceTree = "<group>"; };
 		8FDD60473941C0CC86A77276 /* libPods-SecretChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SecretChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A526A225687A8B69F2D2307A /* FriendsTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableCell.m; sourceTree = "<group>"; };
+		A526A5F4186526C61AB42507 /* FriendsListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsListController.h; sourceTree = "<group>"; };
+		A526A80676A7844BAFBBEB62 /* FriendsTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTableCell.h; sourceTree = "<group>"; };
 		A526A9D7213F00A2923CD4C8 /* FriendsSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsSearchController.m; path = SecretChat/Controllers/FriendsSearchController.m; sourceTree = SOURCE_ROOT; };
+		A526AA79ADB254CB1971C856 /* RandomChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomChatManager.m; sourceTree = "<group>"; };
+		A526AAAF5666B02CE4CF57A2 /* FriendsListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsListController.m; sourceTree = "<group>"; };
+		A526AC6E73812B1B13170339 /* RandomChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomChatManager.h; sourceTree = "<group>"; };
 		A526AD087CFEAC60F55DFF99 /* FriendsSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsSearchController.h; path = SecretChat/Controllers/FriendsSearchController.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -155,6 +171,10 @@
 				1D01ADEF1B09B5D900B361B8 /* NetworkManager.m */,
 				1D791C011B0F712900589A51 /* FriendManager.h */,
 				1D791C021B0F712900589A51 /* FriendManager.m */,
+				1D9C82BB1B1AA161002CF9F1 /* NotificationManager.h */,
+				1D9C82BC1B1AA161002CF9F1 /* NotificationManager.m */,
+				A526AA79ADB254CB1971C856 /* RandomChatManager.m */,
+				A526AC6E73812B1B13170339 /* RandomChatManager.h */,
 			);
 			path = NetworkController;
 			sourceTree = "<group>";
@@ -175,6 +195,7 @@
 		1D01ADF71B09B5D900B361B8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1D9C82BE1B1AB005002CF9F1 /* Resources */,
 				1DC3BED61B0C7B940004F47F /* FriendsCollectionViewCell.h */,
 				1DC3BED71B0C7B940004F47F /* FriendsCollectionViewCell.m */,
 				1D64F9C41AEFB6B40069FA34 /* Main.storyboard */,
@@ -187,6 +208,8 @@
 				1D01ADFE1B09B5D900B361B8 /* Registration.storyboard */,
 				1D791BFE1B0F031500589A51 /* FriendRequestTableViewCell.h */,
 				1D791BFF1B0F031500589A51 /* FriendRequestTableViewCell.m */,
+				A526A80676A7844BAFBBEB62 /* FriendsTableCell.h */,
+				A526A225687A8B69F2D2307A /* FriendsTableCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -224,6 +247,7 @@
 				1D64F9BB1AEFB6B40069FA34 /* AppDelegate.h */,
 				1D64F9BC1AEFB6B40069FA34 /* AppDelegate.m */,
 				1D64F9C71AEFB6B40069FA34 /* Images.xcassets */,
+				1D2580971B1B7D1B008F9FF0 /* Launch Screen.xib */,
 				1D64F9B71AEFB6B40069FA34 /* Supporting Files */,
 				1D64F9EB1AEFBB1C0069FA34 /* Version.h */,
 			);
@@ -256,11 +280,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1DC3BED21B0C79D50004F47F /* Controllers */ = {
+		1D9C82BE1B1AB005002CF9F1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1D6869CE1B1AF78600D4049A /* icons.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1D9C82BF1B1AB237002CF9F1 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
 				1DC3BED91B0C7B9E0004F47F /* ChatLogTableDataController.h */,
 				1DC3BEDA1B0C7B9E0004F47F /* ChatLogTableDataController.m */,
+			);
+			name = DataSource;
+			sourceTree = "<group>";
+		};
+		1DC3BED21B0C79D50004F47F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1D9C82BF1B1AB237002CF9F1 /* DataSource */,
 				1DC3BEDB1B0C7B9E0004F47F /* DetailViewController.h */,
 				1DC3BEDC1B0C7B9E0004F47F /* DetailViewController.m */,
 				1DC3BEDD1B0C7B9E0004F47F /* FriendsCollectionViewController.h */,
@@ -271,6 +311,8 @@
 				1DC3BEE21B0C7B9E0004F47F /* RegisterViewController.m */,
 				A526A9D7213F00A2923CD4C8 /* FriendsSearchController.m */,
 				A526AD087CFEAC60F55DFF99 /* FriendsSearchController.h */,
+				A526AAAF5666B02CE4CF57A2 /* FriendsListController.m */,
+				A526A5F4186526C61AB42507 /* FriendsListController.h */,
 			);
 			name = Controllers;
 			path = Models;
@@ -344,9 +386,16 @@
 				TargetAttributes = {
 					1D64F9B31AEFB6B40069FA34 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 39WT95YDMW;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					1D64F9CF1AEFB6B40069FA34 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 39WT95YDMW;
 						TestTargetID = 1D64F9B31AEFB6B40069FA34;
 					};
 				};
@@ -356,8 +405,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
-				Base,
+				ko,
 			);
 			mainGroup = 1D64F9AB1AEFB6B40069FA34;
 			productRefGroup = 1D64F9B51AEFB6B40069FA34 /* Products */;
@@ -377,11 +425,13 @@
 			files = (
 				1D01AE061B09B5D900B361B8 /* cloud_icon.png in Resources */,
 				1D01AE071B09B5D900B361B8 /* man_icon.png in Resources */,
+				1D2580981B1B7D1B008F9FF0 /* Launch Screen.xib in Resources */,
 				1D64F9C61AEFB6B40069FA34 /* Main.storyboard in Resources */,
 				1D01AE091B09B5D900B361B8 /* Registration.storyboard in Resources */,
 				1D64F9C81AEFB6B40069FA34 /* Images.xcassets in Resources */,
 				1D01AE041B09B5D900B361B8 /* add_icon.png in Resources */,
 				1D01AE081B09B5D900B361B8 /* raw_backgoundimage.jpg in Resources */,
+				1D6869CF1B1AF78600D4049A /* icons.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +487,7 @@
 				1D01AE001B09B5D900B361B8 /* NetworkManager.m in Sources */,
 				1D791BFD1B0EF5B300589A51 /* FriendRequest.m in Sources */,
 				1D64F9BA1AEFB6B40069FA34 /* main.m in Sources */,
+				1D9C82BD1B1AA161002CF9F1 /* NotificationManager.m in Sources */,
 				1D01ADE31B09B57100B361B8 /* Message.m in Sources */,
 				1DC3BEE61B0C7B9E0004F47F /* MasterViewController.m in Sources */,
 				1DC3BEE41B0C7B9E0004F47F /* DetailViewController.m in Sources */,
@@ -454,6 +505,9 @@
 				1D791C031B0F712900589A51 /* FriendManager.m in Sources */,
 				1D01AE021B09B5D900B361B8 /* ProtocolSocket.c in Sources */,
 				A526A509B05995C09D1A0D1F /* FriendsSearchController.m in Sources */,
+				A526AE7951E649FA1A359B0B /* FriendsListController.m in Sources */,
+				A526AB0394B8B2251F8AEAD4 /* FriendsTableCell.m in Sources */,
+				A526AE04ADDCEB8D4844CBB6 /* RandomChatManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +533,7 @@
 		1D64F9C41AEFB6B40069FA34 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1D64F9C51AEFB6B40069FA34 /* Base */,
+				1D6869D61B1B03BC00D4049A /* ko */,
 			);
 			name = Main.storyboard;
 			path = ..;
@@ -505,7 +559,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (LEMZRT5P83)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (LEMZRT5P83)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -527,6 +582,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "e4439651-6855-45b8-92af-653ff6bf5cc8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -548,7 +604,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (LEMZRT5P83)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: // / (LEMZRT5P83)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -563,6 +620,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "e4439651-6855-45b8-92af-653ff6bf5cc8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -574,7 +632,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (LEMZRT5P83)";
 				INFOPLIST_FILE = SecretChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -587,7 +647,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: // / (LEMZRT5P83)";
 				INFOPLIST_FILE = SecretChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -598,6 +660,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -609,6 +673,7 @@
 				INFOPLIST_FILE = SecretChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SecretChat.app/SecretChat";
 			};
 			name = Debug;
@@ -617,6 +682,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -624,6 +691,7 @@
 				INFOPLIST_FILE = SecretChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SecretChat.app/SecretChat";
 			};
 			name = Release;

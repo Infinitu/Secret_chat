@@ -9,6 +9,7 @@
 #import "CKJsonParser.h"
 #import "UserData.h"
 #import "AppDelegate.h"
+#import "NotificationManager.h"
 
 @interface RegisterViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *nickeNameField;
@@ -75,12 +76,11 @@
     NSString *blood  = [self.bloodTypeSegment titleForSegmentAtIndex:(NSUInteger)self.bloodTypeSegment.selectedSegmentIndex];
     NSNumber *sex  = self.bloodTypeSegment.selectedSegmentIndex==0?@(1):@(2);
 
-
-    UIDevice* device = [UIDevice currentDevice];
-    NSString* uuid = [[device identifierForVendor] UUIDString];
-
+    NSString* devid = [NotificationManager getInstance].deviceId;
+    if(!devid)
+        devid=@"nopush";
     NSDictionary *form = @{
-            @"deviceId":uuid,
+            @"deviceId":devid,
             @"nickName":name,
             @"age": [@(2015-birth+1) stringValue],
             @"bloodType":blood,

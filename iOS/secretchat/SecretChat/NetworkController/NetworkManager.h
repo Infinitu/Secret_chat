@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "UserData.h"
 
+#define STATUS_CHANGED_OPENED @"SOCKET_STATUS_OPENED"
+#define STATUS_CHANGED_CLOSED @"SOCKET_STATUS_CLOSED"
+#define STATUS_CHANGED_AUTH_FAILED @"SOCKET_STATUS_AUTH_FAILED"
 
 @interface NetworkManager : NSObject
-
-+(void)initializeWithUserData:(UserData*)userData withHost:(NSString*)host withPort:(NSInteger)port;
++(NetworkManager *)getInstance;
+-(BOOL)socketInitializeWithUserData:(UserData *)userData withHost:(NSString *)serverHost withPort:(UInt32)port;
+-(void)finalizeNetwork;
+@property(readonly) NSString* host;
+@property(readonly) UInt32 port;
 @end
