@@ -4,12 +4,13 @@ var	fs   = require("fs"),
 	path = require("path"),
 	hat  = require("hat"),   // accessToken 생성 module -> 사용방법 : hat.rack(); = 중복없는 token 생성
 	rack = hat.rack(),       // accessToken 생성 변수 -> 사용방법 : rack(); = 중복없는 token 생성
-	msgHandler    = require("./msgHandler"),
-	dbHandler     = require("./dbHandler"),
-	cipherHandler = require("./cipherHandler"); 
+	msgHandler     = require("./msgHandler"),
+	dbHandler      = require("./dbHandler"),
+	cipherHandler  = require("./cipherHandler"), 
+	globalVariable = require("./globalVariable");
 
-var PROFILE_FOLDER = "./profileImages/";
-	
+var PROFILE_FOLDER = globalVariable.PROFILE_FOLDER;
+
 exports.join = function(res, contents) {
 	contents.chatLevel   = 0;
     contents.gentle      = 0;
@@ -24,7 +25,6 @@ exports.join = function(res, contents) {
 		if(err) console.log("genarating encryptkey error!");
 		
 		contents.encryptKey = encryptKey;
-		console.log(encryptKey);
 		_insertUserProfile(contents, function(err, userInfo) {
 	    	if (err) {
 	    		msgHandler.sendError(res);
@@ -77,11 +77,10 @@ function _getAccessToken() {
 }
 
 function _getImageUrl(contents) {
-	console.log(contents.imageUrl);
 	if (!contents.imageUrl)
 		return null;
 	
-	var newImageUrl = PROFILE_FOLDER + contents.accessToken + "_profile_image" + path.extname(contents.imageUrl);
+	var newImageUrl = PROFILE_FOLDER + "profile_image_" + contents.accessToken + path.extname(contents.imageUrl);
 	fs.rename(contents.imageUrl, newImageUrl);
 	
 	return newImageUrl;

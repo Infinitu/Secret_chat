@@ -1,13 +1,14 @@
 /* friendEventHandler.js */
 
-var ObjectID      = require("mongodb").ObjectID,
-	fs            = require("fs"),
-	msgHandler    = require("./msgHandler"),
-	dbHandler     = require("./dbHandler"),
-	redisHandler  = require("./redisDbHandler"),
-	cipherHandler = require("./cipherHandler");
+var ObjectID       = require("mongodb").ObjectID,
+	fs             = require("fs"),
+	msgHandler     = require("./msgHandler"),
+	dbHandler      = require("./dbHandler"),
+	redisHandler   = require("./redisDbHandler"),
+	cipherHandler  = require("./cipherHandler"),
+	globalVariable = require("./globalVariable");
 
-var IP_ADDRESS = "http://125.209.195.139:80";
+var IP_ADDRESS = globalVariable.IP_ADDRESS;
 
 exports.find = function(res, contents) {
 	_findFriendId(contents.nickNameTag, function(err, friendId) {
@@ -55,6 +56,7 @@ exports.read = function(res, contents) {
 					return ;
 				}
 				
+				friendInfo.imageUrl = IP_ADDRESS + friendInfo.imageUrl.replace("./", "/");
 				friendsInfo.push(friendInfo);
 				numberOfFriendInfo++;
 				
@@ -63,15 +65,7 @@ exports.read = function(res, contents) {
 			});
 		});
 	}
-};
-
-exports.showImage = function(res, contents) {
-	var filePath = "./profileimages" + "/" + contents.imageName;
-	
-	fs.readFile(filePath, function(err, data) {
-		msgHandler.sendFile(res, data, filePath);
-	});
-};
+ };
 
 function _findFriendId(nickNameTag, callback) {
 	redisHandler.getFriendId(nickNameTag, callback);

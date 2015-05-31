@@ -46,5 +46,8 @@ function _JSONDataFileter(incomingData) {
 	if (incomingData.imageName)
 		contents.imageName = incomingData.imageName;
 	
+	if (incomingData.roomNumber)
+		contents.roomNumber = incomingData.roomNumber;
+	
 	return contents;
 }

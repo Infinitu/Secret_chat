@@ -2,7 +2,7 @@
 
 var redis  = require("redis");
 var client = redis.createClient(6379, "127.0.0.1");
-client.auth("ginger2015");
+// client.auth("ginger2015");
 
 exports.setNickNameTag = function(nickNameTag, id, callback) {
 	client.set(nickNameTag, id, function(err) {
@@ -11,8 +11,8 @@ exports.setNickNameTag = function(nickNameTag, id, callback) {
 	});
 };
 
-exports.getFriendId = function(nickNameTag, callback) {
-	client.get(nickNameTag, function(err, friendId) {
+exports.getFriendId = function(key, callback) {
+	client.get(key, function(err, friendId) {
 		console.log("find redis data:", friendId);
 		if (friendId == null)
 			err = 1;

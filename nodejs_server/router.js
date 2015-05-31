@@ -2,29 +2,33 @@
 
 var userEventHandler   = require("./handlers/userEventHandler"),
 	friendEventHandler = require("./handlers/friendEventHandler"),
-	nickNameTagHandler = require("./handlers/nickNameTagHandler");
+	nickNameTagHandler = require("./handlers/nickNameTagHandler"),
+	imageEventHandler  = require("./handlers/imageEventHandler"),
+	randomRoomHandler  = require("./handlers/randomRoomHandler");
 
 exports.route = (function() {
-	var handlers = { "/join"          : { POST : userEventHandler.join },
-					 "/setting"       : { POST : userEventHandler.read, PUT : userEventHandler.update },
-					 "/getTag"        : { POST : nickNameTagHandler.getNickNameTag },
-					 "/addfriend"     : { POST : friendEventHandler.find },
-					 "/main"          : { POST : friendEventHandler.read },
-					 "/uninstall"     : { DELETE : userEventHandler.remove },
-					 "/profileimages" : { GET : friendEventHandler.showImage }
+	var handlers = { "/join"           : { POST : userEventHandler.join },
+					 "/setting"        : { POST : userEventHandler.read, PUT : userEventHandler.update },
+					 "/getTag"         : { POST : nickNameTagHandler.getNickNameTag },
+					 "/addfriend"      : { POST : friendEventHandler.find },
+					 "/main"           : { POST : friendEventHandler.read },
+					 "/uninstall"      : { DELETE : userEventHandler.remove },
+					 "/profileimages"  : { POST : imageEventHandler.uploadImage, GET : imageEventHandler.showImage },
+					 "/randomroominfo" : { POST : randomRoomHandler.getUserInfoInRandomRoom }
 	};
 	
 	function route(res, pathname, method, contents) {
-//		try {
+		try {
+			console.log(pathname, method);
 			if (typeof handlers[pathname][method] === "function")
 				handlers[pathname][method](res, contents);
 			
 			else
 				console.log("router error");
-//		} catch(e) {
-//			console.log("router catch error!");
-//			console.log(e);
-//		}
+		} catch(e) {
+			console.log("router catch error!");
+			console.log(e);
+		}
 	}
 	
 	return route;

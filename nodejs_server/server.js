@@ -14,7 +14,7 @@ var httpsOptions = {
 
 function onRequest(req, res) {
 	var incomingData = new formidable.IncomingForm();
-	incomingData.uploadDir = "./profileimages";
+	incomingData.uploadDir = "./temp";
 	incomingData.keepExtensions = true;
 	incomingData.maxFieldsSize  = 5 * 1024 * 1024;  // 최대 보낼 수 있는 파일 용량 5 mb
 
