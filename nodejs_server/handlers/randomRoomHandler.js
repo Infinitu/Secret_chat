@@ -39,8 +39,6 @@ exports.getUserInfoInRandomRoom = function(res, contents) {
 				return ;
 			}
 			
-			console.log(friendIdForSearch, typeof friendIdForSearch);
-			
 			_findFriendById(friendIdForSearch, function(err, searchedId) {
 				if (err) {
 					msgHandler.sendError(res);

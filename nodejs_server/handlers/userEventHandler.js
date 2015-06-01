@@ -22,7 +22,10 @@ exports.join = function(res, contents) {
 	contents.imageUrl    = _getImageUrl(contents);
 	
 	_getEncryptKey(function(err, encryptKey) {
-		if(err) console.log("genarating encryptkey error!");
+		if(err) {
+			console.log("genarating encryptkey error!");
+			return ;
+		}
 		
 		contents.encryptKey = encryptKey;
 		_insertUserProfile(contents, function(err, userInfo) {
