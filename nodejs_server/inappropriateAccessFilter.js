@@ -15,7 +15,7 @@ exports.dataFilter = (function() {
 
 function _JSONDataFileter(incomingData) {
 	var contents = {};
-	
+		
 	if (incomingData.deviceId)
 		contents.deviceId = incomingData.deviceId;
 	
@@ -39,6 +39,15 @@ function _JSONDataFileter(incomingData) {
 	
 	if (incomingData.nickNameTag)
 		contents.nickNameTag = incomingData.nickNameTag;
+	
+	if (incomingData.imageUrl)
+		contents.imageUrl = incomingData.imageUrl;
+	
+	if (incomingData.imageName)
+		contents.imageName = incomingData.imageName;
+	
+	if (incomingData.roomNumber)
+		contents.roomNumber = incomingData.roomNumber;
 	
 	return contents;
 }

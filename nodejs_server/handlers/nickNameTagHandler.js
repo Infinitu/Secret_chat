@@ -9,7 +9,12 @@ var RAMDOMDIGITS = 5;
 
 exports.getNickNameTag = function(res, contents) {
 	_getIdAndNickName(contents.accessToken, function(err, userInfo) {
-		if (err) msgHandler.sendError(res);
+		if (err) {
+			msgHandler.sendError(res);
+			return ;
+		}
+		
+		console.log(userInfo);
 		
 		var nickNameTag = userInfo.nickName + randomkey.generateDigits(RAMDOMDIGITS);
 		

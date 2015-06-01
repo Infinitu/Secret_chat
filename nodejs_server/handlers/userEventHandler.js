@@ -4,12 +4,13 @@ var	fs   = require("fs"),
 	path = require("path"),
 	hat  = require("hat"),   // accessToken 생성 module -> 사용방법 : hat.rack(); = 중복없는 token 생성
 	rack = hat.rack(),       // accessToken 생성 변수 -> 사용방법 : rack(); = 중복없는 token 생성
-	msgHandler    = require("./msgHandler"),
-	dbHandler     = require("./dbHandler"),
-	cipherHandler = require("./cipherHandler"); 
+	msgHandler     = require("./msgHandler"),
+	dbHandler      = require("./dbHandler"),
+	cipherHandler  = require("./cipherHandler"), 
+	globalVariable = require("./globalVariable");
 
-var PROFILE_FOLDER = "./profileImages/";
-	
+var PROFILE_FOLDER = globalVariable.PROFILE_FOLDER;
+
 exports.join = function(res, contents) {
 	contents.chatLevel   = 0;
     contents.gentle      = 0;
@@ -18,19 +19,29 @@ exports.join = function(res, contents) {
     contents.common      = 0;
     contents.joinDate    = new Date();
     contents.accessToken = _getAccessToken();       // accessToken 생성
-	contents.encryptKey  = _getEncryptKey();   
 	contents.imageUrl    = _getImageUrl(contents);
 	
-	_insertUserProfile(contents, function(err, userInfo) {
-    	if (err) msgHandler.sendError(res);
-    	
-    	msgHandler.sendString(res, contents.accessToken);
+	_getEncryptKey(function(err, encryptKey) {
+		if(err) console.log("genarating encryptkey error!");
+		
+		contents.encryptKey = encryptKey;
+		_insertUserProfile(contents, function(err, userInfo) {
+	    	if (err) {
+	    		msgHandler.sendError(res);
+    			return ;
+	    	}
+	    	
+	    	msgHandler.sendString(res, contents.accessToken);
+		});
 	});
 };
 
 exports.read = function(res, contents) {
 	_findUserProfile(contents.accessToken, function(err, userInfo) {
-		if (err) msgHandler.sendError(res);
+		if (err) {
+			msgHandler.sendError(res);
+			return ;
+		}
 		
 		msgHandler.sendJSON(res, userInfo);
 	});
@@ -38,7 +49,10 @@ exports.read = function(res, contents) {
 
 exports.update = function(res, contents) {
 	_updateUserProfile(contents.accessToken, contents, function(err) {
-		if (err) msgHandler.sendError(res);
+		if (err) {
+			msgHandler.sendError(res);
+			return ;
+		}
 		
 		exports.read(res, contents);
 	});
@@ -46,7 +60,10 @@ exports.update = function(res, contents) {
 
 exports.remove = function(res, contents) {
 	_removeUserProfile(contents.accessToken, function(err) {
-		if (err) msgHandler.sendError(res);
+		if (err) {
+			msgHandler.sendError(res);
+			return ;
+		}
 		
 		var message = "deleted!";
     	msgHandler.sendString(res, message);
@@ -63,13 +80,13 @@ function _getImageUrl(contents) {
 	if (!contents.imageUrl)
 		return null;
 	
-	var newImageUrl = PROFILE_FOLDER + contents.accessToken + "_profile_image" + path.extname(contents.imageUrl);
+	var newImageUrl = PROFILE_FOLDER + "profile_image_" + contents.accessToken + path.extname(contents.imageUrl);
 	fs.rename(contents.imageUrl, newImageUrl);
 	
 	return newImageUrl;
 }
 
-function _getEncryptKey() {
+function _getEncryptKey(callback) {
 	var RAMDOMBYTES = 16;
 	
 	cipherHandler.getRandomByte(RAMDOMBYTES, function(err, key) {
@@ -77,7 +94,7 @@ function _getEncryptKey() {
 		
 		var base64ConvertedKey = key.toString("base64");
 		
-		return base64ConvertedKey;
+		callback(err, key);
 	});
 }
 

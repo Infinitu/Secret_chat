@@ -9,6 +9,11 @@ var ALGORITHM       = "aes-128-cbc",
 	
 exports.encryptData = function (data, accessToken, callback) {
 	_findUserId(accessToken, function(err, info) {
+		if (err) {
+			callback(err);
+			return ;
+		}
+		
 		var key = "";
 		key += info._id;
 
@@ -24,6 +29,10 @@ exports.encryptData = function (data, accessToken, callback) {
 
 exports.decryptData = function (encryptedData, accessToken, callback) {
 	_findUserId(accessToken, function(err, info) {
+		if (err) {
+			callback(err, decryptedData);
+			return ;
+		}
 		var key = "";
 		key += info._id;
 		

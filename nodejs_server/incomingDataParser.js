@@ -1,8 +1,7 @@
 /* incomingDataParser.js */
 
 var	url        = require("url"),
-	dataFilter = require("./inappropriateAccessFilter");
-	
+	dataFilter = require("./inappropriateAccessFilter");	
 
 exports.dataParser = (function() {
 	function dataParser(req, res, form) {
