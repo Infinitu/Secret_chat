@@ -1,0 +1,8 @@
+<clientList>
+    <client name="reactor">
+        <handler header="0x0001">com.example.jaebong.secerettalk.event_handler.PingHandler</handler>
+        <handler header="0x0002">com.example.jaebong.secerettalk.event_handler.PongHandler</handler>
+        <handler header="0x1002">com.example.jaebong.secerettalk.event_handler.SessionOkHandler</handler>
+    </client>
+
+</clientList>

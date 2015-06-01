@@ -1,9 +1,10 @@
-package com.example.jaebong.secerettalk;
+package com.example.jaebong.secerettalk.user_profile;
 
 /**
  * Created by JaeBong on 15. 4. 15..
  */
-public class UserProfile {
+public class UserProfileDTO {
+
     public String id;
     public String nickName;
     public int age;
@@ -16,7 +17,16 @@ public class UserProfile {
     public int pervert;
     public int common;
 
-    public UserProfile(){
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+
+        return id;
+    }
+
+    public UserProfileDTO(){
         this.chatLevel = 0;
         this.gentle = 0;
         this.cool = 0;
@@ -24,21 +34,7 @@ public class UserProfile {
         this.common = 0;
     };
 
-    public UserProfile(String id, String nickName, int age, String gender, String bloodType, String imageUrl) {
-        this.id = id;
-        this.nickName = nickName;
-        this.age = age;
-        this.gender = gender;
-        this.bloodType = bloodType;
-        this.imageUrl = imageUrl;
-        this.chatLevel = 0;
-        this.gentle = 0;
-        this.cool = 0;
-        this.pervert = 0;
-        this.common = 0;
-    }
-
-    public UserProfile(String id, String nickName, int age, String gender, String bloodType, String imageUrl, int chatLevel, int gentle, int cool, int pervert, int common) {
+    public UserProfileDTO(String id, String nickName, int age, String gender, String bloodType, String imageUrl, int chatLevel, int gentle, int cool, int pervert, int common) {
         this.id = id;
         this.nickName = nickName;
         this.age = age;
@@ -52,7 +48,32 @@ public class UserProfile {
         this.common = common;
     }
 
-    public String getId() {        return id; }
+    public UserProfileDTO(String nickName, int age, String gender, String bloodType, String imageUrl) {
+        this.nickName = nickName;
+        this.age = age;
+        this.gender = gender;
+        this.bloodType = bloodType;
+        this.imageUrl = imageUrl;
+        this.chatLevel = 0;
+        this.gentle = 0;
+        this.cool = 0;
+        this.pervert = 0;
+        this.common = 0;
+    }
+
+    public UserProfileDTO(String nickName, int age, String gender, String bloodType, String imageUrl, int chatLevel, int gentle, int cool, int pervert, int common) {
+        this.nickName = nickName;
+        this.age = age;
+        this.gender = gender;
+        this.bloodType = bloodType;
+        this.imageUrl = imageUrl;
+        this.chatLevel = chatLevel;
+        this.gentle = gentle;
+        this.cool = cool;
+        this.pervert = pervert;
+        this.common = common;
+    }
+
 
     public String getNickName() {        return nickName; }
 
@@ -74,9 +95,6 @@ public class UserProfile {
 
     public int getCommon() {     return common;    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
@@ -121,7 +139,6 @@ public class UserProfile {
     @Override
     public String toString() {
         return "UserProfile{" +
-                "id='" + id + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", age=" + age +
                 ", gender='" + gender + '\'' +

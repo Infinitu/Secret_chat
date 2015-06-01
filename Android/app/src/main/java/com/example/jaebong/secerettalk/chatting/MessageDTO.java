@@ -1,9 +1,9 @@
-package com.example.jaebong.secerettalk;
+package com.example.jaebong.secerettalk.chatting;
 
 /**
  * Created by JaeBong on 15. 4. 20..
  */
-public class Message {
+public class MessageDTO {
     private static int _id;
     private String type;
     private String imageUrl;
@@ -22,7 +22,7 @@ public class Message {
         return nickName;
     }
 
-    public Message() {
+    public MessageDTO() {
         this._id = 0;
 
         this.imageUrl = "";
@@ -33,11 +33,11 @@ public class Message {
         return _id;
     }
 
-    public Message(int _id, String type, String imageUrl, String adress, String sender, String message, long sendTime, String nickName) {
+    public MessageDTO(int _id, String type, String imageUrl, String address, String sender, String message, long sendTime, String nickName) {
         this._id = _id;
         this.type = type;
         this.imageUrl = imageUrl;
-        this.address = adress;
+        this.address = address;
         this.sender = sender;
         this.message = message;
         this.sendTime = sendTime;
@@ -52,8 +52,8 @@ public class Message {
         this.imageUrl = imageUrl;
     }
 
-    public void setAddress(String adress) {
-        this.address = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setSender(String sender) {

@@ -29,5 +29,27 @@ public interface SecretChatService {
             Callback<Response> cb
     );
 
+    @FormUrlEncoded
+    @POST("/addfriend")
+    void sendTag(
+            @Field("accessToken") String accessToken,
+            @Field("nickNameTag") String nickNameTag,
+            Callback<Response> cb
+    );
+
+    @FormUrlEncoded
+    @POST("/main")
+    void sendFriendId(
+            @Field("accessToken") String accessToken,
+            @Field("friendId") String friendId,
+            Callback<Response> cb
+    );
+
+    @FormUrlEncoded
+    @POST("/getTag")
+    void sendForTag(
+            @Field("accessToken") String accessToken,
+            Callback<Response> cb
+    );
 
 }

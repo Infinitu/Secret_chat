@@ -1,4 +1,4 @@
-package com.example.jaebong.secerettalk;
+package com.example.jaebong.secerettalk.join;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +22,12 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.jaebong.secerettalk.user_profile.UserProfileDao;
+import com.example.jaebong.secerettalk.user_profile.UserProfileDTO;
+import com.example.jaebong.secerettalk.user_profile.UserProfileProxy;
+import com.example.jaebong.secerettalk.home.HomeView;
+import com.example.jaebong.secerettalk.R;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
@@ -32,7 +38,7 @@ import retrofit.mime.TypedFile;
 import retrofit.mime.TypedInput;
 
 
-public class Join extends ActionBarActivity implements View.OnClickListener{
+public class JoinView extends ActionBarActivity implements View.OnClickListener{
     private ImageView addProfileImage;
 
     private EditText nickName;
@@ -40,6 +46,7 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
     private LinearLayout birthLayout;
     private TextView age;
     private Intent intent;
+    private TextView resister;
 
     private RadioGroup sexGroup;
     private RadioButton sexButton;
@@ -49,9 +56,9 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
 
     private RelativeLayout startLayout;
 
-    private Proxy proxy;
+    private UserProfileProxy proxy;
 
-    private UserDataDao dao;
+    private UserProfileDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,8 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
 
         addProfileImage = (ImageView) findViewById(R.id.join_add_profile);
         addProfileImage.setOnClickListener(this);
+
+        resister = (TextView)findViewById(R.id.join_textView_profileResist);
 
         //nickName을 받아오기 위해서
         nickName = (EditText) findViewById(R.id.join_editText_nickName);
@@ -80,8 +89,15 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
         startLayout = (RelativeLayout) findViewById(R.id.join_layout_start);
         startLayout.setOnClickListener(this);
 
-        proxy = new Proxy(getApplicationContext());
-        dao = new UserDataDao(getApplicationContext());
+        proxy = new UserProfileProxy(getApplicationContext());
+        dao = new UserProfileDao(getApplicationContext());
+
+        if(dao.isMyDataTableExist()){
+            intent = new Intent(this, HomeView.class);
+
+            startActivity(intent);
+            this.finish();
+        }
 
 
     }
@@ -161,6 +177,8 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
 
                         Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor2);
                         parcelFileDescriptor.close();
+                        resister.setText("");
+
                         SaveBitmapToFileCache(image, SAVE_FILE_URL, "/MyImage.jpg");
                         addProfileImage.setImageBitmap(image);
                         filePath = SAVE_FILE_URL + "/MyImage.jpg";
@@ -225,8 +243,8 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
         return uri.getPath();
     }
 
-    public UserProfile collectProfileData() {
-        UserProfile profile = new UserProfile();
+    public UserProfileDTO collectProfileData() {
+        UserProfileDTO profile = new UserProfileDTO();
 
         //nickName
         profile.setNickName(nickName.getText().toString());
@@ -284,15 +302,16 @@ public class Join extends ActionBarActivity implements View.OnClickListener{
 
             case R.id.join_layout_start:
 
-                UserProfile profile = new UserProfile();
+                UserProfileDTO profile = new UserProfileDTO();
                 profile = collectProfileData();
 
                 Log.i("Join","profile : "+profile.toString());
 
+                dao.myDataTableCreate();
                 dao.insertMyData(profile);
                 proxy.sendUserProfile(profile, imageTypedFile);
 
-                intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, HomeView.class);
 
                 startActivity(intent);
                 this.finish();

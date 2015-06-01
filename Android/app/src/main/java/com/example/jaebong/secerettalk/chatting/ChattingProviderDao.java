@@ -1,4 +1,4 @@
-package com.example.jaebong.secerettalk;
+package com.example.jaebong.secerettalk.chatting;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,15 +10,15 @@ import java.util.ArrayList;
 /**
  * Created by JaeBong on 15. 4. 24..
  */
-public class ProviderDao {
+public class ChattingProviderDao {
     private Context context;
 
-    public ProviderDao(Context context){
+    public ChattingProviderDao(Context context){
         this.context = context;
     }
 
-    public ArrayList<Message> getMessageList(){
-        ArrayList<Message> messageList = new ArrayList<Message>();
+    public ArrayList<MessageDTO> getMessageList(){
+        ArrayList<MessageDTO> messageList = new ArrayList<MessageDTO>();
 
         int _id;
         String type;
@@ -30,9 +30,10 @@ public class ProviderDao {
         String nickName;
 
         Cursor cursor = context.getContentResolver().query(
-                SecretTalkContract.Messages.CONTENT_URI,
-                SecretTalkContract.Messages.PROJECTION_ALL, null, null,
-                SecretTalkContract.Messages._ID);
+                ChattingContract.Messages.CONTENT_URI,
+                ChattingContract.Messages.PROJECTION_ALL, null, null,
+                ChattingContract.Messages._ID + "ASC");
+
         if(cursor != null){
             cursor.moveToFirst();
             while(!(cursor.isAfterLast())){
@@ -46,22 +47,20 @@ public class ProviderDao {
                 nickName = cursor.getString(7);
 
 
-                messageList.add(new Message(_id,type,imageUrl,address,sender,message,sendTime,nickName));
+                messageList.add(new MessageDTO(_id,type,imageUrl,address,sender,message,sendTime,nickName));
 
                 cursor.moveToNext();
             }
-
+            cursor.close();
         }
-        cursor.close();
 
-        Log.i("ProviderDao","getMessageList Success");
         return messageList;
 
     }
 
-    public void insertMyChattingMessage(Message msg){
+    public void insertMyChattingMessage(MessageDTO msg){
         ContentValues values = new ContentValues();
-        values.put("_id",msg.get_id());
+        //values.put("_id",msg.get_id());
         values.put("type",msg.getType());
         values.put("imageUrl",msg.getImageUrl());
         values.put("address",msg.getAddress());
@@ -70,8 +69,9 @@ public class ProviderDao {
         values.put("sendTime",msg.getSendTime());
         values.put("nickName",msg.getNickName());
 
-        context.getContentResolver().insert(SecretTalkContract.Messages.CONTENT_URI,values);
-        Log.i("ProviderDao","pushMessage Success");
-        }
+        Log.i("ChattingProviderDao","insert Success");
+        context.getContentResolver().insert(ChattingContract.Messages.CONTENT_URI,values);
+
+    }
 
 }

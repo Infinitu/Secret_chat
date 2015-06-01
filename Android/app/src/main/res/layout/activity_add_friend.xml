@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jaebong.secerettalk.AddFriend"
+    tools:context="com.example.jaebong.secerettalk.add_friend.AddFriendView"
     android:background="@drawable/activity_join"
     android:orientation="vertical">
 
@@ -53,7 +53,7 @@
                 android:hint = "태그 아이디 입력"
                 android:textColorHint="#bbbbbb"
                 android:textColor="#000000"
-                android:background="@null"/>
+                android:background="@null" />
             <FrameLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -65,13 +65,13 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/icon_search"
-                />
+                android:id="@+id/addFriend_imageButton_search" />
             </FrameLayout>
         </android.support.v7.widget.CardView>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:id="@+id/addFriend_imgView_editable_profileImage"
             android:layout_gravity="center"
             android:src="@drawable/icon_profile" />
@@ -80,11 +80,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/addFriend_tv_code"
+            android:id="@+id/addFriend_tv_nickName"
             android:layout_gravity="center"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="100dp"
             android:textColor="#000000"
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/addFriend_tv_gender"
+            android:layout_gravity="center"
+            android:layout_marginTop="140dp"
+            android:textColor="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -102,7 +111,7 @@
         android:layout_height="0dp"
         android:layout_weight="1.2">
 
-        <ImageButton
+        <ImageView
             android:layout_width="30dp"
             android:scaleType="fitXY"
             android:layout_height="30dp"

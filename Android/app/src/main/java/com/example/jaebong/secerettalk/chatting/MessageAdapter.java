@@ -1,10 +1,8 @@
-package com.example.jaebong.secerettalk;
+package com.example.jaebong.secerettalk.chatting;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.example.jaebong.secerettalk.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,8 +47,10 @@ public class MessageAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
         View row = mLayoutInflater.inflate(layoutId, parent, false);
+
         ViewHolderItem viewHolder;
         viewHolder = new ViewHolderItem();
+
         viewHolder.nickName = (TextView)row.findViewById(R.id.messageBox_textVIew_name);
         viewHolder.message = (TextView)row.findViewById(R.id.messageBox_textVIew_message);
         viewHolder.time = (TextView)row.findViewById(R.id.messageBox_textView_time);
@@ -63,12 +63,12 @@ public class MessageAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        Log.i("MessageAdapter","bind start");
-        String sender = cursor.getString(cursor.getColumnIndex(SecretTalkContract.Messages.SENDER));
-        String message = cursor.getString(cursor.getColumnIndex(SecretTalkContract.Messages.MESSAGE));
-        long time = cursor.getLong(cursor.getColumnIndex(SecretTalkContract.Messages.SEND_TIME));
-        String imageUrl = cursor.getString(cursor.getColumnIndex(SecretTalkContract.Messages.IMAGE_URL));
-        String nickName = cursor.getString(cursor.getColumnIndex(SecretTalkContract.Messages.NICK_NAME));
+
+        String sender = cursor.getString(cursor.getColumnIndex(ChattingContract.Messages.SENDER));
+        String message = cursor.getString(cursor.getColumnIndex(ChattingContract.Messages.MESSAGE));
+        long time = cursor.getLong(cursor.getColumnIndex(ChattingContract.Messages.SEND_TIME));
+        String imageUrl = cursor.getString(cursor.getColumnIndex(ChattingContract.Messages.IMAGE_URL));
+        String nickName = cursor.getString(cursor.getColumnIndex(ChattingContract.Messages.NICK_NAME));
 
         ViewHolderItem viewHolder = (ViewHolderItem)view.getTag();
 
@@ -92,9 +92,8 @@ public class MessageAdapter extends CursorAdapter {
         else{
             viewHolder.message.setBackgroundColor(Color.rgb(255,255,255));
             viewHolder.profileImage.setVisibility(View.VISIBLE);
-            Picasso.with(context).load(imageUrl).into(viewHolder.profileImage);
+            // Picasso.with(context).load(imageUrl).into(viewHolder.profileImage);
         }
-
 
     }
 
