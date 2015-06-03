@@ -7,7 +7,7 @@
         <!--채팅-->
         <scene sceneID="Q7B-2J-hSC">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="v8Q-PA-FQJ" customClass="FriendsListController" sceneMemberID="viewController">
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="v8Q-PA-FQJ" customClass="CKFriendsListController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" sectionHeaderHeight="22" sectionFooterHeight="22" id="aAW-eM-78e">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -32,7 +32,7 @@
         <!--친구찾기-->
         <scene sceneID="p0E-6m-kpV">
             <objects>
-                <viewController id="RGq-Gq-5He" customClass="FriendsSearchController" sceneMemberID="viewController">
+                <viewController id="RGq-Gq-5He" customClass="CKFriendRequestController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EHW-XP-w6f">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -56,7 +56,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="zwT-er-5lJ">
-                                        <rect key="frame" x="16.000003022140504" y="16" width="64" height="64"/>
+                                        <rect key="frame" x="15.999988378245233" y="16" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NICKNAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2j4-OX-ALz">
@@ -86,7 +86,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="contentInset" minX="0.0" minY="108" maxX="0.0" maxY="28"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendRequest" rowHeight="118" id="FCN-wU-yFY" customClass="FriendRequestTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendRequest" rowHeight="118" id="FCN-wU-yFY" customClass="CKFriendRequestTableViewCell">
                                         <rect key="frame" x="0.0" y="22" width="375" height="118"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FCN-wU-yFY" id="LUf-y1-xlF">
@@ -174,11 +174,11 @@
         <!--설정-->
         <scene sceneID="aho-go-xvc">
             <objects>
-                <tableViewController id="cYh-Nd-3Nj" customClass="SettingController" sceneMemberID="viewController">
+                <tableViewController id="cYh-Nd-3Nj" customClass="CKSettingController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="yPV-8q-59t">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="contentInset" minX="0.0" minY="64" maxX="0.0" maxY="0.0"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <color key="sectionIndexBackgroundColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
@@ -191,7 +191,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </imageView>
                             </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <sections>
                             <tableViewSection headerTitle="" id="ONQ-Af-Md6">
@@ -206,7 +206,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="닉네임" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cyd-86-4la">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="룰루랄라" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nbE-f0-5zj">
@@ -232,7 +232,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="닉네임 태그" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="690-bi-icS">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="룰루랄라14212" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pXZ-DS-Bic">
@@ -255,7 +255,7 @@
                                                     <rect key="frame" x="15" y="12" width="139" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="btW-wU-ZU5">
@@ -283,7 +283,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="도움말" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="E4p-27-nGa">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -299,7 +299,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="이용약관 및 개인정보 취급 방침" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fDB-MS-gwN">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -315,7 +315,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="제안하기" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WLo-4S-ryh">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -362,10 +362,10 @@
             </objects>
             <point key="canvasLocation" x="-803" y="491"/>
         </scene>
-        <!--Master View Controller-->
+        <!--Master Tab Bar Controller-->
         <scene sceneID="IIt-PF-Mww">
             <objects>
-                <tabBarController id="CRg-rT-WTD" customClass="MasterViewController" sceneMemberID="viewController">
+                <tabBarController id="CRg-rT-WTD" customClass="CKMasterTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="2Xz-Ur-bBy"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="bvR-Uh-m9W">
@@ -388,7 +388,7 @@
         <!--Detail-->
         <scene sceneID="Cn3-H9-jdl">
             <objects>
-                <viewController title="Detail" id="Ah7-4n-0Wa" customClass="DetailViewController" sceneMemberID="viewController">
+                <viewController title="Detail" id="Ah7-4n-0Wa" customClass="CKChatRoomController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MMQ-IT-qOo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -400,8 +400,8 @@
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="72" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mylog_continue" rowHeight="76" id="Jlc-c2-jgy" customClass="ChatLogCell">
-                                        <rect key="frame" x="0.0" y="22" width="375" height="76"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mylog_continue" rowHeight="76" id="Jlc-c2-jgy" customClass="CKChatLogCell">
+                                        <rect key="frame" x="0.0" y="86" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jlc-c2-jgy" id="DtH-4D-1QG">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
@@ -435,8 +435,8 @@ asdfsdfasdfsdfs</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mylog" rowHeight="76" id="BLm-hb-Rq7" customClass="ChatLogCell">
-                                        <rect key="frame" x="0.0" y="98" width="375" height="76"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mylog" rowHeight="76" id="BLm-hb-Rq7" customClass="CKChatLogCell">
+                                        <rect key="frame" x="0.0" y="162" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BLm-hb-Rq7" id="1Oj-Ly-yM8">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
@@ -475,8 +475,8 @@ asdfsdfasdfsdfs</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="yourlog_continue" rowHeight="76" id="hAY-1Y-Zkn" customClass="ChatLogCell">
-                                        <rect key="frame" x="0.0" y="174" width="375" height="76"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="yourlog_continue" rowHeight="76" id="hAY-1Y-Zkn" customClass="CKChatLogCell">
+                                        <rect key="frame" x="0.0" y="238" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hAY-1Y-Zkn" id="VoB-ZD-wnw">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
@@ -510,8 +510,8 @@ asdfsdfasdfsdfs</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="yourlog" rowHeight="76" id="vfK-b2-SkW" customClass="ChatLogCell">
-                                        <rect key="frame" x="0.0" y="250" width="375" height="76"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="yourlog" rowHeight="76" id="vfK-b2-SkW" customClass="CKChatLogCell">
+                                        <rect key="frame" x="0.0" y="314" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vfK-b2-SkW" id="EHE-Qg-mxF">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
@@ -581,7 +581,6 @@ asdfsdfasdfsdfs</string>
                                         <rect key="frame" x="80" y="12" width="214" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <connections>

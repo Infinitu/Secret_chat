@@ -42,21 +42,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    Message *object;
+    CKMessage *object;
     BOOL conti;
     if(indexPath.row<self.objects.count){
         object= self.objects[(NSUInteger) indexPath.row];
         if(indexPath.row +1 == self.objects.count)
             conti = NO;
         else
-            conti = ((Message*)self.objects[(NSUInteger) indexPath.row+1]).mine == object.mine;
+            conti = ((CKMessage *)self.objects[(NSUInteger) indexPath.row+1]).mine == object.mine;
     }
     else{
         object = self.pendingObjects[indexPath.row - self.objects.count];
         conti = YES;
     }
     
-    ChatLogCell *cell;
+    CKChatLogCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:object.mine?conti?@"mylog_continue":@"mylog":conti?@"yourlog_continue":@"yourlog" forIndexPath:indexPath];
     [cell prepareView:object];
@@ -64,32 +64,32 @@
 }
 
 -(CGFloat)tableView:tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    Message *object;
+    CKMessage *object;
     if(indexPath.row<self.objects.count){
         object= self.objects[(NSUInteger) indexPath.row];
     }
     else{
         object = self.pendingObjects[indexPath.row - self.objects.count];
     }
-    return [ChatLogCell guessTextSize:object.text withWidth:((UITableView*)tableView).frame.size.width].height+20;
+    return [CKChatLogCell guessTextSize:object.text withWidth:((UITableView *) tableView).frame.size.width].height+20;
 }
 
 -(CGFloat)tableView:tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    Message *object;
+    CKMessage *object;
     BOOL conti = NO;
     if(indexPath.row<self.objects.count){
         object= self.objects[(NSUInteger) indexPath.row];
         if(indexPath.row +1 == self.objects.count)
             conti = NO;
         else
-            conti = ((Message*)self.objects[(NSUInteger) indexPath.row+1]).mine == object.mine;
+            conti = ((CKMessage *)self.objects[(NSUInteger) indexPath.row+1]).mine == object.mine;
 
     }
     else{
         object = self.pendingObjects[indexPath.row - self.objects.count];
         conti = YES;
     }
-    return [ChatLogCell guessTextSize:object.text withWidth:((UITableView*)tableView).frame.size.width].height+7+7+conti?2:8;
+    return [CKChatLogCell guessTextSize:object.text withWidth:((UITableView *) tableView).frame.size.width].height+7+7+conti?2:8;
 }
 
 @end

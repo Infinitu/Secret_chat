@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserData.h"
+#import "CKUserData.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property(readonly) int status; //0 not logedin background 1 logedin background
                                 // 2 foreground notlogedin 3 logedin foreground
 
 @property (strong, nonatomic) UIWindow *window;
-@property UserData *userData;
+@property CKUserData *userData;
 
--(void)initializeWithUserData:(UserData*)ud;
+-(void)initializeWithUserData:(CKUserData *)ud;
 -(BOOL)isInBackground;
 - (void)pushNotification:(NSString*)body withTitle:(NSString*)title withAction:(NSString*)action withUserInfo:(NSDictionary*)info;
 

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Friend.h"
-#import "ChatLogCell.h"
+#import "CKFriend.h"
+#import "CKChatLogCell.h"
 
 @interface ChatLogTableDataController : NSObject <UITableViewDataSource,UITableViewDelegate>
 

@@ -7,10 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "DetailViewController.h"
-#import "NetworkManager.h"
+#import "CKChatRoomController.h"
+#import "CKNetworkManager.h"
 #import "Version.h"
-#import "NotificationManager.h"
+#import "CKNotificationManager.h"
+#import "CKSampleDataGenerator.h"
 
 @interface AppDelegate ()
 
@@ -20,10 +21,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"%@",[RLMRealm defaultRealmPath]);
     _status = 2;
     sleep(1);
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.userData = [UserData userDataFromUserDefault:defaults];
+    self.userData = [CKUserData userDataFromUserDefault:defaults];
 
     UIUserNotificationType types = UIUserNotificationTypeBadge |
             UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
@@ -35,7 +37,7 @@
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     
 
-    if(self.userData == nil){
+    if(self.userData == nil&&false){
         UIStoryboard *regiBoard = [UIStoryboard storyboardWithName:@"Registration" bundle:nil];
         self.window.rootViewController = [regiBoard instantiateInitialViewController];
         [self.window makeKeyAndVisible];
@@ -43,19 +45,20 @@
     }
     _status = 3;
     [self initializeWithUserData:self.userData];
+    [[CKSampleDataGenerator getInstance] cpySampleFriendsListFromBundle:[NSBundle mainBundle]];
     return YES;
 }
 
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-    [[NotificationManager getInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+    [[CKNotificationManager getInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    [[NotificationManager getInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
+    [[CKNotificationManager getInstance] application:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
--(void)initializeWithUserData:(UserData*)ud{
+-(void)initializeWithUserData:(CKUserData *)ud{
     self.userData=ud;
-//    [[NetworkManager getInstance]socketInitializeWithUserData:ud withHost:DEFAULT_HOST withPort:DEFAULT_PORT];
+//    [[CKNetworkManager getInstance]socketInitializeWithUserData:ud withHost:DEFAULT_HOST withPort:DEFAULT_PORT];
     UIStoryboard *regiBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.window.rootViewController = [regiBoard instantiateInitialViewController];
 }
@@ -89,7 +92,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-//    [[NetworkManager getInstance] finalizeNetwork];
+//    [[CKNetworkManager getInstance] finalizeNetwork];
 }
 
 @end

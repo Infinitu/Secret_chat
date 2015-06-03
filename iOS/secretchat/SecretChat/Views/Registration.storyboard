@@ -90,7 +90,7 @@ New Account</string>
         <!--Register View Controller-->
         <scene sceneID="moZ-wv-Aap">
             <objects>
-                <viewController id="frl-iT-T1n" customClass="RegisterViewController" sceneMemberID="viewController">
+                <viewController id="frl-iT-T1n" customClass="CKRegisterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UZv-0E-47I"/>
                         <viewControllerLayoutGuide type="bottom" id="roQ-TL-Fx2"/>
