@@ -55,7 +55,7 @@
 
 -(void)initializeWithUserData:(UserData*)ud{
     self.userData=ud;
-    [[NetworkManager getInstance]socketInitializeWithUserData:ud withHost:DEFAULT_HOST withPort:DEFAULT_PORT];
+//    [[NetworkManager getInstance]socketInitializeWithUserData:ud withHost:DEFAULT_HOST withPort:DEFAULT_PORT];
     UIStoryboard *regiBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.window.rootViewController = [regiBoard instantiateInitialViewController];
 }
@@ -89,7 +89,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [[NetworkManager getInstance] finalizeNetwork];
+//    [[NetworkManager getInstance] finalizeNetwork];
 }
 
 @end
