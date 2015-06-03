@@ -58,10 +58,10 @@
     [super viewDidLoad];
     [self configureView];
     [self setViewLayout:[UIScreen mainScreen].bounds.size];
+
     if(self.ChatInputDump == nil)
         self.ChatInputDump = [self.ChatInputDump copy];
-    
-    [self.ChatScroll setContentInset:UIEdgeInsetsMake(72, 0, 0, 0)];
+
     self.ChatScroll.dataSource = self.ChatLogs;
     self.ChatScroll.delegate = self.ChatLogs;
     self.ChatScroll.allowsSelection = false;
@@ -180,7 +180,7 @@ long lastStr;
     [self.ChatLogs.pendingObjects removeObject:msg];
     [self.ChatLogs.objects addObject:msg];
     [self.ChatScroll reloadData];
-    [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 //
@@ -196,7 +196,7 @@ long lastStr;
 //    
 //    NSString* datetimeStr = [noti.userInfo objectForKey:(NSString*)KEY_SEND_DATETIME];
 //    NSString* idxStr = [noti.userInfo objectForKey:(NSString*)KEY_INDEX];
-    //    
+//
 //    NSString* body = [NSString stringWithFormat:@"%@|%@|%@|",address,datetimeStr,idxStr];
 ////    sendMessage(0x2111,(uint8_t*)[body cStringUsingEncoding:NSUTF8StringEncoding]);
 //

@@ -12,6 +12,7 @@
 @interface FriendRequestTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nickname;
+
 @property (weak, nonatomic) FriendsSearchController *caller;
 @property (weak, nonatomic) FriendRequest *req;
 @end

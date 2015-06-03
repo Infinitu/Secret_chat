@@ -8,6 +8,7 @@
 #import "FriendsTableCell.h"
 #import "Friend.h"
 #import "DetailViewController.h"
+#import "Version.h"
 
 
 @interface FriendsListController ()
@@ -16,9 +17,18 @@
 @property(nonatomic) CGPoint contentOffset;
 @property(nonatomic) CGRect viewBounds;
 @property(nonatomic) UIEdgeInsets scrollPoint;
+@property UIActivityIndicatorView* activityIndicator;
+@property UIBarButtonItem * indicatorBarButton;
 @end
 
 @implementation FriendsListController
+
+- (void)prepareForNavigationBar:(UINavigationItem *)navi {
+    navi.title = @"채팅";
+    navi.leftBarButtonItem = self.editButtonItem;
+    navi.rightBarButtonItem = self.indicatorBarButton;
+    [self.activityIndicator startAnimating];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,28 +38,17 @@
                    name:@"FriendListChanged"
                  object:nil];
     [self resetFriendsList];
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    [self.tableView registerClass:FriendsTableCell.class forCellReuseIdentifier:@"friend_cell"];
+
     self.editButtonItem.tintColor = [UIColor
             colorWithRed: (CGFloat)(0xEF)/0xFF
                    green: (CGFloat)(0x8F)/0xFF
                     blue: (CGFloat)(0x14)/0xFF alpha:1];
-    UIActivityIndicatorView* activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-    self.tableView.rowHeight = 77;
-    self.navigationItem.rightBarButtonItem = barButton;
-    [activityIndicator startAnimating];
-    [self.tableView registerClass:FriendsTableCell.class forCellReuseIdentifier:@"friend_cell"];
 
-    UIImage *img = [[UIImage imageNamed:@"IconTabChat"]
-            imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.parentViewController.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-
-    [self.tabBarController.tabBar setTintColor:[UIColor
-            colorWithRed: (CGFloat)(0xEF)/0xFF
-                   green: (CGFloat)(0x8F)/0xFF
-                    blue: (CGFloat)(0x14)/0xFF alpha:1]];
-    self.tabBarItem.selectedImage = img;
-    self.parentViewController.navigationItem.title = @"채팅";
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.indicatorBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
 
 //    self.viewBounds = self.tableView.bounds;
 //    self.tableView.clipsToBounds = NO;
@@ -127,7 +126,12 @@
         cell = [[FriendsTableCell alloc] init];
     }
     Friend *fr = [self getFriendAt:indexPath];
-    [cell.profileImageView sd_setImageWithURL:[[NSURL alloc] initWithString:fr.profileImg] placeholderImage:[UIImage imageNamed:@"ImageProfileDefault"] options:SDWebImageAllowInvalidSSLCertificates];
+
+    NSString *urlstr = fr.profileImg;
+    if(![urlstr hasPrefix:@"http"])
+        urlstr = [NSString stringWithFormat:@"%@://%@:%d/%@", DEFAULT_API_SCHEME, DEFAULT_API_HOST, DEFAULT_API_PORT, urlstr];
+
+    [cell.profileImageView sd_setImageWithURL:[[NSURL alloc] initWithString:urlstr] placeholderImage:[UIImage imageNamed:@"ImageProfileDefault"] options:SDWebImageAllowInvalidSSLCertificates];
     cell.nicknameLabel.text = fr.nickname;
 
     return cell;

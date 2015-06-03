@@ -8,4 +8,6 @@
 
 @interface FriendsSearchController : UIViewController<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 -(void)AcceptFriends:(FriendRequest *)req;
+-(void)DenyFriends:(FriendRequest *)req;
+- (void)prepareForNavigationBar:(UINavigationItem *)navi;
 @end

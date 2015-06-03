@@ -21,7 +21,6 @@
 		1D01AE071B09B5D900B361B8 /* man_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFC1B09B5D900B361B8 /* man_icon.png */; };
 		1D01AE081B09B5D900B361B8 /* raw_backgoundimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFD1B09B5D900B361B8 /* raw_backgoundimage.jpg */; };
 		1D01AE091B09B5D900B361B8 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D01ADFE1B09B5D900B361B8 /* Registration.storyboard */; };
-		1D2580981B1B7D1B008F9FF0 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D2580971B1B7D1B008F9FF0 /* Launch Screen.xib */; };
 		1D64F9BA1AEFB6B40069FA34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9B91AEFB6B40069FA34 /* main.m */; };
 		1D64F9BD1AEFB6B40069FA34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64F9BC1AEFB6B40069FA34 /* AppDelegate.m */; };
 		1D64F9C61AEFB6B40069FA34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D64F9C41AEFB6B40069FA34 /* Main.storyboard */; };
@@ -39,6 +38,7 @@
 		1DC3BEE61B0C7B9E0004F47F /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEE01B0C7B9E0004F47F /* MasterViewController.m */; };
 		1DC3BEE71B0C7B9E0004F47F /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEE21B0C7B9E0004F47F /* RegisterViewController.m */; };
 		1DD4F1851AEFEE770067D05B /* CKJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD4F1841AEFEE770067D05B /* CKJsonParser.m */; };
+		1DDF37A91B1BBF8D00BB2C89 /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DDF37A81B1BBF8D00BB2C89 /* SettingController.m */; };
 		A526A509B05995C09D1A0D1F /* FriendsSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A526A9D7213F00A2923CD4C8 /* FriendsSearchController.m */; };
 		A526AB0394B8B2251F8AEAD4 /* FriendsTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A526A225687A8B69F2D2307A /* FriendsTableCell.m */; };
 		A526AE04ADDCEB8D4844CBB6 /* RandomChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A526AA79ADB254CB1971C856 /* RandomChatManager.m */; };
@@ -80,7 +80,6 @@
 		1D01ADFC1B09B5D900B361B8 /* man_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man_icon.png; sourceTree = "<group>"; };
 		1D01ADFD1B09B5D900B361B8 /* raw_backgoundimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = raw_backgoundimage.jpg; sourceTree = "<group>"; };
 		1D01ADFE1B09B5D900B361B8 /* Registration.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Registration.storyboard; sourceTree = "<group>"; };
-		1D2580971B1B7D1B008F9FF0 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		1D64F9B41AEFB6B40069FA34 /* SecretChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D64F9B81AEFB6B40069FA34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D64F9B91AEFB6B40069FA34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -115,6 +114,8 @@
 		1DC3BEE21B0C7B9E0004F47F /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = SecretChat/Controllers/RegisterViewController.m; sourceTree = SOURCE_ROOT; };
 		1DD4F1831AEFEE770067D05B /* CKJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKJsonParser.h; sourceTree = "<group>"; };
 		1DD4F1841AEFEE770067D05B /* CKJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKJsonParser.m; sourceTree = "<group>"; };
+		1DDF37A71B1BBF8D00BB2C89 /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingController.h; path = SecretChat/Controllers/SettingController.h; sourceTree = SOURCE_ROOT; };
+		1DDF37A81B1BBF8D00BB2C89 /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingController.m; path = SecretChat/Controllers/SettingController.m; sourceTree = SOURCE_ROOT; };
 		7EE6B0D670F0189914835A6E /* Pods-SecretChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-SecretChat/Pods-SecretChat.release.xcconfig"; sourceTree = "<group>"; };
 		8F099F772B526852B3A96576 /* Pods-SecretChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SecretChat/Pods-SecretChat.debug.xcconfig"; sourceTree = "<group>"; };
 		8FDD60473941C0CC86A77276 /* libPods-SecretChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SecretChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,7 +248,6 @@
 				1D64F9BB1AEFB6B40069FA34 /* AppDelegate.h */,
 				1D64F9BC1AEFB6B40069FA34 /* AppDelegate.m */,
 				1D64F9C71AEFB6B40069FA34 /* Images.xcassets */,
-				1D2580971B1B7D1B008F9FF0 /* Launch Screen.xib */,
 				1D64F9B71AEFB6B40069FA34 /* Supporting Files */,
 				1D64F9EB1AEFBB1C0069FA34 /* Version.h */,
 			);
@@ -313,6 +313,8 @@
 				A526AD087CFEAC60F55DFF99 /* FriendsSearchController.h */,
 				A526AAAF5666B02CE4CF57A2 /* FriendsListController.m */,
 				A526A5F4186526C61AB42507 /* FriendsListController.h */,
+				1DDF37A71B1BBF8D00BB2C89 /* SettingController.h */,
+				1DDF37A81B1BBF8D00BB2C89 /* SettingController.m */,
 			);
 			name = Controllers;
 			path = Models;
@@ -425,7 +427,6 @@
 			files = (
 				1D01AE061B09B5D900B361B8 /* cloud_icon.png in Resources */,
 				1D01AE071B09B5D900B361B8 /* man_icon.png in Resources */,
-				1D2580981B1B7D1B008F9FF0 /* Launch Screen.xib in Resources */,
 				1D64F9C61AEFB6B40069FA34 /* Main.storyboard in Resources */,
 				1D01AE091B09B5D900B361B8 /* Registration.storyboard in Resources */,
 				1D64F9C81AEFB6B40069FA34 /* Images.xcassets in Resources */,
@@ -500,6 +501,7 @@
 				1DC3BEE71B0C7B9E0004F47F /* RegisterViewController.m in Sources */,
 				1DD4F1851AEFEE770067D05B /* CKJsonParser.m in Sources */,
 				1D791C001B0F031500589A51 /* FriendRequestTableViewCell.m in Sources */,
+				1DDF37A91B1BBF8D00BB2C89 /* SettingController.m in Sources */,
 				1DC3BEE31B0C7B9E0004F47F /* ChatLogTableDataController.m in Sources */,
 				1D01ADE41B09B57100B361B8 /* UserData.m in Sources */,
 				1D791C031B0F712900589A51 /* FriendManager.m in Sources */,
@@ -638,6 +640,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Debug;
 		};
@@ -653,6 +656,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Release;
 		};

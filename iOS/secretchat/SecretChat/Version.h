@@ -17,11 +17,11 @@
 #define PING_TIMEOUT_IN_SEC 1
 #define PING_INTERVAL 2
 
-#define DEFAULT_HOST @"10.0.0.2"
+#define DEFAULT_HOST @"feona.kr"
 #define DEFAULT_PORT 9000
-#define DEFAULT_API_SCHEME @"https"
+#define DEFAULT_API_SCHEME @"http"
 
-#define DEFAULT_API_HOST @"10.0.0.2"
+#define DEFAULT_API_HOST @"feona.kr"
 #define DEFAULT_API_PORT 7000
 
 @interface NSURLRequest (DummyInterface)

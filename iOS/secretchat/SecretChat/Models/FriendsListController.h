@@ -7,4 +7,5 @@
 
 
 @interface FriendsListController : UITableViewController
+-(void)prepareForNavigationBar:(UINavigationItem *)navi;
 @end

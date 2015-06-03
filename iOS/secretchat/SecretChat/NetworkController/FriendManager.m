@@ -63,11 +63,10 @@ NSString* createRandomInBase64(int byteCnt){
     sendMessage(0x5002,
             (uint8_t *) [[NSString stringWithFormat:@"%@|%@|",address,action]
                     cStringUsingEncoding:NSUTF8StringEncoding]);
-    FriendRequest *req=[FriendRequest objectForPrimaryKey:address];
+    FriendRequest *req = [FriendRequest objectForPrimaryKey:address];
     [[RLMRealm defaultRealm] beginWriteTransaction];
     [[RLMRealm defaultRealm] deleteObject:req];
     [[RLMRealm defaultRealm] commitWriteTransaction];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"FriendsRequestUpdated" object:self];
 }
 
 - (void)messageReceivedFromMatchmaker:(NSString *)messageStr {

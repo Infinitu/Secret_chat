@@ -13,5 +13,6 @@
 @interface MasterViewController : UITabBarController
 
 @property(nonatomic, strong) UserData *userData;
+@property UIView* titleView;
 @end
 
