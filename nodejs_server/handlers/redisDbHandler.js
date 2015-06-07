@@ -1,7 +1,7 @@
 /* redisDbHandler.js */
 
 var redis  = require("redis");
-var client = redis.createClient(6377, "127.0.0.1");
+var client = redis.createClient(6379, "127.0.0.1");
 client.auth("ginger2015");
 
 exports.setNickNameTag = function(nickNameTag, id, callback) {

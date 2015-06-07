@@ -1,8 +1,8 @@
 /* dbHandler.js */
 
 var mongodb = require("mongodb"),
-	masterServer = new mongodb.Server("localhost", 6379, { auto_reconnect : true, poolSize : 10 }),
-	slaveServer  = new mongodb.Server("localhost", 6380, { auto_reconnect : true, poolSize : 10 }),
+	masterServer = new mongodb.Server("localhost", 27017, { auto_reconnect : true, poolSize : 10 }),
+	slaveServer  = new mongodb.Server("localhost", 27018, { auto_reconnect : true, poolSize : 10 }),
 	masterDb     = new mongodb.Db("secretChat", masterServer, { w: 1 });
 	slaveDb      = new mongodb.Db("secretChat", slaveServer, { w: 1 });
 
