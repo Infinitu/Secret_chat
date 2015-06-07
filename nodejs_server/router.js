@@ -4,10 +4,13 @@ var userEventHandler   = require("./handlers/userEventHandler"),
 	friendEventHandler = require("./handlers/friendEventHandler"),
 	nickNameTagHandler = require("./handlers/nickNameTagHandler"),
 	imageEventHandler  = require("./handlers/imageEventHandler"),
-	randomRoomHandler  = require("./handlers/randomRoomHandler");
+	randomRoomHandler  = require("./handlers/randomRoomHandler"),
+	msgEventHandler    = require("./handlers/msgHandler");
 
 exports.route = (function() {
-	var handlers = { "/join"           : { POST : userEventHandler.join },
+	var handlers = { 
+					 "/"			   : { GET  : msgEventHandler.helloSecretChat },
+					 "/join"           : { POST : userEventHandler.join },
 					 "/setting"        : { POST : userEventHandler.read, PUT : userEventHandler.update },
 					 "/getTag"         : { POST : nickNameTagHandler.getNickNameTag },
 					 "/addfriend"      : { POST : friendEventHandler.find },

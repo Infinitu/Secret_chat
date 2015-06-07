@@ -5,7 +5,7 @@ var fs         = require("fs"),
 	formidable = require("formidable"),
 	dataParser = require("./incomingDataParser");
 
-var HTTPS_PORT = 8080;
+var HTTPS_PORT = 3000;
 
 var httpsOptions = {
 	key  : fs.readFileSync("./key/key.pem"),
@@ -21,7 +21,7 @@ function onRequest(req, res) {
 	dataParser.dataParser(req, res, incomingData);
 }
 
-var server = https.createServer(onRequest); // var server = https.createServer(httpsOptions, onRequest);
+var server = https.createServer(onRequest);
 server.listen(HTTPS_PORT);
 
 console.log("Server Start!");

@@ -9,6 +9,10 @@ exports.sendString = function(res, msg) {
 	res.end();
 };
 
+exports.helloSecretChat = function(res, content) {
+	module.exports.sendString(res, "Hello SecretChat!");
+}
+
 exports.sendJSON = function(res, JSONmsg) {
 	console.log("send JSON");
 	res.writeHead(200, { "Content-type" : "application/json" });
