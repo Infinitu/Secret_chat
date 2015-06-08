@@ -29,7 +29,7 @@
 		1D791C031B0F712900589A51 /* CKFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D791C021B0F712900589A51 /* CKFriendManager.m */; };
 		1D9C82BD1B1AA161002CF9F1 /* CKNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9C82BC1B1AA161002CF9F1 /* CKNotificationManager.m */; };
 		1DC3BED81B0C7B940004F47F /* CKFriendsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BED71B0C7B940004F47F /* CKFriendsCollectionViewCell.m */; };
-		1DC3BEE31B0C7B9E0004F47F /* ChatLogTableDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDA1B0C7B9E0004F47F /* ChatLogTableDataController.m */; };
+		1DC3BEE31B0C7B9E0004F47F /* CKChatLogTableDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDA1B0C7B9E0004F47F /* CKChatLogTableDataController.m */; };
 		1DC3BEE41B0C7B9E0004F47F /* CKChatRoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEDC1B0C7B9E0004F47F /* CKChatRoomController.m */; };
 		1DC3BEE61B0C7B9E0004F47F /* CKMasterTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEE01B0C7B9E0004F47F /* CKMasterTabBarController.m */; };
 		1DC3BEE71B0C7B9E0004F47F /* CKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC3BEE21B0C7B9E0004F47F /* CKRegisterViewController.m */; };
@@ -96,8 +96,8 @@
 		1D9C82BC1B1AA161002CF9F1 /* CKNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKNotificationManager.m; sourceTree = "<group>"; };
 		1DC3BED61B0C7B940004F47F /* CKFriendsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFriendsCollectionViewCell.h; sourceTree = "<group>"; };
 		1DC3BED71B0C7B940004F47F /* CKFriendsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFriendsCollectionViewCell.m; sourceTree = "<group>"; };
-		1DC3BED91B0C7B9E0004F47F /* ChatLogTableDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatLogTableDataController.h; path = SecretChat/Controllers/ChatLogTableDataController.h; sourceTree = SOURCE_ROOT; };
-		1DC3BEDA1B0C7B9E0004F47F /* ChatLogTableDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatLogTableDataController.m; path = SecretChat/Controllers/ChatLogTableDataController.m; sourceTree = SOURCE_ROOT; };
+		1DC3BED91B0C7B9E0004F47F /* CKChatLogTableDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKChatLogTableDataController.h; path = SecretChat/Controllers/CKChatLogTableDataController.h; sourceTree = SOURCE_ROOT; };
+		1DC3BEDA1B0C7B9E0004F47F /* CKChatLogTableDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKChatLogTableDataController.m; path = SecretChat/Controllers/CKChatLogTableDataController.m; sourceTree = SOURCE_ROOT; };
 		1DC3BEDB1B0C7B9E0004F47F /* CKChatRoomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKChatRoomController.h; path = SecretChat/Controllers/CKChatRoomController.h; sourceTree = SOURCE_ROOT; };
 		1DC3BEDC1B0C7B9E0004F47F /* CKChatRoomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKChatRoomController.m; path = SecretChat/Controllers/CKChatRoomController.m; sourceTree = SOURCE_ROOT; };
 		1DC3BEDF1B0C7B9E0004F47F /* CKMasterTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKMasterTabBarController.h; path = SecretChat/Controllers/CKMasterTabBarController.h; sourceTree = SOURCE_ROOT; };
@@ -284,8 +284,8 @@
 		1D9C82BF1B1AB237002CF9F1 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				1DC3BED91B0C7B9E0004F47F /* ChatLogTableDataController.h */,
-				1DC3BEDA1B0C7B9E0004F47F /* ChatLogTableDataController.m */,
+				1DC3BED91B0C7B9E0004F47F /* CKChatLogTableDataController.h */,
+				1DC3BEDA1B0C7B9E0004F47F /* CKChatLogTableDataController.m */,
 			);
 			name = DataSource;
 			sourceTree = "<group>";
@@ -379,7 +379,6 @@
 				TargetAttributes = {
 					1D64F9B31AEFB6B40069FA34 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = 39WT95YDMW;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -490,7 +489,7 @@
 				1DD4F1851AEFEE770067D05B /* CKJsonParser.m in Sources */,
 				1D791C001B0F031500589A51 /* CKFriendRequestTableViewCell.m in Sources */,
 				1DDF37A91B1BBF8D00BB2C89 /* CKSettingController.m in Sources */,
-				1DC3BEE31B0C7B9E0004F47F /* ChatLogTableDataController.m in Sources */,
+				1DC3BEE31B0C7B9E0004F47F /* CKChatLogTableDataController.m in Sources */,
 				1D01ADE41B09B57100B361B8 /* CKUserData.m in Sources */,
 				1D791C031B0F712900589A51 /* CKFriendManager.m in Sources */,
 				1D01AE021B09B5D900B361B8 /* CKProtocolSocket.c in Sources */,

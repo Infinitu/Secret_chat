@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#define CURRENT_SYSTEM_TIME_MILLIS_NOW ([[NSDate date] timeIntervalSince1970]*1000)
 
 @interface CKChatRoomController : UIViewController
 

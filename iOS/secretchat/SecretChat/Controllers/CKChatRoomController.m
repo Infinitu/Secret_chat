@@ -9,7 +9,7 @@
 #import "CKChatRoomController.h"
 #import "CKBodyInterpreter.h"
 #import "CKJsonParser.h"
-#import "ChatLogTableDataController.h"
+#import "CKChatLogTableDataController.h"
 #import "CKMessageDispatcher.h"
 @interface CKChatRoomController ()
 @property UITextView *ChatInputDump;
@@ -17,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *ChatScroll;
 @property (weak, nonatomic) IBOutlet UITextView *ChatInput;
 @property (weak, nonatomic) IBOutlet UIButton *ChatSend;
-@property ChatLogTableDataController* ChatLogs;
+@property CKChatLogTableDataController* ChatLogs;
+@property BOOL followUp;
 @property RLMRealm *realm;
 @property CKFriend *friend;
 @end
@@ -36,18 +37,7 @@
         self.title = self.friend.nickname;
         if(self.realm==nil || ![self.realm.path isEqualToString:[self.friend chatRealmPath]]){
             self.realm = [[CKMessageDispatcher getInstance] chatRealmWithFriend:self.friend];
-            [[NSNotificationCenter defaultCenter]removeObserver:self];
-            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshChat:) name:self.friend.address object:[CKMessageDispatcher getInstance]];
-            self.ChatLogs = [[ChatLogTableDataController alloc] initWithRealm:self.realm];
-            RLMResults *result = [[CKMessage allObjectsInRealm:self.realm] sortedResultsUsingProperty:@"datetime" ascending:YES];
-            for(CKMessage *msg in result){
-                if(msg.datetime<0)
-                    [self.ChatLogs.pendingObjects addObject:msg];
-                else
-                    [self.ChatLogs.objects addObject:msg];
-                NSLog(@"%ld:%d  %@  ::%@",msg.datetime,msg.idx,msg.mine?@"mine":@"notmine",msg.text);
-            }
-
+            self.ChatLogs = [[CKChatLogTableDataController alloc] initWithRealm:self.realm];
         }
     }
 }
@@ -57,26 +47,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureView];
-    [self setViewLayout:[UIScreen mainScreen].bounds.size];
-
-    if(self.ChatInputDump == nil)
-        self.ChatInputDump = [self.ChatInputDump copy];
+    [self layoutInitialize];
 
     self.ChatScroll.dataSource = self.ChatLogs;
     self.ChatScroll.delegate = self.ChatLogs;
     self.ChatScroll.allowsSelection = false;
-    if([self.ChatLogs last])
-        [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-
-
-    self.ChatInput.layer.cornerRadius = 6;
-    self.ChatInput.layer.masksToBounds = YES;
-    self.ChatInput.layer.borderColor = [[UIColor colorWithRed:((CGFloat)0xC7)/0xFF
-                                                        green:((CGFloat)0xC7)/0xFF
-                                                         blue:((CGFloat)0xCB)/0xFF alpha:1] CGColor];
-    self.ChatInput.layer.borderWidth = 0.5;
-
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
     [self registerNotification];
+    [self reloadAllMessage];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [self unregisterNotification];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,9 +72,30 @@
     NSNotificationCenter *notiCenter =[NSNotificationCenter defaultCenter];
     [notiCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:NULL];
     [notiCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:NULL];
+    if(self.friend){
+        [[NSNotificationCenter defaultCenter]addObserver:self
+                                                selector:@selector(updateMessage:)
+                                                    name:self.friend.address
+                                                  object:[CKMessageDispatcher getInstance]];
+    }
+}
+
+-(void) unregisterNotification{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - ui layout
+
+-(void)layoutInitialize{
+    self.ChatInput.layer.cornerRadius = 6;
+    self.ChatInput.layer.masksToBounds = YES;
+    self.ChatInput.layer.borderColor = [[UIColor colorWithRed:((CGFloat)0xC7)/0xFF
+                                                        green:((CGFloat)0xC7)/0xFF
+                                                         blue:((CGFloat)0xCB)/0xFF alpha:1] CGColor];
+    self.ChatInput.layer.borderWidth = 0.5;
+
+    [self setViewLayout:[UIScreen mainScreen].bounds.size];
+}
 
 -(void)keyboardWillShow:(NSNotification*)noti{
     CGRect rect = [((NSValue*)[noti.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey]) CGRectValue];
@@ -122,22 +126,18 @@
     
     newheight = newheight>101?101:newheight;
     newheight = newheight<28?28:newheight;
-    NSLog(@"%f  \t%f\t%f",(int)newheight - self.ChatInput.frame.size.height,self.ChatInput.frame.size.height, newSize.height);
-
     
     CGRect newContainerFrame = CGRectMake(0, height-newheight-16, screen.width, newheight+16);
     CGRect newInputFrame = CGRectMake(8, 8, screen.width-49-8, newheight);
     CGRect newSendBtnFrame = CGRectMake(screen.width-sendBtnWid,newheight+16-12-sendBtnHei  , 49, sendBtnHei);
     CGRect newScrollFrame = CGRectMake(0, 0, screen.width, height);
 
-
-    [self.ChatScroll setContentInset:UIEdgeInsetsMake(64, 0, newheight+16, 0)];
-    [self.ChatContainer setFrame:newContainerFrame];
-    [self.ChatScroll setFrame:newScrollFrame];//  fromView:self.ChatContainer];
-    [self.ChatInput setFrame:newInputFrame];//   fromView:self.ChatContainer];
-    [self.ChatSend  setFrame:newSendBtnFrame]; //fromView:self.ChatContainer];
+    [self setViewLayoutWithNewContainerFrame:newContainerFrame
+                              newScrollFrame:newScrollFrame
+                               newInputFrame:newInputFrame
+                             newSendBtnFrame:newSendBtnFrame];
 }
-long lastStr;
+
 - (void)textViewDidChange:(UITextView *)textView{
     CGFloat height = self.ChatScroll.frame.size.height;
     CGFloat width = self.ChatScroll.frame.size.width;
@@ -154,53 +154,37 @@ long lastStr;
     
     newheight = newheight>101?101:newheight;
     newheight = newheight<28?28:newheight;
-    NSLog(@"%f  \t%f\t%f",(int)newheight - self.ChatInput.frame.size.height,self.ChatInput.frame.size.height, newSize.height);
-    
     
     CGRect newContainerFrame = CGRectMake(0, height-newheight-16, width, newheight+16);
     CGRect newInputFrame = CGRectMake(8, 8, width-49-8, newheight);
     CGRect newSendBtnFrame = CGRectMake(width-49, newheight+16-12-sendBtnHei , 49, sendBtnHei);
     
-    [self.ChatScroll setContentInset:UIEdgeInsetsMake(64, 0, newheight+16, 0)];
+    [self setViewLayoutWithNewContainerFrame:newContainerFrame
+                              newScrollFrame:self.ChatScroll.frame
+                               newInputFrame:newInputFrame
+                             newSendBtnFrame:newSendBtnFrame];
+}
+
+
+- (void)setViewLayoutWithNewContainerFrame:(CGRect)newContainerFrame
+                            newScrollFrame:(CGRect)newScrollFrame
+                             newInputFrame:(CGRect)newInputFrame
+                           newSendBtnFrame:(CGRect)newSendBtnFrame {
+    CGFloat offsetDiff = newContainerFrame.size.height  - self.ChatScroll.contentInset.bottom
+    - newScrollFrame.size.height + self.ChatScroll.frame.size.height;
+    if(offsetDiff){
+        CGPoint scrollOffset = self.ChatScroll.contentOffset;
+        scrollOffset.y += offsetDiff;
+        [self.ChatScroll setContentOffset:scrollOffset];
+    }
+    
+    [self.ChatScroll setContentInset:UIEdgeInsetsMake(64, 0, newContainerFrame.size.height, 0)];
     [self.ChatContainer setFrame:newContainerFrame];
+    [self.ChatScroll setFrame:newScrollFrame];
     [self.ChatInput setFrame:newInputFrame];
     [self.ChatSend  setFrame:newSendBtnFrame];
 }
 
-
--(void)addDialog:(NSString*)sender withText:(NSString*)text{
-    //    [self.objects addObject:@{@"sender":sender,@"text":text}];
-    //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.objects.count-1 inSection:0];
-    //    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
--(void)refreshChat:(NSNotification*)noti{
-    CKMessage *msg = noti.userInfo[@"msg"];
-    if(!msg) return;
-    [self.ChatLogs.pendingObjects removeObject:msg];
-    [self.ChatLogs.objects addObject:msg];
-    [self.ChatScroll reloadData];
-    [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-}
-
-//
-//-(void)newmsg:(NSNotification*)noti{
-//    NSLog(@"%@",noti.userInfo);
-//    if(![[noti.userInfo objectForKey:(NSString*)KEY_MSG_TYPE] isEqualToString:(NSString*)VALUE_MSG_TYPE_NEW_MSG_ARRIVAL])
-//        return;
-//    NSString* address = [noti.userInfo objectForKey:(NSString*)KEY_ADDRESS];
-//    if(![address isEqualToString:self.detailItem])
-//        return;
-//    NSDictionary* json = [CKJsonParser parseJson:[noti.userInfo objectForKey:(NSString*)KEY_MESSAGE_JSON]];
-//    [self addDialog:@"you" withText:[json objectForKey:@"message"]];
-//    
-//    NSString* datetimeStr = [noti.userInfo objectForKey:(NSString*)KEY_SEND_DATETIME];
-//    NSString* idxStr = [noti.userInfo objectForKey:(NSString*)KEY_INDEX];
-//
-//    NSString* body = [NSString stringWithFormat:@"%@|%@|%@|",address,datetimeStr,idxStr];
-////    sendMessage(0x2111,(uint8_t*)[body cStringUsingEncoding:NSUTF8StringEncoding]);
-//
-//}
 
 #pragma mark - message manage
 
@@ -209,21 +193,42 @@ long lastStr;
     CKMessage *msg = [[CKMessage alloc]init];
     msg.text = self.ChatInput.text;
     msg.mine = YES;
-    msg.datetime = -1;
+    msg.datetime = -CURRENT_SYSTEM_TIME_MILLIS_NOW;
     msg.type = @"text";
     msg.roomAddress = self.friend.address;
     
-    self.ChatInput.text = nil;
-    [self textViewDidChange:self.ChatInput];
-    [self.ChatScroll reloadData];
-    [self.ChatScroll scrollToRowAtIndexPath:[self.ChatLogs last] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-
-    [self.ChatLogs.pendingObjects addObject:[[CKMessageDispatcher getInstance] sendMessage:msg toFriend:self.friend]];
-    [self.ChatScroll reloadData];
+    [self sendMessage:msg];
 }
 
-         
-         
-         
-         
+-(void)sendMessage:(CKMessage *)message{
+    CKMessage *sent=[[CKMessageDispatcher getInstance] sendMessage:message toFriend:self.friend];
+    
+    self.ChatInput.text = nil;
+    
+    [self textViewDidChange:self.ChatInput];
+    
+    [self.ChatLogs.pendingObjects addObject:sent];
+    [self.ChatScroll reloadData];
+    [self.ChatLogs updateScroll:self.ChatScroll];
+}
+
+-(void)updateMessage:(NSNotification*)noti{
+    CKMessage *msg = noti.userInfo[@"msg"];
+    if(!msg) return;
+    [self.ChatLogs.pendingObjects removeObject:msg];
+    [self.ChatLogs.objects addObject:msg];
+    [self.ChatScroll reloadData];
+    [self.ChatLogs updateScroll:self.ChatScroll];
+}
+
+-(void)reloadAllMessage{
+    if(self.realm==nil || ![self.realm.path isEqualToString:[self.friend chatRealmPath]])
+        self.realm = [[CKMessageDispatcher getInstance] chatRealmWithFriend:self.friend];
+    
+    if(!self.ChatLogs)
+        self.ChatLogs = [[CKChatLogTableDataController alloc] initWithRealm:self.realm];
+    [self.ChatLogs reloadAllMessages];
+    [self.ChatLogs updateScroll:self.ChatScroll];
+}
+
 @end

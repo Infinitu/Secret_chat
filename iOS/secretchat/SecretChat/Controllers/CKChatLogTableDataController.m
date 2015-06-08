@@ -6,17 +6,31 @@
 //  Copyright (c) 2015년 the.accidental.billionaire. All rights reserved.
 //
 
-#import "ChatLogTableDataController.h"
-@implementation ChatLogTableDataController
+#import "CKChatLogTableDataController.h"
+@implementation CKChatLogTableDataController
 
--(ChatLogTableDataController*)initWithRealm:(RLMRealm*)realm{
+-(CKChatLogTableDataController*)initWithRealm:(RLMRealm*)realm{
     self = [super init];
     if(self != nil){
         _objects = [NSMutableArray array];
         _pendingObjects = [NSMutableArray array];
-        
+        _isScrollFollwing = true;
+        _realm = realm;
     }
     return self;
+}
+
+-(void)reloadAllMessages{
+    [_objects removeAllObjects];
+    [_pendingObjects removeAllObjects];
+    
+    RLMResults *result = [[CKMessage allObjectsInRealm:self.realm] sortedResultsUsingProperty:@"datetime" ascending:YES];
+    for(CKMessage *msg in result){
+        if(msg.datetime<0)
+            [_pendingObjects addObject:msg];
+        else
+            [_objects addObject:msg];
+    }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -64,14 +78,7 @@
 }
 
 -(CGFloat)tableView:tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CKMessage *object;
-    if(indexPath.row<self.objects.count){
-        object= self.objects[(NSUInteger) indexPath.row];
-    }
-    else{
-        object = self.pendingObjects[indexPath.row - self.objects.count];
-    }
-    return [CKChatLogCell guessTextSize:object.text withWidth:((UITableView *) tableView).frame.size.width].height+20;
+    return [self tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
 }
 
 -(CGFloat)tableView:tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -89,7 +96,23 @@
         object = self.pendingObjects[indexPath.row - self.objects.count];
         conti = YES;
     }
-    return [CKChatLogCell guessTextSize:object.text withWidth:((UITableView *) tableView).frame.size.width].height+7+7+conti?2:8;
+    return [CKChatLogCell guessTextSize:object.text withWidth:((UITableView *) tableView).frame.size.width].height+7+7+(conti?2:8);
+}
+
+
+#pragma mark manage scrolls
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    _isScrollFollwing = scrollView.contentSize.height-scrollView.frame.size.height<=scrollView.contentOffset.y;
+}
+
+-(void)updateScroll:(UIScrollView*)scroll{
+    if(self.isScrollFollwing){
+        CGFloat y = scroll.contentSize.height-scroll.frame.size.height+64;
+        NSLog(@"y = %f",y);
+        if(y<0)return;
+        [scroll setContentOffset:CGPointMake(0,y)];
+    }
 }
 
 @end

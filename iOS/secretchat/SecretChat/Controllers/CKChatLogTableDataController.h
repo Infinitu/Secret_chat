@@ -10,11 +10,14 @@
 #import "CKFriend.h"
 #import "CKChatLogCell.h"
 
-@interface ChatLogTableDataController : NSObject <UITableViewDataSource,UITableViewDelegate>
+@interface CKChatLogTableDataController : NSObject <UITableViewDataSource,UITableViewDelegate>
 
 @property NSMutableArray *objects;
 @property NSMutableArray *pendingObjects;
-
--(ChatLogTableDataController*)initWithRealm:(RLMRealm*)realm;
+@property(readonly) BOOL isScrollFollwing;
+@property(readonly) RLMRealm *realm;
+-(CKChatLogTableDataController*)initWithRealm:(RLMRealm*)realm;
 -(NSIndexPath*)last;
+-(void)updateScroll:(UIScrollView*)scroll;
+-(void)reloadAllMessages;
 @end
