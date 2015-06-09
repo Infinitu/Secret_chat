@@ -7,6 +7,9 @@
 //
 
 #import "CKChatLogTableDataController.h"
+@interface CKChatLogTableDataController ()
+@property CGFloat iDontKnowWhyItIsNeeded;
+@end
 @implementation CKChatLogTableDataController
 
 -(CKChatLogTableDataController*)initWithRealm:(RLMRealm*)realm{
@@ -16,6 +19,7 @@
         _pendingObjects = [NSMutableArray array];
         _isScrollFollwing = true;
         _realm = realm;
+        _iDontKnowWhyItIsNeeded = 64;
     }
     return self;
 }
@@ -106,14 +110,15 @@
     _isScrollFollwing = scrollView.contentSize.height-scrollView.frame.size.height<=scrollView.contentOffset.y;
 }
 
--(void)updateScroll:(UIScrollView*)scroll{
+-(void)updateScroll:(UITableView*)scroll{
     if(self.isScrollFollwing){
         [scroll layoutIfNeeded];
         UIEdgeInsets scrollInset = scroll.contentInset;
-        CGFloat y = scroll.contentSize.height-scroll.frame.size.height+scrollInset.top+scrollInset.bottom;
+        CGFloat y = scroll.contentSize.height-scroll.frame.size.height+scrollInset.bottom+_iDontKnowWhyItIsNeeded;
         NSLog(@"y = %f",y);
-        if(y<0)return;
-        [scroll setContentOffset:CGPointMake(0,y)];
+        if(y<0) return;
+        scroll.contentOffset=CGPointMake(0,y);
+        _iDontKnowWhyItIsNeeded = 0;
     }
 }
 

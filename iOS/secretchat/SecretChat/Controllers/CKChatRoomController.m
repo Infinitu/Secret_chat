@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *ChatScroll;
 @property (weak, nonatomic) IBOutlet UITextView *ChatInput;
 @property (weak, nonatomic) IBOutlet UIButton *ChatSend;
-@property CKChatLogTableDataController* ChatLogs;
+@property (strong, retain)CKChatLogTableDataController* ChatLogs;
 @property BOOL followUp;
 @property RLMRealm *realm;
 @property CKFriend *friend;
@@ -46,8 +46,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureView];
     [self layoutInitialize];
+    
+    [self configureView];
 
     self.ChatScroll.dataSource = self.ChatLogs;
     self.ChatScroll.delegate = self.ChatLogs;
@@ -65,6 +66,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)dealloc{
+    self.ChatScroll.delegate = nil;
+    self.ChatScroll.dataSource = nil;
+    [self.ChatScroll resignFirstResponder];
 }
 
 
@@ -93,7 +99,6 @@
                                                         green:((CGFloat)0xC7)/0xFF
                                                          blue:((CGFloat)0xCB)/0xFF alpha:1] CGColor];
     self.ChatInput.layer.borderWidth = 0.5;
-
     [self setViewLayout:[UIScreen mainScreen].bounds.size];
 }
 
@@ -170,22 +175,36 @@
                             newScrollFrame:(CGRect)newScrollFrame
                              newInputFrame:(CGRect)newInputFrame
                            newSendBtnFrame:(CGRect)newSendBtnFrame {
+    
+    BOOL pushingNeeded = YES;
     CGFloat offsetDiff = newContainerFrame.size.height  - self.ChatScroll.contentInset.bottom
     - newScrollFrame.size.height + self.ChatScroll.frame.size.height;
     
+    if(self.ChatScroll.contentSize.height < self.ChatScroll.frame.size.height){
+        pushingNeeded=NO;
+    }
     
-    [self.ChatScroll setContentInset:UIEdgeInsetsMake(64, 0, newContainerFrame.size.height, 0)];
+    [UIView animateWithDuration:.1 animations:^{
+        UIEdgeInsets inset = self.ChatScroll.contentInset;
+        inset.bottom=newContainerFrame.size.height;
+        [self.ChatScroll setContentInset:inset];
+        [self.ChatScroll setFrame:newScrollFrame];
+    }];
+    
     [self.ChatContainer setFrame:newContainerFrame];
-    [self.ChatScroll setFrame:newScrollFrame];
     [self.ChatInput setFrame:newInputFrame];
     [self.ChatSend  setFrame:newSendBtnFrame];
-    
-    if(offsetDiff>0){
+    if(pushingNeeded && offsetDiff>0){
         CGPoint scrollOffset = self.ChatScroll.contentOffset;
         scrollOffset.y += offsetDiff;
         if(scrollOffset.y <0) scrollOffset.y = 0;
         [self.ChatScroll setContentOffset:scrollOffset];
     }
+    if(!pushingNeeded){
+        [self.ChatLogs updateScroll:self.ChatScroll];
+    }
+    
+    [self.ChatScroll layoutIfNeeded];
 }
 
 
@@ -231,6 +250,7 @@
     if(!self.ChatLogs)
         self.ChatLogs = [[CKChatLogTableDataController alloc] initWithRealm:self.realm];
     [self.ChatLogs reloadAllMessages];
+    [self.ChatScroll reloadData];
     [self.ChatLogs updateScroll:self.ChatScroll];
 }
 

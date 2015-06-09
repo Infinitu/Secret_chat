@@ -73,7 +73,14 @@ CKSampleDataGenerator *samplegen_instance;
 
 -(void)cpySampleFriendsListFromBundle:(NSBundle*)bundle{
     if([CKFriend allObjects].count <=0){
-        RLMRealm *sampleRealm = [RLMRealm realmWithPath:[bundle pathForResource:@"sample" ofType:@"realm"]];
+        RLMRealm *sampleRealm;
+        @try {
+           sampleRealm = [RLMRealm realmWithPath:[bundle pathForResource:@"sample" ofType:@"realm"] readOnly:YES error:nil];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@",exception);
+        }
+        
         RLMRealm *defaultRealm = [RLMRealm defaultRealm];
         [defaultRealm beginWriteTransaction];
         for(CKFriend *fr in [CKFriend allObjectsInRealm:sampleRealm])

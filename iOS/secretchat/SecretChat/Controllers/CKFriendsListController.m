@@ -63,8 +63,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-    self.tableView.scrollIndicatorInsets = self.scrollInset;
+    //[super viewWillAppear:YES];
 }
 
 
@@ -72,7 +71,6 @@
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         [[segue destinationViewController] setDetailItem:[self getFriendAt:indexPath]];
-        self.scrollInset = self.tableView.scrollIndicatorInsets;
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
