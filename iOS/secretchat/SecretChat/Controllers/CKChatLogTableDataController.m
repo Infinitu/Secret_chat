@@ -108,7 +108,9 @@
 
 -(void)updateScroll:(UIScrollView*)scroll{
     if(self.isScrollFollwing){
-        CGFloat y = scroll.contentSize.height-scroll.frame.size.height+64;
+        [scroll layoutIfNeeded];
+        UIEdgeInsets scrollInset = scroll.contentInset;
+        CGFloat y = scroll.contentSize.height-scroll.frame.size.height+scrollInset.top+scrollInset.bottom;
         NSLog(@"y = %f",y);
         if(y<0)return;
         [scroll setContentOffset:CGPointMake(0,y)];

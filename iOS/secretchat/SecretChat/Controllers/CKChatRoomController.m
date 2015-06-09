@@ -172,17 +172,20 @@
                            newSendBtnFrame:(CGRect)newSendBtnFrame {
     CGFloat offsetDiff = newContainerFrame.size.height  - self.ChatScroll.contentInset.bottom
     - newScrollFrame.size.height + self.ChatScroll.frame.size.height;
-    if(offsetDiff){
-        CGPoint scrollOffset = self.ChatScroll.contentOffset;
-        scrollOffset.y += offsetDiff;
-        [self.ChatScroll setContentOffset:scrollOffset];
-    }
+    
     
     [self.ChatScroll setContentInset:UIEdgeInsetsMake(64, 0, newContainerFrame.size.height, 0)];
     [self.ChatContainer setFrame:newContainerFrame];
     [self.ChatScroll setFrame:newScrollFrame];
     [self.ChatInput setFrame:newInputFrame];
     [self.ChatSend  setFrame:newSendBtnFrame];
+    
+    if(offsetDiff>0){
+        CGPoint scrollOffset = self.ChatScroll.contentOffset;
+        scrollOffset.y += offsetDiff;
+        if(scrollOffset.y <0) scrollOffset.y = 0;
+        [self.ChatScroll setContentOffset:scrollOffset];
+    }
 }
 
 
